@@ -1,0 +1,118 @@
+@import '../../variables.scss';
+
+.Registration {
+    margin-top: 20rem;
+    margin-bottom: 30rem;
+    padding-left: 5%;
+    padding-right: 5%;
+    min-height: 100vh;
+
+    color: $color-white;
+
+    @media screen and (max-width: 1000px) {
+        margin-top: 15rem;
+    }
+
+    &__variantSelect {
+        margin-bottom: 2rem;
+    }
+    &__form {
+        font-size: 2rem;
+    }
+    &__heading  {
+        margin-bottom: 3rem;
+
+        @media screen and (max-width: 550px) {
+            font-size: 5rem;
+        }
+        @media screen and (max-width: 420px) {
+            font-size: 4rem;
+        }
+        @media screen and (max-width: 330px) {
+            font-size: 3.3rem;
+        }
+    }
+    &__subheading {
+        text-transform: uppercase;
+    }
+    &__detailInfo {
+    
+    }
+    &__subheading {
+        font-size: 4rem;
+        text-shadow: none;
+
+        @media screen and (max-width: 550px) {
+            font-size: 2.5rem;
+        }
+    }
+    &__gameSelect {
+        &__games {
+            display: flex;
+            margin-top: 2rem;
+
+            & *:not(:last-child) {
+                margin-right: 5rem;
+            }
+        }
+        &__game {
+            cursor: pointer;
+            padding: 1rem;
+            
+            display: block;
+
+            &.active {
+                border: 1px solid $color-white;
+            }
+        }
+    }
+    &__gameSpecificPart {
+        margin-top: 6rem;
+    }
+    &__final {
+        margin-top: 10rem;
+    }
+    &__important {
+        color: $color-orange;
+        font-size: 2.2rem;
+        margin-bottom: 1rem;
+        a {
+            color: $color-white;
+            text-decoration: none;
+
+            &:hover {
+                
+            }
+        }
+        @media screen and (max-width: 700px) {
+            font-size: 1.9rem;
+        }
+    }
+    &__importantList {
+        padding-top: 1rem;
+        width: 80rem;
+        margin-bottom: 6rem;
+        list-style: none;
+
+        @media screen and (max-width: 700px) {
+            width: 90%;
+        }
+    }
+    &__agreements {
+
+    }
+    &__submit {
+        background-color: $color-blue;
+        width: 40rem;
+        height: 8rem;
+        border: none;
+        border-radius: 2rem;
+        cursor: pointer;
+
+        display: block;
+
+        font-family: $font-main;
+        font-size: 3rem;
+        color: $color-white;
+    }
+}

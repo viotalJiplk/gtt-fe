@@ -1,0 +1,48 @@
+@import '../../../../variables.scss';
+
+.SelectInput {
+    cursor: pointer;
+    width: 100%;
+    height: 4rem;
+
+    display: flex;
+    align-items: center;
+
+    position: relative;
+
+    &.opened {
+        z-index: 2;
+    }
+
+    &__options {
+        border: 1px solid $color-white;
+        padding-left: 2rem;
+        padding-right: 2rem;
+        max-height: 40rem;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        background-color: $color-blue-dark;
+
+        position: absolute;
+        width: 100%;
+        top: 100%;
+        left: 0;
+        overflow-y: scroll;
+
+        &:not(.opened) {
+            display: none;
+        }
+    }
+    &__option {
+        padding-top: .5rem;
+        padding-bottom: .5rem;
+
+        &:not(:last-child) {
+            border-bottom: 1px solid $color-gray;
+        }
+
+        &:hover {
+            color: $color-blue;
+        }
+    }
+}
