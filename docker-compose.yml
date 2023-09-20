@@ -2,7 +2,7 @@ version: "2.2"
 
 services:
   gtt-frontend:
-    build: ./
+    image: ghcr.io/viotaljiplk/gttfe-2:latest
     restart: $restart
     container_name: gtt-frontend
     networks:
