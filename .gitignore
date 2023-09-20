@@ -11,8 +11,12 @@
 # production
 /build
 
+# public
+/public
+
 # misc
 /backend/config.py
+.env
 .DS_Store
 .env.local
 .env.development.local
