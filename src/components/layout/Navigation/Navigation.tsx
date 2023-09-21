@@ -1,10 +1,9 @@
 import classes from './Navigation.module.scss';
+import { YoutubeLogo, TwitchLogo } from "../../other/assets/assets";
 import { NavLink } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { motion, AnimatePresence} from 'framer-motion';
-import YoutubeLogo from '../../../assets/youtube-logo.png'
-import TwitchLogo from '../../../assets/twitch-logo.svg';
 import React from 'react';
 
 interface NavigationProps {
@@ -42,12 +41,12 @@ const Navigation: React.FC<NavigationProps> = props => {
                 <li className={classes.Navigation__item}>
                     <NavLink exact activeClassName={classes.active} className={classes.Navigation__link} to="/">Domů</NavLink>
                 </li>
-                <li className={[classes.Navigation__item, classes.Navigation__item_registration].join(' ')}>
+                {/* <li className={[classes.Navigation__item, classes.Navigation__item_registration].join(' ')}>
                     <NavLink activeClassName={classes.active} className={[classes.Navigation__link, classes.Navigation__link_registration].join(' ')} to="/registration">Registrace</NavLink>
                 </li>
                 <li className={classes.Navigation__item}>
                     <NavLink activeClassName={classes.active} className={classes.Navigation__link} to="/contestants">Účastníci</NavLink>
-                </li>
+                </li> */}
                 <li className={classes.Navigation__item}>
                     <NavLink activeClassName={classes.active} className={classes.Navigation__link} to="/sponsors">Sponzoři</NavLink>
                 </li>
@@ -58,10 +57,10 @@ const Navigation: React.FC<NavigationProps> = props => {
                     <NavLink activeClassName={classes.active} className={classes.Navigation__link} to="/documents">Dokumenty</NavLink>
                 </li>
                 <li className={classes.Navigation__item} onClick={() => {window.open("https://www.youtube.com/@gttournament/videos")}}>
-                    <img className={classes.Navigation__youtubeLogo} src={YoutubeLogo}></img>
+                    <div className={classes.Navigation__youtubeLogo}><YoutubeLogo></YoutubeLogo></div>
                 </li>
                 <li className={classes.Navigation__item} onClick={() => {window.open("https://www.twitch.tv/gttournament_a")}}>
-                    <img className={classes.Navigation__twitchLogo} src={TwitchLogo}></img>
+                    <div className={classes.Navigation__twitchLogo}><TwitchLogo></TwitchLogo></div>
                 </li>
             </motion.ul>}
         </AnimatePresence>

@@ -1,7 +1,6 @@
 import classes from './Home.module.scss';
 import { routeVariants, routeTransition } from '../../animations/animations';
 import { motion } from 'framer-motion';
-import logo from '../../assets/logo.svg';
 
 //Sections
 import About from './sections/About/About';

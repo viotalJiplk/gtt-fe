@@ -1,7 +1,7 @@
 import classes from './Documents.module.scss';
+import { DocumentIcon } from "../../components/other/assets/assets";
 import Heading from '../../components/typography/Heading';
 import { headingTypes } from '../../types/types';
-import documentIcon from '../../assets/document.png';
 import { routeTransition, routeVariants } from '../../animations/animations';
 import Section from '../../components/layout/Section/Section';
 import { motion } from 'framer-motion';
@@ -11,7 +11,7 @@ const Documents = () => {
     const documentElements = documentList.map((document) => {
         return <a href={document.link}><div className={classes.Documents__document}>
             <div>
-                <img className={classes.Documents__image} src={documentIcon}></img>
+                <div className={classes.Documents__image}><DocumentIcon></DocumentIcon></div>
             </div>
             <div className={classes.Documents__name}>
                 {document.name}

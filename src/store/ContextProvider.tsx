@@ -1,5 +1,5 @@
 import { useReducer, useCallback } from 'react';
-import {Context, defaultContextCreator } from './context';
+import {Context/*, defaultContextCreator */} from './context';
 import { actionTypes } from './actionTypes';
 import React from 'react';
 

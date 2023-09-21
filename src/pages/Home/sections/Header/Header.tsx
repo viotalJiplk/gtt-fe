@@ -5,9 +5,9 @@ import Heading from '../../../../components/typography/Heading';
 import { headingTypes } from '../../../../types/types';
 import { GAMETYPES } from '../../../../types/types';
 import Paragraph from '../../../../components/typography/Paragraph';
-import CountDown from '../../../../components/other/CountDown/CountDown';
+// import CountDown from '../../../../components/other/CountDown/CountDown';
 import GameLogo from '../../../../components/other/GameLogo/GameLogo';
-import { useHistory } from 'react-router';
+// import { useHistory } from 'react-router';
 import CTA from '../../../../components/layout/CTA/CTA';
 import { withRouter } from 'react-router';
 import discordLogo from '../../../../assets/discord-logo.svg';
@@ -17,7 +17,7 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = props => {
-    const history = useHistory();
+    //const history = useHistory();
     return <Section className={classes.Header}>
             <div className={classes.Header__gameLogos}>
                 <GameLogo className={classes.Header__gameLogos__logo} game={GAMETYPES.MINECRAFT}></GameLogo>

@@ -162,7 +162,7 @@ const ThisYear = () => {
         } else {
             BGclassName = classes.ThisYear__backgroundImage;
         }
-        return <div className={classes.ThisYear__imageDiv}><img className={BGclassName} src={imgSrc}></img></div>
+        return <div className={classes.ThisYear__imageDiv}><img className={BGclassName} src={imgSrc} alt="pozadí"></img></div>
     });
     const descriptionElements = schedule[currentDay].events.map((event) => {
         const times = event.segments.map((segment) => { 

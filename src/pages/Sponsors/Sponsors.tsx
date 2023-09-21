@@ -11,7 +11,7 @@ const Sponsors = () => {
         <Section className={''}>
             <Heading className={''} type={headingTypes.main}>Sponzoři</Heading>
             <div className={classes.Sponsors__sponsor}>
-                <a href="https://www.artin.cz/"><img className={classes.Sponsors__sponsor__logo} src={ArtinLogo}></img></a>
+                <a href="https://www.artin.cz/"><img className={classes.Sponsors__sponsor__logo} src={ArtinLogo} alt='Logo Artinu'></img></a>
             </div>
         </Section>
     </motion.div>

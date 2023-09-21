@@ -3,7 +3,6 @@ import { headingTypes } from '../../../types/types';
 import Heading from '../../typography/Heading';
 import { RouteComponentProps } from 'react-router';
 import { withRouter } from 'react-router';
-import Paragraph from '../../typography/Paragraph';
 
 const Success: React.FC<RouteComponentProps> = (props) => {
     return <div className={classes.Success}>
