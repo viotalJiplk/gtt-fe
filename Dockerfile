@@ -6,6 +6,7 @@ RUN apk add --update --no-cache nodejs npm git
 
 RUN mkdir /build
 COPY ./ /build
+RUN ls -R /build/src
 WORKDIR /build
 RUN cd /build
 RUN npm install
