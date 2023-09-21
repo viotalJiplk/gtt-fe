@@ -15,8 +15,7 @@ jobs:
     strategy:
       matrix:
         node-version: [20.x]
-    env:
-      NODE_OPTIONS: --openssl-legacy-provider
+    
     permissions:
       packages: write
       contents: read
@@ -29,6 +28,8 @@ jobs:
         node-version: ${{ matrix.node-version }}
     - name: Build app
       run: npm ci && npm run build
+      env:
+        NODE_OPTIONS: --openssl-legacy-provider
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag $IMAGE_NAME --label "runnumber=${GITHUB_RUN_ID}"
     - name: Log in to registry
