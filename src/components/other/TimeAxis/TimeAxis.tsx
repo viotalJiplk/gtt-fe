@@ -51,7 +51,7 @@ const TimeAxis: React.FC<TimeAxisProps> = props => {
                 window.removeEventListener('resize', resizeHandler);
             }
         }
-    }, [])
+    }, [onResize])
 
     const className = classes.TimeAxis + " " + props.className;
     const points = schedule.map((day, id) => {

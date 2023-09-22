@@ -32,7 +32,7 @@ const Navigation: React.FC<NavigationProps> = props => {
         if (isMobileNavigationShown) {
             document.addEventListener('click', hideMobileNavigation);
         }
-    }, [isMobileNavigationShown])
+    }, [isMobileNavigationShown, hideMobileNavigation])
    
     const displayItems = !isMobile || isMobileNavigationShown;
     return <nav className={[className, isMobile? classes.mobile : ''].join(' ')}>
