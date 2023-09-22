@@ -1,4 +1,4 @@
-import { Logo, TwitchLogo, DiscordLogo, MailIcon} from '../../other/assets/assets';
+import { Logo, TwitchLogo, DiscordLogo, MailIcon} from '../../other/Assets/Assets';
 import classes from './Footer.module.scss';
 
 const Footer = () => {

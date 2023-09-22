@@ -1,9 +1,10 @@
 import classes from './Navigation.module.scss';
-import { YoutubeLogo, TwitchLogo } from "../../other/assets/assets";
+import { YoutubeLogo, TwitchLogo } from "../../other/Assets/Assets";
 import { NavLink } from 'react-router-dom';
 import { useCallback, useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { motion, AnimatePresence} from 'framer-motion';
+import Login from "../../other/Login/Login";
 import React from 'react';
 
 interface NavigationProps {
@@ -61,6 +62,9 @@ const Navigation: React.FC<NavigationProps> = props => {
                 </li>
                 <li className={classes.Navigation__item} onClick={() => {window.open("https://www.twitch.tv/gttournament_a")}}>
                     <div className={classes.Navigation__twitchLogo}><TwitchLogo></TwitchLogo></div>
+                </li>
+                <li className={classes.Navigation__item}>
+                    <div className={classes.Navigation__login}><Login></Login></div>
                 </li>
             </motion.ul>}
         </AnimatePresence>
