@@ -3,8 +3,9 @@ import twitchLogoImg from '../../../assets/twitch-logo.svg';
 import logoImg from '../../../assets/logo.svg';
 import mailIconImg from '../../../assets/mail-icon.svg';
 import YoutubeLogoImg from '../../../assets/youtube-logo.png';
-import documentIcon from '../../../assets/document.png';
-import classes from './assets.module.scss';
+import documentIconImg from '../../../assets/document.png';
+import profileIconImg from '../../../assets/profile-icon.svg';
+import classes from './Assets.module.scss';
 
 export const DiscordLogo = () => {
     return <img src={discordLogoImg} className={classes.DiscordLogo__discordLogo} alt="Discord logo"></img>
@@ -26,5 +27,9 @@ export const YoutubeLogo = () =>{
 }
 
 export const DocumentIcon = () =>{
-    return <img className={classes.DocumentIcon__documentIcon} src={documentIcon} alt='Dokument'></img>
+    return <img className={classes.DocumentIcon__documentIcon} src={documentIconImg} alt='Dokument'></img>
+}
+
+export const ProfileIcon = () =>{
+    return <img className={classes.ProfileIcon__profileIcon} src={profileIconImg} alt='Profile'></img>
 }

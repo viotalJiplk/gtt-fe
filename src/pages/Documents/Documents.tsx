@@ -1,5 +1,5 @@
 import classes from './Documents.module.scss';
-import { DocumentIcon } from "../../components/other/assets/assets";
+import { DocumentIcon } from "../../components/other/Assets/Assets";
 import Heading from '../../components/typography/Heading';
 import { headingTypes } from '../../types/types';
 import { routeTransition, routeVariants } from '../../animations/animations';
