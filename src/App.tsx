@@ -6,6 +6,7 @@ import { Switch, Route } from 'react-router';
 import Success from './components/other/Success/Success';
 import Documents from './pages/Documents/Documents';
 import Sponsors from './pages/Sponsors/Sponsors';
+import ErrorPage from './pages/ErrorPage/ErrorPage';
 // import Contestants from './pages/Contestants/Contestants';
 import Footer from './components/layout/Footer/Footer';
 import axios, { addAuthorization } from './axios/axios';
@@ -48,6 +49,7 @@ function App() {
         <ScrollToTop></ScrollToTop>
         <Route path="/success" component={Success}></Route>
         <Switch location={location} key={location.key}>
+          <Route path="/Error" exact component={ErrorPage}></Route>
           <Route path="/sponsors" exact component={Sponsors}></Route>
           <Route path="/documents" exact component={Documents}></Route>
           <Route path="/account" exact component={Account}></Route>

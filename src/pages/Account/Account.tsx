@@ -14,6 +14,7 @@ import Submit from "./components/Submit/Submit";
 import Agreement from "./components/Agreement/Agreement";
 import axios from '../../axios/axios';
 import Loading from "../../components/other/Spinner/Spinner";
+import ErrorReporter from "../ErrorPage/ErrorReporter";
 
 const Account = () => {
 
@@ -26,74 +27,84 @@ const Account = () => {
     const [invalidMessages, setInvalidMessages] = useState<string[]>([]);
 
     const context = useContext(Context);
-    useEffect(() =>{
-        if(context.state.discordId !== ""){
-            if(context.state.discordId !== "notLoggedIn"){
-                infoLookUp().then(()=>{setLoaded(true)});
-            }else if((url !== null) && (code !== null) && (state !== null)){
+    useEffect(() => {
+        if (context.state.discordId !== "") {
+            if (context.state.discordId !== "notLoggedIn") {
+                infoLookUp().then(() => { setLoaded(true) });
+            } else if ((url !== null) && (code !== null) && (state !== null)) {
                 getToken(code, state);
-            }else{
+            } else {
                 startLoginChain();
             }
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    },[context])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [context])
 
-    async function infoLookUp(){
-        let axiosResponse = await axios("/user/@me/", {responseType: "json"});
+    async function infoLookUp() {
+        let axiosResponse = await axios("/user/@me/", { responseType: "json" }).catch(function (error) {
+            localStorage.removeItem("jwt");
+            ErrorReporter("Nejste přihlášeni, nebo nemáte dostatečná práva");
+            return error;
+        });
         let response = JSON.parse(axiosResponse.data);
-        if(response.schoolId !== null){
+        if (response.schoolId !== null) {
             setSchool(response.schoolId);
         }
-        if(response.name !== "\"\""){
+        if (response.name !== "\"\"") {
             setName(response.name);
         }
-        if(response.surname !== "\"\""){
+        if (response.surname !== "\"\"") {
             setSurname(response.surname);
         }
-        if(response.adult !== "\"\""){
+        if (response.adult !== "\"\"") {
             setIsAdult(response.adult);
         }
-        
+
     }
 
     const url = new URL(window.location.href);
     const code = url.searchParams.get("code");
     const state = url.searchParams.get("state");
-    
-    async function startLoginChain(){
-        const rediectUrl = new URL(await axios("/discord/auth", {responseType: "json"}).then(async function(result){return result.data.redirect_url}));
+
+    async function startLoginChain() {
+        const redirectUrl = new URL(await axios("/discord/auth", { responseType: "json" }).then(async function (result) { return result.data.redirect_url }).catch(function (error) {
+            ErrorReporter("Služba pravděpodobně není dostupná. Zkuste akci opakovat za chvíli.");
+            return error;
+        }));
         let newUrl = window.location.origin + "/account";
-        if(newUrl.includes("localhost")){
+        if (newUrl.includes("localhost")) {
             newUrl = newUrl.replace("localhost", "127.0.0.1");
         }
-        rediectUrl.searchParams.set("redirect_uri", newUrl);
-        window.location.href = rediectUrl.href;
+        redirectUrl.searchParams.set("redirect_uri", newUrl);
+        window.location.href = redirectUrl.href;
     }
 
-    async function getToken(code: string, state:string) {
+    async function getToken(code: string, state: string) {
         let data = {
             "code": code,
             "state": state,
             "redirect_uri": window.location.href.split("?")[0],
         }
-        try{
-            let response = await axios("/discord/token", {
-                "method": "POST",
-                "headers": {
-                  "Content-Type": "application/json"
-                },
-                "data": data
-              });
-            localStorage.setItem("jwt", response.data.jws);
-            window.location.href = "/account"
-        }catch(e){
-            console.error(e);            
-        }
+        let response = await axios("/discord/token", {
+            "method": "POST",
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "data": data
+        }).catch(function (error) {
+            if(error.response.status === 401){
+                ErrorReporter("Pravdravděpodobně došlo k restartu serveru. Zkuste akci opakovat.");
+            }else{
+                ErrorReporter("Neznámá chyba.");
+            }
+            return error;
+        });
+        localStorage.setItem("jwt", response.data.jws);
+        window.location.href = "/account"
     }
 
-    const onSubmit = async function(){
-        
+    const onSubmit = async function () {
+
         if (!school) {
             setInvalidMessages(['Škola není zadaná nebo není použitá možnost z výběru.'])
             return;
@@ -110,29 +121,33 @@ const Account = () => {
             setInvalidMessages(['Je nutno souhlasit se všemi souhlasy']);
             return;
         }
-        try{
-            await axios("/user/@me/", {
-                "method": "PUT",
-                "headers": {
-                  "Content-Type": "application/json"
-                },
-                "data": {
-                    "name":name,
-                    "surname":surname,
-                    "adult":agreed,
-                    "school_id": school
-                }
-              });
-            window.location.href = "/account"
-        }catch(e){
-            console.error(e);          
-        }
+
+        await axios("/user/@me/", {
+            "method": "PUT",
+            "headers": {
+                "Content-Type": "application/json"
+            },
+            "data": {
+                "name": name,
+                "surname": surname,
+                "adult": agreed,
+                "school_id": school
+            }
+        }).catch(function (error) {
+            if(error.response.status === 401){
+                ErrorReporter("Pravdravděpodobně došlo k restartu serveru. Zkuste akci opakovat.");
+            }else{
+                ErrorReporter("Neznámá chyba.");
+            }
+            return error;
+        });
+        window.location.href = "/account"
     }
 
-        return <motion.div transition={routeTransition} key="registration" variants={routeVariants} initial="initial" animate="visible" exit="hidden" className={classes.Registration}>
-            {!loaded && <Loading></Loading>} 
-            {loaded && <div>
-                <Heading className={classes.Registration__heading} type={headingTypes.main}>Vaše údaje</Heading>
+    return <motion.div transition={routeTransition} key="registration" variants={routeVariants} initial="initial" animate="visible" exit="hidden" className={classes.Registration}>
+        {!loaded && <Loading></Loading>}
+        {loaded && <div>
+            <Heading className={classes.Registration__heading} type={headingTypes.main}>Vaše údaje</Heading>
             <Row>
                 <Label obligatory>Jméno</Label>
                 <TextInput value={name} setFunction={setName}></TextInput>
@@ -142,15 +157,15 @@ const Account = () => {
                 <TextInput value={surname} setFunction={setSurname}></TextInput>
             </Row>
             <AdultSelect value={adult} setFunction={(value: boolean) => {
-            setIsAdult(value);
+                setIsAdult(value);
             }}></AdultSelect>
             <Agreement setFunction={setAgreed}></Agreement>
             <SchoolSelect label={'Škola, za kterou bude tým hrát (musí být položka ze seznamu)'} currentSchool={school} setFunction={setSchool} className={classes.AloneForm__schoolSelect}></SchoolSelect>
-        <Submit className={classes.TeamForm__submit} onClick={(e: any) => {
+            <Submit className={classes.TeamForm__submit} onClick={(e: any) => {
                 e.preventDefault();
                 onSubmit();
             }}></Submit>
-            {invalidMessages.length >= 1 && 
+            {invalidMessages.length >= 1 &&
                 <div className={classes.AloneForm__invalidMessages}>
                     {invalidMessages.map((message, id) => {
                         return <div key={id} className={classes.AloneForm__invalidMessage}>
@@ -158,8 +173,8 @@ const Account = () => {
                         </div>
                     })}
                 </div>}
-            </div>}
-        </motion.div>
+        </div>}
+    </motion.div>
 }
 
 export default Account;
