@@ -26,7 +26,7 @@ const SelectInput: React.FC<SelectInputProps> = props => {
         if (opened) {
             document.addEventListener('click', close);
         }
-    }, [opened])
+    }, [opened, close])
 
     const options = props.options.map((option, id) => {
         return <div key={id} onClick={() => {

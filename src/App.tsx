@@ -1,5 +1,5 @@
 import Home from './pages/Home/Home';
-// import Registration from './pages/Registration/Registration';
+import Account from './pages/Account/Account';
 import classes from './App.module.scss';
 import Navigation from './components/layout/Navigation/Navigation';
 import { Switch, Route } from 'react-router';
@@ -8,21 +8,36 @@ import Documents from './pages/Documents/Documents';
 import Sponsors from './pages/Sponsors/Sponsors';
 // import Contestants from './pages/Contestants/Contestants';
 import Footer from './components/layout/Footer/Footer';
-// import axios from './axios/axios';
+import axios, { addAuthorization } from './axios/axios';
 import ScrollToTop from './components/other/ScrollToTop/ScrollToTop';
-// import { Context } from './store/context';
+import { Context } from './store/context';
 import { useLocation } from 'react-router';
-// import { useEffect, useContext } from 'react';
+import { useEffect, useContext} from 'react';
 import Rules from './pages/Rules/Rules';
 import { AnimatePresence } from 'framer-motion';
+import { isExpired, decodeToken } from "react-jwt";
 
 function App() {
-  // const context = useContext(Context);
-  // useEffect(() => {
-  //   axios.get('/schools').then((response) => {
-  //     context.setSchools(response.data.schools);
-  //   })
-  // },[])
+  const context = useContext(Context);
+  useEffect(() => {
+    axios('/schools').then((response) => {
+        context.setSchools(response.data.schools);
+    })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  useEffect(()=>{
+    let jwtString = localStorage.getItem("jwt") || "";
+    let isTokenExpired = isExpired(jwtString);
+    if(isTokenExpired){
+      localStorage.removeItem("jwt");
+      context.setDiscordId("notLoggedIn");
+    }else{
+      addAuthorization("Bearer " + jwtString)
+      let decodedToken = decodeToken(jwtString) as any;
+      context.setDiscordId(decodedToken[decodedToken["iss"]+"/discord/userid"]);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const location = useLocation();
 
@@ -35,8 +50,8 @@ function App() {
         <Switch location={location} key={location.key}>
           <Route path="/sponsors" exact component={Sponsors}></Route>
           <Route path="/documents" exact component={Documents}></Route>
-          {/* <Route path="/registration" exact component={Registration}></Route>
-          <Route path="/contestants" exact component={Contestants}></Route> */}
+          <Route path="/account" exact component={Account}></Route>
+          {/* <Route path="/contestants" exact component={Contestants}></Route> */}
           <Route path="/rules" exact component={Rules}></Route>
           <Route path="/" component={Home}></Route>
         </Switch>

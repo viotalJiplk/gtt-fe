@@ -9,7 +9,7 @@ interface SubmitProps {
 
 const Submit: React.FC<SubmitProps> = props => {
     return <CTA onClick={props.onClick} className={[classes.Submit, props.className].join(' ')}>
-        Odeslat přihlášku
+        Aktualizovat údaje
     </CTA>
 };
 

@@ -1,8 +1,7 @@
 import { ProfileIcon } from "../Assets/Assets";
 
 async function loginFunction(){
-    const rediectUrl = await fetch("/backend/discord/auth").then(async function(result){return (await result.json()).redirect_url});
-    window.location.href = rediectUrl;
+    window.location.href = "/account";
 }
 
 const Login = () =>{

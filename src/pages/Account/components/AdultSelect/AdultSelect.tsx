@@ -1,4 +1,3 @@
-import CheckBoxInput from "../CheckBoxInput/CheckBoxInput";
 import Row from "../Row/Row";
 import Label from "../Label/Label";
 import React from 'react';
