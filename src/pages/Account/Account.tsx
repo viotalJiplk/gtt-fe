@@ -17,7 +17,6 @@ import Loading from "../../components/other/Spinner/Spinner";
 import ErrorReporter from "../ErrorPage/ErrorReporter";
 
 const Account = () => {
-
     const [loaded, setLoaded] = useState<boolean>(false);
     const [school, setSchool] = useState(null);
     const [name, setName] = useState('');
@@ -31,14 +30,18 @@ const Account = () => {
         if (context.state.discordId !== "") {
             if (context.state.discordId !== "notLoggedIn") {
                 infoLookUp().then(() => { setLoaded(true) });
-            } else if ((url !== null) && (code !== null) && (state !== null)) {
-                getToken(code, state);
-            } else {
+            } else if((url === null) || (code === null) || (state === null)){
                 startLoginChain();
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [context])
+    useEffect(() => {
+        if ((url !== null) && (code !== null) && (state !== null)) {
+            getToken(code, state);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     async function infoLookUp() {
         let axiosResponse = await axios("/user/@me/", { responseType: "json" }).catch(function (error) {
@@ -67,10 +70,15 @@ const Account = () => {
     const state = url.searchParams.get("state");
 
     async function startLoginChain() {
-        const redirectUrl = new URL(await axios("/discord/auth", { responseType: "json" }).then(async function (result) { return result.data.redirect_url }).catch(function (error) {
-            ErrorReporter("Služba pravděpodobně není dostupná. Zkuste akci opakovat za chvíli.");
-            return error;
+        let axiosResponse = await (axios("/discord/auth", { responseType: "json" }).catch(function (error) {
+            if(error.response.status !== 200){
+                ErrorReporter("Služba pravděpodobně není dostupná. Zkuste akci opakovat za chvíli.");
+            }else{
+                return error.response;
+            }
         }));
+
+        const redirectUrl = new URL(axiosResponse.data.redirect_url )
         let newUrl = window.location.origin + "/account";
         if (newUrl.includes("localhost")) {
             newUrl = newUrl.replace("localhost", "127.0.0.1");
@@ -94,16 +102,18 @@ const Account = () => {
         }).catch(function (error) {
             if(error.response.status === 401){
                 ErrorReporter("Pravdravděpodobně došlo k restartu serveru. Zkuste akci opakovat.");
-            }else{
+            }else if(error.response.status !== 200){
                 ErrorReporter("Neznámá chyba.");
+            }else{
+                return error.response;
             }
-            return error;
         });
         localStorage.setItem("jwt", response.data.jws);
         window.location.href = "/account"
     }
 
     const onSubmit = async function () {
+        setInvalidMessages([]);
 
         if (!school) {
             setInvalidMessages(['Škola není zadaná nebo není použitá možnost z výběru.'])
@@ -136,12 +146,15 @@ const Account = () => {
         }).catch(function (error) {
             if(error.response.status === 401){
                 ErrorReporter("Pravdravděpodobně došlo k restartu serveru. Zkuste akci opakovat.");
-            }else{
+            }else if(error.response.status === 404){
+                setInvalidMessages(["Nic nebylo změněno."]);
+                return;
+            }else if(error.response.status !== 205){
                 ErrorReporter("Neznámá chyba.");
+            }else{
+                window.location.href = "/account"
             }
-            return error;
         });
-        window.location.href = "/account"
     }
 
     return <motion.div transition={routeTransition} key="registration" variants={routeVariants} initial="initial" animate="visible" exit="hidden" className={classes.Registration}>
