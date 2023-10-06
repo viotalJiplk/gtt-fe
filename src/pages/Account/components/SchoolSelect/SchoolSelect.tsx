@@ -1,9 +1,9 @@
 import { useContext, useState, useCallback, useEffect } from "react";
 import { Context } from "../../../../store/context";
 // import classes from './SchoolSelect.module.scss';
-import Row from "../Row/Row";
-import Label from "../Label/Label";
-import SelectInput from "../SelectInput/SelectInput";
+import Row from "../../../../components/form/Row/Row";
+import Label from "../../../../components/form/Label/Label";
+import SelectInput from "../../../../components/form/SelectInput/SelectInput";
 import React from 'react';
 
 interface School{

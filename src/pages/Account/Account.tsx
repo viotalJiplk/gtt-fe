@@ -5,12 +5,12 @@ import { motion } from 'framer-motion';
 import { routeVariants, routeTransition } from '../../animations/animations';
 import { useState, useContext, useEffect } from "react";
 import { Context } from "../../store/context";
-import Row from './components/Row/Row';
-import Label from './components/Label/Label';
-import TextInput from './components/TextInput/TextInput';
+import Row from '../../components/form/Row/Row';
+import Label from '../../components/form/Label/Label';
+import TextInput from '../../components/form/TextInput/TextInput';
 import AdultSelect from "./components/AdultSelect/AdultSelect";
 import SchoolSelect from "./components/SchoolSelect/SchoolSelect";
-import Submit from "./components/Submit/Submit";
+import Submit from "../../components/form/Submit/Submit";
 import Agreement from "./components/Agreement/Agreement";
 import axios from '../../axios/axios';
 import Loading from "../../components/other/Spinner/Spinner";
@@ -183,7 +183,7 @@ const Account = () => {
             }}></AdultSelect>
             <Agreement setFunction={setAgreed}></Agreement>
             <SchoolSelect label={'Škola, za kterou bude tým hrát (musí být položka ze seznamu)'} currentSchool={school} setFunction={setSchool} className={classes.AloneForm__schoolSelect}></SchoolSelect>
-            <Submit className={classes.TeamForm__submit} onClick={(e: any) => {
+            <Submit className={classes.TeamForm__submit} innerText='Aktualizovat údaje' onClick={(e: any) => {
                 e.preventDefault();
                 onSubmit();
             }}></Submit>

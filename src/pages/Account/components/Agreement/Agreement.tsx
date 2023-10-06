@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 // import { GAMETYPES } from '../../../../types/types';
-import Label from '../Label/Label';
+import Label from '../../../../components/form/Label/Label';
 import { useState, useCallback } from 'react';
-import Row from '../Row/Row';
-import CheckBoxInput from '../CheckBoxInput/CheckBoxInput';
+import Row from '../../../../components/form/Row/Row';
+import CheckBoxInput from '../../../../components/form/CheckBoxInput/CheckBoxInput';
 import classes from './Agreement.module.scss';
 
 

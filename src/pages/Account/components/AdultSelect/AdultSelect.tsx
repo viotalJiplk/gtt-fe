@@ -1,7 +1,7 @@
-import Row from "../Row/Row";
-import Label from "../Label/Label";
+import Row from "../../../../components/form/Row/Row";
+import Label from "../../../../components/form/Label/Label";
 import React from 'react';
-import SelectInput from "../SelectInput/SelectInput";
+import SelectInput from "../../../../components/form/SelectInput/SelectInput";
 
 interface AdultSelectProps {
     setFunction: Function,
