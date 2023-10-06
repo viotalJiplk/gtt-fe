@@ -15,6 +15,7 @@ import Agreement from "./components/Agreement/Agreement";
 import axios from '../../axios/axios';
 import Loading from "../../components/other/Spinner/Spinner";
 import ErrorReporter from "../ErrorPage/ErrorReporter";
+import { useHistory } from "react-router-dom";
 
 const Account = () => {
     const [loaded, setLoaded] = useState<boolean>(false);
@@ -26,6 +27,7 @@ const Account = () => {
     const [invalidMessages, setInvalidMessages] = useState<string[]>([]);
 
     const context = useContext(Context);
+    const history = useHistory();
     useEffect(() => {
         if (context.state.discordId !== "") {
             if (context.state.discordId !== "notLoggedIn") {
@@ -35,7 +37,7 @@ const Account = () => {
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [context])
+    }, [context, history])
     useEffect(() => {
         if ((url !== null) && (code !== null) && (state !== null)) {
             getToken(code, state);
@@ -109,7 +111,14 @@ const Account = () => {
             }
         });
         localStorage.setItem("jwt", response.data.jws);
-        window.location.href = "/account"
+        if(localStorage.getItem("afterlogin") !== null){
+            const url = localStorage.getItem("afterlogin");
+            localStorage.removeItem("afterlogin");
+            // @ts-expect-error
+            history.push(url);
+        }else{
+            history.push("/account");
+        }
     }
 
     const onSubmit = async function () {
