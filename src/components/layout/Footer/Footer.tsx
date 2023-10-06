@@ -1,8 +1,12 @@
 import { Logo, TwitchLogo, DiscordLogo, MailIcon} from '../../other/Assets/Assets';
 import classes from './Footer.module.scss';
 
-const Footer = () => {
-    return <div className={classes.Footer}>
+interface FooterProps {
+    className?: string
+}
+
+const Footer: React.FC<FooterProps> = (props) => {
+    return <div className={classes.Footer +  " " + props.className}>
         <div className={[classes.Footer__section, classes.Footer__section_left].join(' ')}>
             <div className={classes.Footer__logo}><Logo></Logo></div>
         </div>
