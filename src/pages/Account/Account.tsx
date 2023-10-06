@@ -184,10 +184,10 @@ const Account = () => {
             }}></AdultSelect>
             <Agreement setFunction={setAgreed}></Agreement>
             <SchoolSelect label={'Škola, za kterou bude tým hrát (musí být položka ze seznamu)'} currentSchool={school} setFunction={setSchool} className={classes.AloneForm__schoolSelect}></SchoolSelect>
-            <Submit className={classes.TeamForm__submit} innerText='Aktualizovat údaje' onClick={(e: any) => {
+            <Submit className={classes.TeamForm__submit} onClick={(e: any) => {
                 e.preventDefault();
                 onSubmit();
-            }}></Submit>
+            }}>Aktualizovat údaje</Submit>
             {invalidMessages.length >= 1 &&
                 <div className={classes.AloneForm__invalidMessages}>
                     {invalidMessages.map((message, id) => {
