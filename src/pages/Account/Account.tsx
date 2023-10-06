@@ -32,7 +32,7 @@ const Account = () => {
         if (context.state.discordId !== "") {
             if (context.state.discordId !== "notLoggedIn") {
                 infoLookUp().then(() => { setLoaded(true) });
-            } else if((url === null) || (code === null) || (state === null)){
+            } else if(((url === null) || (code === null) || (state === null)) && (context.state.discordId === "notLoggedIn")){
                 startLoginChain();
             }
         }
@@ -114,10 +114,11 @@ const Account = () => {
         if(localStorage.getItem("afterlogin") !== null){
             const url = localStorage.getItem("afterlogin");
             localStorage.removeItem("afterlogin");
+            //we force reload, so the new jwt would load before we start the code on page
             // @ts-expect-error
-            history.push(url);
+            window.location.href = url;
         }else{
-            history.push("/account");
+            window.location.href = "/account";
         }
     }
 
