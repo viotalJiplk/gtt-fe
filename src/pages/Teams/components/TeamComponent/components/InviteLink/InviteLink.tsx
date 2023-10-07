@@ -21,7 +21,7 @@ function generateJoinLink(joinString:string, teamId:number, gameId:number){
 const InviteLink: React.FC<InviteProps> = function (props) {
     const [joinString, setJoinString] = useState<string>();
     useEffect(function() {
-        if(props.link !== undefined){
+        if(props.link !== undefined && props.link !== null){
             setJoinString(generateJoinLink(props.link, props.teamId, props.gameId));
         }
     // eslint-disable-next-line
@@ -36,7 +36,9 @@ const InviteLink: React.FC<InviteProps> = function (props) {
                         ErrorReporter("Neaznámá chyba. Zkuste akci opakovat později.");
                         return error;
                     });
-                    setJoinString(generateJoinLink(linkRes.data.joinString, props.teamId, props.gameId));
+                    if(linkRes !== undefined && linkRes !== null){
+                        setJoinString(generateJoinLink(linkRes.data.joinString, props.teamId, props.gameId));
+                    }
                 }} />
             </div>
         </div>
