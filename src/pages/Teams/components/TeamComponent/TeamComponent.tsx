@@ -4,7 +4,7 @@ import TeamMember from './components/TeamMember/TeamMember';
 import classes from './TeamComponent.module.scss';
 import axios from '../../../../axios/axios';
 import ErrorReporter from "../../../ErrorPage/ErrorReporter";
-import { useHistory} from 'react-router';
+import { useHistory } from "react-router-dom";
 import { useEffect, useState } from 'react';
 
 
@@ -30,7 +30,12 @@ const TeamComponent: React.FC<TeamComponentProps> = (props) => {
         // @ts-expect-error
         teamData.data.Players.forEach(player => {
             tmpTeams.push(
-                <TeamMember name={player.nick} useId={player.userid} teamId={teamId} role={player.role} canKick={role === "Captain"} kickFunction={function() {}}/>
+                <TeamMember name={player.nick} useId={player.userid} teamId={teamId} role={player.role} canKick={role === "Captain"} kickFunction={function() {
+                    axios.delete("/team/id/"+ props.teamId +"/kick/"+ player.userid +"/").catch(function(error){
+                        ErrorReporter("Neaznámá chyba. Zkuste akci opakovat později.");
+                    });
+                    history.push("/teams");
+                }}/>
             );
         });
         setTeams(tmpTeams);
@@ -49,9 +54,9 @@ const TeamComponent: React.FC<TeamComponentProps> = (props) => {
             <div>{props.teamName}</div>
             <div className={classes.TeamUI__spacer}></div>
             <div className={classes.TeamUI__leave}><LeaveBtn onClick={async function(){
-                axios.delete("/team/id/"+ props.teamId +"/kick/@me").catch(function(error){
+                axios.delete("/team/id/"+ props.teamId +"/kick/@me/").catch(function(error){
                     ErrorReporter("Neaznámá chyba. Zkuste akci opakovat později.");
-                });;
+                });
                 history.push("/teams");
             }} /></div>
         </div>

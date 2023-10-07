@@ -12,4 +12,9 @@
         flex-grow: 1;
         flex-shrink: 1;
     }
+    &__newbutton{
+        background-color: $color-green;
+        border-color: $color-green;
+        box-shadow: 4px 0px 0px $color-green-shadow;
+    }
 }

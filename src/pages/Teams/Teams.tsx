@@ -3,8 +3,10 @@ import axios from '../../axios/axios';
 import ErrorReporter from "../ErrorPage/ErrorReporter";
 import { useContext, useState, useEffect } from 'react';
 import { Context } from "../../store/context";
-import { useHistory, useLocation } from 'react-router';
+import { useLocation } from 'react-router';
+import { useHistory } from "react-router-dom";
 import TeamComponent from './components/TeamComponent/TeamComponent';
+import Submit from '../../components/form/Submit/Submit';
 
 function Teams() {
     const history = useHistory();
@@ -29,25 +31,6 @@ function Teams() {
             setTeams(teamArray);
         }
     }
-    // useEffect(function(){
-    //     Array.from(document.getElementsByClassName(classes.TeamsUI__teamname)).forEach(element => {
-    //         if(!element.hasAttribute("data-haslis")){
-    //             // @ts-ignore
-    //             element.nextElementSibling.style.display = "none";
-    //             element.setAttribute("data-haslis", "true");
-    //             element.addEventListener("click", function (event:Event) {
-    //                 // @ts-ignore
-    //                 if(event.currentTarget.nextElementSibling.style.display === "none"){
-    //                     // @ts-ignore
-    //                     event.currentTarget.nextElementSibling.style.display = "block";
-    //                 }else{
-    //                     // @ts-ignore
-    //                     event.currentTarget.nextElementSibling.style.display = "none";
-    //                 }
-    //             });
-    //         }
-    //     });
-    // });
 
     useEffect(()=>{
         if (context.state.discordId !== "notLoggedIn" && context.state.discordId !== "") {
@@ -63,6 +46,7 @@ function Teams() {
         <div className={classes.TeamsUI}>
             <div className={classes.TeamsUI__spacer}></div>
             <div className={classes.TeamsUI__teamholders}>
+                <Submit className={classes.TeamsUI__newbutton} onClick={function(){history.push("/join")}}>Nový tým</Submit>
                 {teams}
             </div>
             <div className={classes.TeamsUI__spacer}></div>
