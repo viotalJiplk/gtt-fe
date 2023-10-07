@@ -1,0 +1,10 @@
+@import '../../variables.scss';
+
+.Join{
+    display: flex;
+    color: $color-white;
+    &__spacer{
+        flex-grow: 1;
+        flex-shrink: 1;
+    }
+}

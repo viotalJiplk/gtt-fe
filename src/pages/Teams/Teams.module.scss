@@ -1,0 +1,15 @@
+@import '../../variables.scss';
+
+.TeamsUI{
+    display: flex;
+    flex-direction: row;
+    // width: 99vw;
+    &__teamholders{
+        min-width: 100rem;
+    }
+
+    &__spacer{
+        flex-grow: 1;
+        flex-shrink: 1;
+    }
+}

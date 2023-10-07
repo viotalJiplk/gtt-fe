@@ -1,0 +1,14 @@
+@import '../../../../../../../../variables.scss';
+
+.GenerateLinkBtn{
+    // position: absolute;
+    // right: 1vw;
+    // top: 1rem;
+    margin: 0.1rem;
+    border: 5px solid $color-blue;
+    border-radius: 16px;
+    padding: 0.7rem;
+    background-color: $color-blue-dark;
+    color: #fff;
+    font-size: 1.5rem;
+}

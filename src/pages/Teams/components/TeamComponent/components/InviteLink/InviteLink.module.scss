@@ -1,0 +1,29 @@
+@import '../../../../../../variables.scss';
+
+.InviteLink{
+    top: 0rem;
+    margin: 0rem;
+    margin-top: 1.5rem;
+    margin-left: 0rem;
+    //max-width: 50rem;
+    background-color: $color-blue;
+    display: flex;
+    // border-radius: 16px;
+    // position: absolute;
+    // bottom: 0rem;
+
+    &__link{
+        margin-top: 0.5em;
+        margin-bottom: 0.5rem;
+        padding: 2vh;
+        border-radius: 1.5rem;
+        white-space: nowrap;
+        color: white;
+        flex-grow: 1;
+        flex-shrink: 1;
+        background-color: $color-blue-dark;
+        font-size: 2rem;
+        display: inline-block;
+        overflow: hidden;
+    }
+}

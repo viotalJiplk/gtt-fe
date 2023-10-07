@@ -1,0 +1,13 @@
+@import '../../../../../../variables.scss';
+
+.LeaveBtn{
+    // position: absolute;
+    right: 1vw;
+    top: 0;
+    border: 5px solid #f00;
+    border-radius: 16px;
+    padding: 0.7rem;
+    background-color: #f00;
+    color: #fff;
+    font-size: 1.5rem;
+}

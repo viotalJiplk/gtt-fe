@@ -46,7 +46,8 @@ const Account = () => {
     }, [])
 
     async function infoLookUp() {
-        let axiosResponse = await axios("/user/@me/", { responseType: "json" }).catch(function (error) {
+        // @ts-expect-error
+        let axiosResponse = await axios("/user/@me/", { responseType: "json", skipAuthRefresh: true  }).catch(function (error) {
             localStorage.removeItem("jwt");
             ErrorReporter("Nejste přihlášeni, nebo nemáte dostatečná práva");
             return error;
@@ -72,7 +73,8 @@ const Account = () => {
     const state = url.searchParams.get("state");
 
     async function startLoginChain() {
-        let axiosResponse = await (axios("/discord/auth", { responseType: "json" }).catch(function (error) {
+        // @ts-expect-error
+        let axiosResponse = await (axios("/discord/auth", { responseType: "json", skipAuthRefresh: true }).catch(function (error) {
             if(error.response.status !== 200){
                 ErrorReporter("Služba pravděpodobně není dostupná. Zkuste akci opakovat za chvíli.");
             }else{
@@ -100,7 +102,9 @@ const Account = () => {
             "headers": {
                 "Content-Type": "application/json"
             },
-            "data": data
+            "data": data,
+            //@ts-expect-error
+            skipAuthRefresh: true 
         }).catch(function (error) {
             if(error.response.status === 401){
                 ErrorReporter("Pravdravděpodobně došlo k restartu serveru. Zkuste akci opakovat.");
@@ -115,8 +119,12 @@ const Account = () => {
             const url = localStorage.getItem("afterlogin");
             localStorage.removeItem("afterlogin");
             //we force reload, so the new jwt would load before we start the code on page
-            // @ts-expect-error
-            window.location.href = url;
+            if(url === "exit"){
+                window.close();
+            }else{
+                // @ts-expect-error
+                window.location.href = url;
+            }
         }else{
             window.location.href = "/account";
         }
@@ -147,6 +155,8 @@ const Account = () => {
             "headers": {
                 "Content-Type": "application/json"
             },
+            // @ts-expect-error
+            skipAuthRefresh: true,
             "data": {
                 "name": name,
                 "surname": surname,

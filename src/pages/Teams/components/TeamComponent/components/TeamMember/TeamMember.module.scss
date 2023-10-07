@@ -1,0 +1,25 @@
+@import '../../../../../../variables.scss';
+
+.TeamMember{
+    
+    margin: 1rem;
+    margin-top: 1.5rem;
+    margin-left: 2rem;
+    width: 47.5vw;
+    background-color: $color-blue-dark-1;
+    border-radius: 16px;
+    position: relative;
+    color: $color-white;
+
+    &__memberName{
+        padding: 2vh;
+        font-size: 2rem;
+        display: inline-block;
+    }
+
+    &__role{
+        font-size: 1.8rem;
+        display: inline;
+        margin-left: 5vw;
+    }
+}

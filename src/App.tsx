@@ -9,6 +9,7 @@ import Sponsors from './pages/Sponsors/Sponsors';
 import ErrorPage from './pages/ErrorPage/ErrorPage';
 import Teams from './pages/Teams/Teams';
 // import Contestants from './pages/Contestants/Contestants';
+import Join from './pages/Join/Join';
 import Footer from './components/layout/Footer/Footer';
 import axios, { addAuthorization } from './axios/axios';
 import ScrollToTop from './components/other/ScrollToTop/ScrollToTop';
@@ -24,6 +25,12 @@ function App() {
   useEffect(() => {
     axios('/schools').then((response) => {
         context.setSchools(response.data.schools);
+    })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  useEffect(() => {
+    axios('/game/all/').then((response) => {
+        context.setGames(response.data.games);
     })
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -55,6 +62,7 @@ function App() {
             <Route path="/sponsors" exact component={Sponsors}></Route>
             <Route path="/documents" exact component={Documents}></Route>
             <Route path="/account" exact component={Account}></Route>
+            <Route path="/join" exact component={Join}></Route>
             {/* <Route path="/contestants" exact component={Contestants}></Route> */}
             <Route path="/teams" exact component={Teams}></Route>
             <Route path="/rules" exact component={Rules}></Route>
