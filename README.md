@@ -2,7 +2,37 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
+## Docker install
+
+1. download `.env`, `docker-compose.yml` and `create.sql`
+```bash
+wget https://raw.githubusercontent.com/viotalJiplk/gttbe-2/main/.env-template -O .env &&
+wget https://raw.githubusercontent.com/viotalJiplk/gttfe-2/main/docker-compose.yml &&
+wget https://raw.githubusercontent.com/viotalJiplk/gttbe-2/main/create.sql
+```
+2. get `client_id`, `client_secret` and add `redirect_url`
+ - create Discord "App" [discord.com/developers/applications](https://discord.com/developers/applications?new_application=true)
+ - go to *OAuth2* tab
+ - copy `Client ID` and `Client Secret` and add them to `.env` file
+ - add `http://127.0.0.1:5000/account` to Redirects
+3. create database
+ - run 
+ ```bash
+ docker compose up -d
+ ```
+ - go to [http://127.0.0.1:5000/adminer/](http://127.0.0.1:5000/adminer/)
+ - log in (Server: gtt-mariadb credentials are in `.env` file)
+ - click SQL command
+ - copy content from `create.sql` and click execute
+4. done
+ - run 
+ ```bash
+ docker compose up -d
+ ```
+ - you can find all premade "tests" over at: [127.0.0.1:5000/](http://127.0.0.1:5000/)
+
+
+## Dev build scripts
 
 In the project directory, you can run:
 
@@ -38,9 +68,3 @@ If you aren’t satisfied with the build tool and configuration choices, you can
 Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
