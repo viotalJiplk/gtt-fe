@@ -62,7 +62,7 @@ const schedule = [
 
     {
         date: '26.11.2022',
-        description: 'Zápas ve hře Minecraft, kvalifikace Rocket League, semifinále CS:GO',
+        description: 'Zápas ve hře Minecraft, kvalifikace Rocket League, semifinále CS2',
         events: [
             {
                 game: GAMETYPES.MINECRAFT,
@@ -96,7 +96,7 @@ const schedule = [
 
     {
         date: '27.11.2022',
-        description: 'Finále her Rocket League, League of Legends, CS:GO. Od 10:45 do 11:45 semifinále hry League of Legends.',
+        description: 'Finále her Rocket League, League of Legends, CS2. Od 10:45 do 11:45 semifinále hry League of Legends.',
         events: [
             {
                 game: GAMETYPES.ROCKET_LEAGUE,
