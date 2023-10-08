@@ -152,7 +152,7 @@ const Join = () => {
         history.push("/teams");
     }
 
-    return <motion.div transition={routeTransition} key="registration" variants={routeVariants} initial="initial" animate="visible" exit="hidden" className={classes.Join}>
+    return <motion.div transition={routeTransition} key="join" variants={routeVariants} initial="initial" animate="visible" exit="hidden" className={classes.Join}>
         <div className={classes.Join__spacer}></div>
         {loaded && <div>
             { !(joinString && teamId) && <Row>

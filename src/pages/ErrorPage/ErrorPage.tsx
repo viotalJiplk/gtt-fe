@@ -8,7 +8,7 @@ import { routeTransition, routeVariants } from '../../animations/animations';
 const ErrorPage = () =>{
     const url = new URL(window.location.href);
     const error = url.searchParams.get("errordescr");
-    return <motion.div variants={routeVariants} transition={routeTransition} exit="hidden" animate="visible" initial="initial" className={classes.ErrorPage}>
+    return <motion.div variants={routeVariants} key="errorPage" transition={routeTransition} exit="hidden" animate="visible" initial="initial" className={classes.ErrorPage}>
         <Heading type={headingTypes.main} className={classes.ErrorPage__heading}>Nastala chyba</Heading>
         <Paragraph className={''}>{error}</Paragraph>
         </motion.div>

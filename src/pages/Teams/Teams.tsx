@@ -7,6 +7,8 @@ import { useLocation } from 'react-router';
 import { useHistory } from "react-router-dom";
 import TeamComponent from './components/TeamComponent/TeamComponent';
 import Submit from '../../components/form/Submit/Submit';
+import { motion } from 'framer-motion';
+import { routeTransition, routeVariants } from "../../animations/animations";
 
 function Teams() {
     const history = useHistory();
@@ -42,16 +44,14 @@ function Teams() {
     // eslint-disable-next-line
     }, [context]);
 
-    return (
-        <div className={classes.TeamsUI}>
+    return (<motion.div className={classes.TeamsUI} key="teams" variants={routeVariants} transition={routeTransition} exit="hidden" animate="visible" initial="initial">
             <div className={classes.TeamsUI__spacer}></div>
             <div className={classes.TeamsUI__teamholders}>
                 <Submit className={classes.TeamsUI__newbutton} onClick={function(){history.push("/join")}}>Nový tým</Submit>
                 {teams}
             </div>
             <div className={classes.TeamsUI__spacer}></div>
-        </div>
-    )
+    </motion.div>)
 }
 
 export default Teams;

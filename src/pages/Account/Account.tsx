@@ -177,7 +177,7 @@ const Account = () => {
         });
     }
 
-    return <motion.div transition={routeTransition} key="registration" variants={routeVariants} initial="initial" animate="visible" exit="hidden" className={classes.Registration}>
+    return <motion.div transition={routeTransition} key="account" variants={routeVariants} initial="initial" animate="visible" exit="hidden" className={classes.Registration}>
         {!loaded && <Loading></Loading>}
         {loaded && <div>
             <Heading className={classes.Registration__heading} type={headingTypes.main}>Vaše údaje</Heading>
