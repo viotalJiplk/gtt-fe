@@ -10,7 +10,7 @@ import rocketImage from '../../../../assets/rocket-wallpaper.webp';
 import lolImage from '../../../../assets/lol-wallpaper.jpg';
 import minecraftImage from '../../../../assets/minecraft-wallpaper.webp';
 import valorantImage from '../../../../assets/valorant-wallpaper.webp';
-import counterImage from '../../../../assets/counter-wallpaper.webp';
+import counterImage from '../../../../assets/counter-wallpaper.jpeg';
 
 import { useState } from 'react';
 

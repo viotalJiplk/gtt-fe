@@ -28,7 +28,7 @@ const HowToRegister: React.FC<RouteComponentProps> = (props) => {
             props.history.push('/join')
             window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
         }}className={classes.HowToRegister__cta}>
-            Založ tým.
+            Založ tým
         </CTA>    
     </Section>
 };
