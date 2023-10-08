@@ -17,7 +17,6 @@ import { Context } from './store/context';
 import { useLocation } from 'react-router';
 import { useEffect, useContext} from 'react';
 import Rules from './pages/Rules/Rules';
-import { AnimatePresence } from 'framer-motion';
 import { isExpired, decodeToken } from "react-jwt";
 
 function App() {
@@ -54,21 +53,19 @@ function App() {
     <div className={classes.App}>
       <Navigation className={classes.App__navigation}></Navigation>
       <div className={classes.App__content}>
-        <AnimatePresence exitBeforeEnter>
-          <ScrollToTop></ScrollToTop>
-          <Route path="/success" component={Success}></Route>
-          <Switch location={location} key={location.key}>
-            <Route path="/Error" exact component={ErrorPage}></Route>
-            <Route path="/sponsors" exact component={Sponsors}></Route>
-            <Route path="/documents" exact component={Documents}></Route>
-            <Route path="/account" exact component={Account}></Route>
-            <Route path="/join" exact component={Join}></Route>
-            {/* <Route path="/contestants" exact component={Contestants}></Route> */}
-            <Route path="/teams" exact component={Teams}></Route>
-            <Route path="/rules" exact component={Rules}></Route>
-            <Route path="/" component={Home}></Route>
-          </Switch>
-        </AnimatePresence>
+        <ScrollToTop></ScrollToTop>
+        <Route path="/success" component={Success}></Route>
+        <Switch location={location} key={location.key}>
+          <Route path="/Error" exact component={ErrorPage}></Route>
+          <Route path="/sponsors" exact component={Sponsors}></Route>
+          <Route path="/documents" exact component={Documents}></Route>
+          <Route path="/account" exact component={Account}></Route>
+          <Route path="/join" exact component={Join}></Route>
+          {/* <Route path="/contestants" exact component={Contestants}></Route> */}
+          <Route path="/teams" exact component={Teams}></Route>
+          <Route path="/rules" exact component={Rules}></Route>
+          <Route path="/" component={Home}></Route>
+        </Switch>
       </div>
       <Footer className={classes.App__footer}></Footer>
     </div>
