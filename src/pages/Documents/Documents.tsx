@@ -8,15 +8,16 @@ import { motion } from 'framer-motion';
 
 const Documents = () => {
     const documentList = [/*{name: 'Zpracování osobních údajů', link: '/agreement.pdf'}*/{name: 'Souhlas rodičů s účastí na turnaji', link: '/parent_agreement.pdf'}]
-    const documentElements = documentList.map((document) => {
-        return <a href={document.link}><div className={classes.Documents__document}>
+    const documentElements = documentList.map((document, id) => {
+        return <a key={id} href={document.link}><div className={classes.Documents__document}>
             <div>
                 <div className={classes.Documents__image}><DocumentIcon></DocumentIcon></div>
+                </div>
+                <div className={classes.Documents__name}>
+                    {document.name}
+                </div>
             </div>
-            <div className={classes.Documents__name}>
-                {document.name}
-            </div>
-        </div></a>
+        </a>
     })
     return <motion.div className={classes.Documents} key="documents" variants={routeVariants} transition={routeTransition} exit="hidden" animate="visible" initial="initial">
         <Section className={''}>

@@ -25,7 +25,7 @@ function Teams() {
             for(let index in userTeams.data){
                 let element = userTeams.data[index];
                 teamArray.push(
-                    <div className={classes.TeamsUI__teamholder}>
+                    <div key={element.teamId} className={classes.TeamsUI__teamholder}>
                         <TeamComponent teamName={element.name} teamId={element.teamId} role={element.role} joinString={element.joinString} gameId={element.gameid}></TeamComponent>
                     </div>
                 );

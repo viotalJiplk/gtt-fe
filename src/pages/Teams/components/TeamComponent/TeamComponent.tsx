@@ -30,7 +30,7 @@ const TeamComponent: React.FC<TeamComponentProps> = (props) => {
         // @ts-expect-error
         teamData.data.Players.forEach(player => {
             tmpTeams.push(
-                <TeamMember name={player.nick} useId={player.userid} teamId={teamId} role={player.role} canKick={role === "Captain"} kickFunction={function() {
+                <TeamMember key={player.userid} name={player.nick} useId={player.userid} teamId={teamId} role={player.role} canKick={role === "Captain"} kickFunction={function() {
                     axios.delete("/team/id/"+ props.teamId +"/kick/"+ player.userid +"/").catch(function(error){
                         ErrorReporter("Neaznámá chyba. Zkuste akci opakovat později.");
                     });

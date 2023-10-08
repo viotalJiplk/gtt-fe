@@ -162,37 +162,37 @@ const ThisYear = () => {
         } else {
             BGclassName = classes.ThisYear__backgroundImage;
         }
-        return <div className={classes.ThisYear__imageDiv}><img className={BGclassName} src={imgSrc} alt="pozadí"></img></div>
+        return <div key={id} className={classes.ThisYear__imageDiv}><img className={BGclassName} src={imgSrc} alt="pozadí"></img></div>
     });
-    const descriptionElements = schedule[currentDay].events.map((event) => {
-        const times = event.segments.map((segment) => { 
-            return <div className={classes.ThisYear__description__time}>    
+    const descriptionElements = schedule[currentDay].events.map((event, id) => {
+        const times = event.segments.map((segment, id) => { 
+            return <div key={id} className={classes.ThisYear__description__time}>    
                 <p>{segment.beginTime} - {segment.endTime}</p>
             </div>
         });
-        return <div className={classes.ThisYear__description}>
-            <GameLogo className={''} game={event.game}></GameLogo>
-            <div className={classes.ThisYear__description__times}>
+        return <div key={id} className={classes.ThisYear__description}>
+            <GameLogo key="GameLogo" className={''} game={event.game}></GameLogo>
+            <div key="times" className={classes.ThisYear__description__times}>
                 {times}
             </div>
         </div>
     });
     return <Section className={classes.ThisYear}>
-                    <motion.div key={currentDay} initial={{y: '-100%', opacity: 0}} animate={{opacity: 1, y: 0}} exit={{opacity: 0, y: '100%'}} transition={{duration: 0.5}}className={classes.ThisYear__dynamic}>
-                        <div className={classes.ThisYear__background}>
-                            {backgroundElements}
+                <motion.div key={currentDay} initial={{y: '-100%', opacity: 0}} animate={{opacity: 1, y: 0}} exit={{opacity: 0, y: '100%'}} transition={{duration: 0.5}}className={classes.ThisYear__dynamic}>
+                    <div key="background" className={classes.ThisYear__background}>
+                        {backgroundElements}
+                    </div>
+                    <div key="content" className={classes.ThisYear__content}>
+                        <Heading key="heading" className={classes.ThisYear__heading} type={headingTypes.h1}>{schedule[currentDay].date}</Heading>
+                        <Paragraph key="dayDescription" className={classes.ThisYear__paragraph}>
+                            {schedule[currentDay].description}
+                        </Paragraph>
+                        <div key="descriptionElementHolder" className={classes.ThisYear__descriptions}>
+                            {descriptionElements}
                         </div>
-                        <div className={classes.ThisYear__content}>
-                            <Heading className={classes.ThisYear__heading} type={headingTypes.h1}>{schedule[currentDay].date}</Heading>
-                            <Paragraph className={classes.ThisYear__paragraph}>
-                                {schedule[currentDay].description}
-                            </Paragraph>
-                            <div className={classes.ThisYear__descriptions}>
-                                {descriptionElements}
-                            </div>
-                        </div>
-                    </motion.div>
-                <TimeAxis schedule={schedule} currentDay={currentDay} setCurrentDay={setCurrentDay} className={classes.ThisYear__timeAxis}></TimeAxis>
+                    </div>
+                </motion.div>
+                <TimeAxis key="timeaxis" schedule={schedule} currentDay={currentDay} setCurrentDay={setCurrentDay} className={classes.ThisYear__timeAxis}></TimeAxis>
             </Section>
 };
 

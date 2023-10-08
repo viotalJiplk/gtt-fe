@@ -17,8 +17,8 @@ const GeneralRules = () => {
             let games = [];
             for(let game in context.state.games){
                 let gamename = context.state.games[game].name;
-                game = GAMENAMES[gamename];
-                games.push(<Paragraph className={classes.GeneralRules__paragraph}><a href={"/rules/"+ gamename +".pdf"}>{game}</a></Paragraph>);
+                let gameDisplay = GAMENAMES[gamename];
+                games.push(<Paragraph key={gamename} className={classes.GeneralRules__paragraph}><a href={"/rules/"+ gamename +".pdf"}>{gameDisplay}</a></Paragraph>);
             }
             setRules(games);
         }
