@@ -1,19 +1,19 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import ReactDOM from 'react-dom/client';
 import './index.scss';
 import App from './App';
 import ContextProvider from './store/ContextProvider';
 import { BrowserRouter} from 'react-router-dom';
 
-
-ReactDOM.render(
+// @ts-expect-error
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
   <React.StrictMode>
     <BrowserRouter>
       <ContextProvider>
         <App />
       </ContextProvider>
     </BrowserRouter>
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 );
 
