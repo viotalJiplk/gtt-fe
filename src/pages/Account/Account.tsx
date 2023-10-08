@@ -37,13 +37,7 @@ const Account = () => {
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [context, history])
-    useEffect(() => {
-        if ((url !== null) && (code !== null) && (state !== null)) {
-            getToken(code, state);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [])
+    }, [context, history]);
 
     async function infoLookUp() {
         // @ts-expect-error
@@ -83,51 +77,12 @@ const Account = () => {
         }));
 
         const redirectUrl = new URL(axiosResponse.data.redirect_url )
-        let newUrl = window.location.origin + "/account";
+        let newUrl = window.location.origin + "/token";
         if (newUrl.includes("localhost")) {
             newUrl = newUrl.replace("localhost", "127.0.0.1");
         }
         redirectUrl.searchParams.set("redirect_uri", newUrl);
         window.location.href = redirectUrl.href;
-    }
-
-    async function getToken(code: string, state: string) {
-        let data = {
-            "code": code,
-            "state": state,
-            "redirect_uri": window.location.href.split("?")[0],
-        }
-        let response = await axios("/discord/token", {
-            "method": "POST",
-            "headers": {
-                "Content-Type": "application/json"
-            },
-            "data": data,
-            //@ts-expect-error
-            skipAuthRefresh: true 
-        }).catch(function (error) {
-            if(error.response.status === 401){
-                ErrorReporter("Pravdravděpodobně došlo k restartu serveru. Zkuste akci opakovat.");
-            }else if(error.response.status !== 200){
-                ErrorReporter("Neznámá chyba.");
-            }else{
-                return error.response;
-            }
-        });
-        localStorage.setItem("jwt", response.data.jws);
-        if(localStorage.getItem("afterlogin") !== null){
-            const url = localStorage.getItem("afterlogin");
-            localStorage.removeItem("afterlogin");
-            //we force reload, so the new jwt would load before we start the code on page
-            if(url === "exit"){
-                window.close();
-            }else{
-                // @ts-expect-error
-                window.location.href = url;
-            }
-        }else{
-            window.location.href = "/account";
-        }
     }
 
     const onSubmit = async function () {
@@ -175,6 +130,7 @@ const Account = () => {
                 window.location.href = "/account"
             }
         });
+        setInvalidMessages(['Úspěšně nastaveno.']);
     }
 
     return <motion.div transition={routeTransition} key="account" variants={routeVariants} initial="initial" animate="visible" exit="hidden" className={classes.Registration}>
