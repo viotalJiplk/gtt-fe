@@ -10,10 +10,6 @@
 
     position: relative;
 
-    &.opened {
-        z-index: 2;
-    }
-
     &__options {
         border: 1px solid $color-white;
         padding-left: 2rem;
@@ -28,10 +24,11 @@
         top: 100%;
         left: 0;
         overflow-y: scroll;
+        z-index: 2;
 
-        &:not(.opened) {
-            display: none;
-        }
+        // &:not(.opened) {
+        //     display: none;
+        // }
     }
     &__option {
         padding-top: .5rem;

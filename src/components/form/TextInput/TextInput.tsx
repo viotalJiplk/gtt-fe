@@ -6,13 +6,19 @@ interface TextInputProps {
     setFunction?: Function,
     value?: string
     id?: string,
-    onBlur?: Function
+    onBlur?: Function,
+    onFocus?: Function
 }
 
 const TextInput: React.FC<TextInputProps> = props => {
     return <input onBlur={() => {
         if (props.onBlur) {
             props.onBlur();
+        }
+    }}
+    onFocus={() => {
+        if (props.onFocus) {
+            props.onFocus();
         }
     }} spellCheck="false" type="text" value={props.value} id={props.id} onChange={(e) => {
         if (props.setFunction) {

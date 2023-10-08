@@ -1,6 +1,6 @@
 import classes from './SelectInput.module.scss';
 import TextInput from '../TextInput/TextInput';
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState } from 'react';
 
 interface SelectInputProps {
     className?: string,
@@ -14,35 +14,34 @@ interface SelectInputProps {
 const SelectInput: React.FC<SelectInputProps> = props => {
     const [opened, setOpened] = useState(false);
 
-    const toggleOpened = useCallback(() => {
+    console.log("Render");
+
+    const handleComponentAFocus = () => {
         setOpened(true);
-    }, [])
-    const close = useCallback(() => {
-        setOpened(false);
-        document.removeEventListener('click', close);
-    }, []);
+      };
+    
+      const handleComponentABlur = () => {
+        // I know this is awfull but I wasn't able to find another way around
+        setTimeout(()=>{setOpened(false)}, 500);
+      };
 
-    useEffect(() => {
-        if (opened) {
-            document.addEventListener('click', close);
-        }
-    }, [opened, close])
+    function returnOptions(){
+        return props.options.map((option, id) => {
+            return <div key={id} onClick={() => {
+                if (props.setFunction) {
+                    props.setFunction(option.value);
+                }
+            }}className={classes.SelectInput__option}>{option.display}</div>
+        });
+    }
 
-    const options = props.options.map((option, id) => {
-        return <div key={id} onClick={() => {
-            if (props.setFunction) {
-                props.setFunction(option.value);
-            }
-        }}className={classes.SelectInput__option}>{option.display}</div>
-    });
-
-    return <div onClick={() => {
-        toggleOpened();
-    }}id={props.id} className={[classes.SelectInput, opened ? classes.opened : ''].join(' ')}>
+    return <div onFocus={handleComponentAFocus}
+    onBlur={handleComponentABlur}
+    id={props.id} className={classes.SelectInput}>
         <TextInput setFunction={props.textSetFunction} value={props.value}></TextInput>
-        <div className={[classes.SelectInput__options, opened ? classes.opened : ''].join(' ')}>
-            {options}
-        </div>
+        {opened && <div className={classes.SelectInput__options}>
+            {returnOptions()}
+        </div>}
     </div>
 };
 
