@@ -14,7 +14,7 @@ import counterImage from '../../../../assets/counter-wallpaper.jpeg';
 
 import { useState } from 'react';
 
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 
 const schedule = [
@@ -178,7 +178,6 @@ const ThisYear = () => {
         </div>
     });
     return <Section className={classes.ThisYear}>
-                <AnimatePresence exitBeforeEnter={true}>
                     <motion.div key={currentDay} initial={{y: '-100%', opacity: 0}} animate={{opacity: 1, y: 0}} exit={{opacity: 0, y: '100%'}} transition={{duration: 0.5}}className={classes.ThisYear__dynamic}>
                         <div className={classes.ThisYear__background}>
                             {backgroundElements}
@@ -193,7 +192,6 @@ const ThisYear = () => {
                             </div>
                         </div>
                     </motion.div>
-                </AnimatePresence>
                 <TimeAxis schedule={schedule} currentDay={currentDay} setCurrentDay={setCurrentDay} className={classes.ThisYear__timeAxis}></TimeAxis>
             </Section>
 };
