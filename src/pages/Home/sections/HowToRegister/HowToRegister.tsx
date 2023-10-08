@@ -11,21 +11,24 @@ import classes from './HowToRegister.module.scss';
 const HowToRegister: React.FC<RouteComponentProps> = (props) => {
     return <Section className={classes.HowToRegister}>
         <Heading className={classes.HowToRegister__heading} type={headingTypes.h1}>Jak se přihlásit?</Heading>
-        <Paragraph className={classes.HowToRegister__paragraph}>
+        {/*<Paragraph className={classes.HowToRegister__paragraph}>
             Abyste se mohli přihlásit, musí být Vaše škola na seznamu pozvaných škol. Na seznam pozvaných škol se můžete podívat <span className={classes.HowToRegister__link}><NavLink to="/contestants">zde</NavLink></span>.
         </Paragraph>
         <Paragraph className={[classes.HowToRegister__paragraph, classes.HowToRegister__paragraph_detail].join(' ')}>
            Pokud Vaše škola není na seznamu pozvaných škol, neváhejte nám napsat na <span className={classes.HowToRegister__link}><a href="mailto:turnajvpocitacovychhrach@gym-tisnov.cz">turnajvpocitacovychhrach@gym-tisnov.cz</a></span>.
            Třeba ji ještě stihneme pozvat!
+        </Paragraph>*/}
+        <Paragraph className={classes.HowToRegister__paragraph}>
+            Nejdříve si musíte <span className={classes.HowToRegister__link}><NavLink to="/account">vytvořit účet</NavLink></span>. (Nezapomeň vyplnit důležité informace, které o tobě potřebujeme vědět.)
         </Paragraph>
         <Paragraph className={classes.HowToRegister__paragraph}>
-           Pak už stačí jenom přečíst <span className={classes.HowToRegister__link}><NavLink to="/rules">pravidla</NavLink></span> (jsou důležitá), kliknout na tlačítko níže a vyplnit registraci! 
+           Pak už stačí jenom přečíst <span className={classes.HowToRegister__link}><NavLink to="/rules">pravidla</NavLink></span> (jsou důležitá), najít spoluhráče, kliknout na tlačítko níže a vytvořit nový tým! 
         </Paragraph>
         <CTA onClick={() => {
-            props.history.push('/registration')
+            props.history.push('/join')
             window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
         }}className={classes.HowToRegister__cta}>
-            Registrace
+            Založ tým.
         </CTA>    
     </Section>
 };
