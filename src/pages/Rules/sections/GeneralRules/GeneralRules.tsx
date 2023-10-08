@@ -3,8 +3,25 @@ import classes from './GeneralRules.module.scss';
 import Heading from "../../../../components/typography/Heading";
 import Paragraph from "../../../../components/typography/Paragraph";
 import { headingTypes } from "../../../../types/types";
+import { GAMENAMES } from "../../../../constants/constants";
+import { useState, useContext, useEffect } from "react";
+import { Context } from "../../../../store/context";
 
 const GeneralRules = () => {
+    const [rules, setRules] = useState<JSX.Element[]>([]);
+    const context = useContext(Context);
+    useEffect(function(){
+        if(context.state.games !== undefined){
+            let games = [];
+            for(let game in context.state.games){
+                let gamename = context.state.games[game].name;
+                game = GAMENAMES[gamename];
+                games.push(<Paragraph className={classes.GeneralRules__paragraph}><a href={"/rules/"+ gamename +".pdf"}>{game}</a></Paragraph>);
+            }
+            setRules(games);
+        }
+    }, [context]);
+
     return <Section className={classes.GeneralRules}>
         <Heading className={classes.GeneralRules__heading} type={headingTypes.h2}>Obecná pravidla turnaje</Heading>
         <Heading className={classes.GeneralRules__subheading} type={headingTypes.h3}>Registrace</Heading>
@@ -44,11 +61,7 @@ const GeneralRules = () => {
         </div>
         <Heading className={classes.GeneralRules__heading} type={headingTypes.h2}>Pravidla pro jednotlivé hry</Heading>
         <div className={classes.GeneralRules__list}>
-            <Paragraph className={classes.GeneralRules__paragraph}><a href="/rules/CS_GO.pdf">Counter-Strike: Global Offensive</a></Paragraph>
-            <Paragraph className={classes.GeneralRules__paragraph}><a href="/rules/MINECRAFT.pdf">Minecraft</a></Paragraph>
-            <Paragraph className={classes.GeneralRules__paragraph}><a href="/rules/LOL.pdf">League of Legends</a></Paragraph>
-            <Paragraph className={classes.GeneralRules__paragraph}><a href="/rules/ROCKET_LEAGUE.pdf">Rocket League</a></Paragraph>
-            <Paragraph className={classes.GeneralRules__paragraph}><a href="/rules/VALORANT.pdf">Valorant</a></Paragraph>
+            {rules}
         </div>
     </Section>
 }
