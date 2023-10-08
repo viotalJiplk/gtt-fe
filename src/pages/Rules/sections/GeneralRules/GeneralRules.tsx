@@ -6,8 +6,10 @@ import { headingTypes } from "../../../../types/types";
 import { GAMENAMES } from "../../../../constants/constants";
 import { useState, useContext, useEffect } from "react";
 import { Context } from "../../../../store/context";
+import { useHistory } from "react-router-dom";
 
 const GeneralRules = () => {
+    const history = useHistory();
     const [rules, setRules] = useState<JSX.Element[]>([]);
     const context = useContext(Context);
     useEffect(function(){
@@ -20,7 +22,7 @@ const GeneralRules = () => {
             }
             setRules(games);
         }
-    }, [context]);
+    }, [context, history] );
 
     return <Section className={classes.GeneralRules}>
         <Heading className={classes.GeneralRules__heading} type={headingTypes.h2}>Obecná pravidla turnaje</Heading>
