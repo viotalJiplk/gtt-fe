@@ -30,24 +30,21 @@ const GeneralRules = () => {
         <Heading className={classes.GeneralRules__heading} type={headingTypes.h2}>Obecná pravidla turnaje</Heading>
         <Heading className={classes.GeneralRules__subheading} type={headingTypes.h3}>Registrace</Heading>
         <div className={classes.GeneralRules__list}>
-        <Paragraph className={classes.GeneralRules__paragraph}>Registrace probíhá přes webové stránky turnaje  a to do 15.11.2022 23:59.</Paragraph>
+        <Paragraph className={classes.GeneralRules__paragraph}>Registrace probíhá přes webové stránky turnaje.</Paragraph>
+        <Paragraph className={classes.GeneralRules__paragraph}>Začátek a konec registrace je uveden na stránkách každé hry</Paragraph>
         <Paragraph className={classes.GeneralRules__paragraph}>Každý registrovaný tým musí uvést školu, za kterou hraje.</Paragraph>
         <Paragraph className={classes.GeneralRules__paragraph}>Každý účastník může hrát za jinou školu, než na které je.</Paragraph>
         <Paragraph className={classes.GeneralRules__paragraph}>Každý účastník se může zaregistrovat pro danou hru právě jednou.</Paragraph>
-        <Paragraph className={classes.GeneralRules__paragraph}>Žádní dva účastníci nemohou mít stejný mail ani stejný discord.</Paragraph>
+        <Paragraph className={classes.GeneralRules__paragraph}>Žádní dva účastníci nemohou mít stejný discord.</Paragraph>
         <Paragraph className={classes.GeneralRules__paragraph}>Každý účastník musí být studentem nebo učitelem na střední škole, osmiletém gymnáziu nebo druhém stupni základní školy.</Paragraph>
         <Paragraph className={classes.GeneralRules__paragraph}>Pokud je účastník žákem základní školy a odpovídajících ročníků osmiletého gymnázia, nejsou mu zpřístupněny všechny hry.  </Paragraph>
-        <Paragraph className={classes.GeneralRules__paragraph}>Pro každý tým je povolen maximálně jeden externista - člověk, který je ze školy, která není na seznamu pozvaných škol.</Paragraph>
-        <Paragraph className={classes.GeneralRules__paragraph}>Tým se nemůže skládat pouze z jednoho externisty.</Paragraph>
-        <Paragraph className={classes.GeneralRules__paragraph}>Každý registrovaný tým musí mít právě jednoho kapitána.</Paragraph>
-        <Paragraph className={classes.GeneralRules__paragraph}>Pro každý tým je povoleno registrovat maximálně dva záložníky.</Paragraph>
         <Paragraph className={classes.GeneralRules__paragraph}>Každý účastník, který nebude v době turnaje plnoletý, musí před začátkem turnaje poslat vyplněný souhlas rodičů s účastí v turnaji na adresu turnajvpocitacovychhrach@gym-tisnov.cz.</Paragraph>
         <Paragraph className={classes.GeneralRules__paragraph}>Je zakázáno používat vulgární nebo rasistická jména hráčů, vulgární názvy týmů.</Paragraph>
         <Paragraph className={classes.GeneralRules__paragraph}>Každý účastník je povinen se do dvou dnů od registrace připojit na discord GT Tournamentu.</Paragraph>
         <Paragraph className={classes.GeneralRules__paragraph}>Organizátor si vyhrazuje právo vyloučit účastníka z turnaje z důvodu porušení pravidel.</Paragraph>
         <Paragraph className={classes.GeneralRules__paragraph}>Pokud účastník nesouhlasí s rozhodnutím organizátora, může se odvolat k hlavnímu organizátorovi.</Paragraph>
-        <Paragraph className={classes.GeneralRules__paragraph}>Každý účastník je na požádání organizátora povinen uvést jeho školu.</Paragraph>
-        <Paragraph className={classes.GeneralRules__paragraph}>Tým musí informovat organizátory o jakýchkoliv proběhlých změnách ve složení týmu a v údajích, které byly vyplněny do formuláře.</Paragraph>
+        <Paragraph className={classes.GeneralRules__paragraph}>Každý účastník je na požádání organizátora povinen prokázat, že je studentem na dané škole.</Paragraph>
+        <Paragraph className={classes.GeneralRules__paragraph}>Tým musí udržovat svou registraci aktuální.</Paragraph>
         <Paragraph className={classes.GeneralRules__paragraph}>Organizátor si vyhrazuje právo rozhodovat o případných trestech individuálně.</Paragraph>
         <Paragraph className={classes.GeneralRules__paragraph}>Organizátor si vyhrazuje právo měnit pravidla a rozhodovat o případných nesrovnalostech.</Paragraph>
         </div>
