@@ -15,5 +15,28 @@
     ul{
         margin-left: 2rem;
     }
+    table{
+        margin-top: 2rem;
+        color:$color-white;
+        font-size: 2rem;
+        border-collapse: collapse;
+    }
+
+    th {
+        padding: 1rem;
+        border: 1px solid $color-blue;
+    }
+
+    td {
+        text-align: center;
+        padding: 1rem;
+        border: 1px solid $color-blue;
+    }
+
+    tr :first-child {
+        text-align: left;
+        padding: 1rem;
+        border: 1px solid $color-blue;
+    }
     color: $color-white;
 }
