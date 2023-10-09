@@ -27,6 +27,17 @@ const SchoolSelect: React.FC<SchoolSelectProps> = props => {
     const context = useContext(Context);
     let schools: {value: number, display: string}[] = [];
 
+    function getSchoolBySchoolId(id:number){
+        for(let school in context.state.schools){
+            school = context.state.schools[school];
+            // @ts-expect-error
+            if(school.schoolId === id){
+                return school;
+            }
+        }
+        return {"name": "", "id": NaN};
+    }
+
     if (context.state.schools) {
         schools = context.state.schools.sort((prevSchool: School, thisSchool: School) => {
             return prevSchool.name.localeCompare(thisSchool.name);
@@ -44,8 +55,11 @@ const SchoolSelect: React.FC<SchoolSelectProps> = props => {
     }
 
     useEffect(()=>{
-        if((props.currentSchool||NaN) < schools.length){
-            setInputValue(context.state.schools[(props.currentSchool||-1)].name);
+        if (props.currentSchool){
+            if((props.currentSchool) < schools.length){
+                // @ts-expect-error
+                setInputValue(getSchoolBySchoolId(props.currentSchool).name);
+            }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[props.currentSchool]);
@@ -59,11 +73,15 @@ const SchoolSelect: React.FC<SchoolSelectProps> = props => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     const curOptionChange = (value:number) => {
-        setInputValue(context.state.schools[value - 1].name);
+        let school = getSchoolBySchoolId(value);
+        // @ts-expect-error
+        setInputValue(school.name);
         if (props.setFunction) {
-            props.setFunction(value);
+            // @ts-expect-error
+            props.setFunction(school.schoolId);
         };
-        setCurOption(value);
+        // @ts-expect-error
+        setCurOption(school.schoolId);
     }
 
     return <Row className={props.className}>
