@@ -115,7 +115,7 @@ const Account = () => {
             "data": {
                 "name": name,
                 "surname": surname,
-                "adult": agreed,
+                "adult": adult,
                 "school_id": school
             }
         }).catch(function (error) {

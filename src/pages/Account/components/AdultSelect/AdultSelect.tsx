@@ -16,7 +16,7 @@ const AdultSelect: React.FC<AdultSelectProps> = props => {
         value = 'Ne';
     }
     return <Row>
-        <Label>Bude dospělý v době turnaje</Label>
+        <Label>Budete dospělý v době turnaje?</Label>
         <SelectInput value={value} setFunction={props.setFunction} options={options}></SelectInput>
     </Row>
 };

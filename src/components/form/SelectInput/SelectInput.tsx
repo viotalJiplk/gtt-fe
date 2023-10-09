@@ -29,6 +29,7 @@ const SelectInput: React.FC<SelectInputProps> = props => {
         return props.options.map((option, id) => {
             return <div key={id} onClick={() => {
                 if (props.setFunction) {
+                    console.log(option.value);
                     props.setFunction(option.value);
                 }
             }}className={classes.SelectInput__option}>{option.display}</div>
