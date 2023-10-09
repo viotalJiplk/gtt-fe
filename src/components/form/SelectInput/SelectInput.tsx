@@ -14,8 +14,6 @@ interface SelectInputProps {
 const SelectInput: React.FC<SelectInputProps> = props => {
     const [opened, setOpened] = useState(false);
 
-    console.log("Render");
-
     const handleComponentAFocus = () => {
         setOpened(true);
       };

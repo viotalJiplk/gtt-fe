@@ -28,12 +28,8 @@ const SchoolSelect: React.FC<SchoolSelectProps> = props => {
     let schools: {value: number, display: string}[] = [];
 
     if (context.state.schools) {
-        schools = context.state.schools.sort((prevSchool: string, thisSchool: string) => {
-            if (prevSchool[0] > thisSchool[0]) {
-                return 1;
-            } else {
-                return -1;
-            }
+        schools = context.state.schools.sort((prevSchool: School, thisSchool: School) => {
+            return prevSchool.name.localeCompare(thisSchool.name);
         }).map((school: School, id: number) => {
             return {
                 value: school.schoolId, 
@@ -41,16 +37,15 @@ const SchoolSelect: React.FC<SchoolSelectProps> = props => {
             }
         })
         if (inputValue.length > 0 && curOption === -1) {
-            const regexp = new RegExp(inputValue);
             schools = schools.filter((school) => {
-                return school.display.match(regexp);
+                return school.display.toLocaleLowerCase().includes(inputValue.toLocaleLowerCase());
             });
         }
     }
 
     useEffect(()=>{
         if((props.currentSchool||NaN) < schools.length){
-            setInputValue(schools[(props.currentSchool||-1)-1].display);
+            setInputValue(context.state.schools[(props.currentSchool||-1)].name);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[props.currentSchool]);
@@ -64,7 +59,7 @@ const SchoolSelect: React.FC<SchoolSelectProps> = props => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     const curOptionChange = (value:number) => {
-        setInputValue(schools[value - 1].display);
+        setInputValue(context.state.schools[value - 1].name);
         if (props.setFunction) {
             props.setFunction(value);
         };
