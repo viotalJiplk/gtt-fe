@@ -25,6 +25,7 @@ const Header: React.FC<HeaderProps> = props => {
                 <GameLogo className={classes.Header__gameLogos__logo} game={GAMETYPES.ROCKET_LEAGUE}></GameLogo>
                 <GameLogo className={classes.Header__gameLogos__logo} game={GAMETYPES.LOL}></GameLogo>
                 <GameLogo className={classes.Header__gameLogos__logo} game={GAMETYPES.VALORANT}></GameLogo>
+                <GameLogo className={classes.Header__gameLogos__logo} game={GAMETYPES.R6}></GameLogo>
             </div>
             <div className={classes.Header__content}>
                 <Heading className={classes.Header__heading} type={headingTypes.main}>

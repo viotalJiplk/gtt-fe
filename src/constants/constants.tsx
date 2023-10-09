@@ -5,8 +5,8 @@ export const GAMENAMES: any = {
     [GAMETYPES.COUNTER_STRIKE]: 'Counter-Strike 2',
     [GAMETYPES.MINECRAFT]: 'Minecraft',
     [GAMETYPES.ROCKET_LEAGUE]: 'Rocket League',
-    [GAMETYPES.VALORANT]: 'VALORANT'
-
+    [GAMETYPES.VALORANT]: 'VALORANT',
+    [GAMETYPES.R6]: 'Rainbow Six Siege'
 }
 
 export const Roles: any = {
@@ -16,7 +16,7 @@ export const Roles: any = {
 }
 
 export const Ranks: any ={
-    "COUNTER_STRIKE":[
+    [GAMETYPES.COUNTER_STRIKE]:[
         'Žádný rank',
         'Silver I',
         'Silver II',
@@ -37,10 +37,10 @@ export const Ranks: any ={
         'Supreme Master First Class',
         'Global Elite'
     ],
-    "MINECRAFT":[
+    [GAMETYPES.MINECRAFT]:[
         'Žádný rank',
     ],
-    "LOL":[
+    [GAMETYPES.LOL]:[
         'Žádný rank',
         'Iron IV',
         'Iron III',
@@ -74,7 +74,7 @@ export const Ranks: any ={
         'Grandmaster',
         'Challenger'
     ],
-    "ROCKET_LEAGUE":[
+    [GAMETYPES.ROCKET_LEAGUE]:[
         'Žádný rank',
         'Bronze I',
         'Bronze II',
@@ -99,7 +99,7 @@ export const Ranks: any ={
         'Grand Champion III',
         'Supersonic Legend'
     ],
-    "VALORANT":[
+    [GAMETYPES.VALORANT]:[
         'Žádný rank',
         'Iron 1',
         'Iron 2',
@@ -127,4 +127,42 @@ export const Ranks: any ={
         'Immortal 3',
         'Radiant'
     ],
+    [GAMETYPES.R6]:[
+        'Copper 1',
+        'Copper 2',
+        'Copper 3',
+        'Copper 4',
+        'Copper 5',
+        'Bronze 1',
+        'Bronze 2',
+        'Bronze 3',
+        'Bronze 4',
+        'Bronze 5',
+        'Silver 1',
+        'Silver 2',
+        'Silver 3',
+        'Silver 4',
+        'Silver 5',
+        'Gold 1',
+        'Gold 2',
+        'Gold 3',
+        'Gold 4',
+        'Gold 5',
+        'Platinum 1',
+        'Platinum 2',
+        'Platinum 3',
+        'Platinum 4',
+        'Platinum 5',
+        'Emerald 1',
+        'Emerald 2',
+        'Emerald 3',
+        'Emerald 4',
+        'Emerald 5',
+        'Diamond 1',
+        'Diamond 2',
+        'Diamond 3',
+        'Diamond 4',
+        'Diamond 5',
+        'Champions'
+    ]
 }

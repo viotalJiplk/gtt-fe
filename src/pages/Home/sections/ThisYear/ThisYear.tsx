@@ -11,6 +11,7 @@ import lolImage from '../../../../assets/lol-wallpaper.jpg';
 import minecraftImage from '../../../../assets/minecraft-wallpaper.webp';
 import valorantImage from '../../../../assets/valorant-wallpaper.webp';
 import counterImage from '../../../../assets/counter-wallpaper.jpeg';
+import r6Image from '../../../../assets/r6-wallpaper.jpeg'
 
 import { useState } from 'react';
 
@@ -28,6 +29,15 @@ const schedule = [
                     { 
                         beginTime: '10:00',
                         endTime: '18:00'
+                    }
+                ]
+            },
+            {
+                game: GAMETYPES.R6,
+                segments: [
+                    { 
+                        beginTime: '10:00',
+                        endTime: '11:00'
                     }
                 ]
             },
@@ -153,6 +163,8 @@ const ThisYear = () => {
             backgroundImages.push(rocketImage);
         } else if (event.game === GAMETYPES.VALORANT) {
             backgroundImages.push(valorantImage);
+        } else if (event.game === GAMETYPES.R6) {
+            backgroundImages.push(r6Image);
         }
     })
     const backgroundElements = backgroundImages.map((imgSrc, id) => {
