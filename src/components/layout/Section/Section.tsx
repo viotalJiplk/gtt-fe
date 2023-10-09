@@ -1,7 +1,7 @@
 import classes from './Section.module.scss';
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 
-interface SectionProps {
+interface SectionProps extends PropsWithChildren {
     className: string
 }
 

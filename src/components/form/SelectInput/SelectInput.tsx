@@ -1,8 +1,8 @@
 import classes from './SelectInput.module.scss';
 import TextInput from '../TextInput/TextInput';
-import React, { useState } from 'react';
+import React, { PropsWithChildren, useState } from 'react';
 
-interface SelectInputProps {
+interface SelectInputProps extends PropsWithChildren {
     className?: string,
     setFunction?: Function,
     options: {value: any, display: string}[],

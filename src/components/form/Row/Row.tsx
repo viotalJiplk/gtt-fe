@@ -1,7 +1,7 @@
 import classes from './Row.module.scss';
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 
-interface RowProps {
+interface RowProps extends PropsWithChildren {
     className?: string
 }
 

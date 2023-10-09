@@ -19,6 +19,7 @@ import { useLocation } from 'react-router';
 import { useEffect, useContext} from 'react';
 import Rules from './pages/Rules/Rules';
 import { isExpired, decodeToken } from "react-jwt";
+import GamePage from './pages/GamePage/GamePage';
 
 function App() {
   const context = useContext(Context);
@@ -63,6 +64,7 @@ function App() {
           <Route path="/account" exact component={Account}></Route>
           <Route path="/join" exact component={Join}></Route>
           <Route path="/token" exact component={Token}></Route>
+          <Route path="/gamepage" exact component={GamePage}></Route>
           {/* <Route path="/contestants" exact component={Contestants}></Route> */}
           <Route path="/teams" exact component={Teams}></Route>
           <Route path="/rules" exact component={Rules}></Route>

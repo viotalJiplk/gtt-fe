@@ -1,8 +1,8 @@
 import classes from './typography.module.scss';
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import { headingTypes } from '../../types/types';
 
-interface HeadingProps {
+interface HeadingProps extends PropsWithChildren{
     className: string;
     type: headingTypes;
     onClick?: () => void

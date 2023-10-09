@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import classes from './typography.module.scss';
 
-interface ParagraphProps {
+interface ParagraphProps extends PropsWithChildren {
     className: string
 }
 

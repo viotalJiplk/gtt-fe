@@ -1,4 +1,4 @@
-import { useReducer, useCallback } from 'react';
+import { useReducer, useCallback, PropsWithChildren } from 'react';
 import {Context/*, defaultContextCreator */} from './context';
 import { actionTypes } from './actionTypes';
 import React from 'react';
@@ -22,15 +22,15 @@ export const reducer = (state: stateInterface, action: {type: actionTypes, data:
     }
 };
 
-const ContextProvider: React.FC<{}> = props => {
+const ContextProvider: React.FC<PropsWithChildren> = props => {
     const [state, dispatch] = useReducer(reducer, {schools: [], discordId: "", games: []});
-    const setSchools = useCallback((schools) => {
+    const setSchools = useCallback((schools:any) => {
         dispatch({type: actionTypes.SET_SCHOOLS, data: {schools: schools}})
     }, []);
-    const setDiscordId = useCallback((discordId) => {
+    const setDiscordId = useCallback((discordId:any) => {
         dispatch({type: actionTypes.SET_DISCORDID, data: {discordId: discordId}})
     }, []);
-    const setGames = useCallback((games) => {
+    const setGames = useCallback((games:any) => {
         dispatch({type: actionTypes.SET_GAMES, data: {games: games}})
     }, []);
 

@@ -1,7 +1,7 @@
 import classes from './TextInput.module.scss';
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 
-interface TextInputProps {
+interface TextInputProps extends PropsWithChildren {
     className?: string,
     setFunction?: Function,
     value?: string

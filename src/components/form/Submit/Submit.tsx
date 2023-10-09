@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import CTA from '../../../components/layout/CTA/CTA';
 import classes from './Submit.module.scss';
 
-interface SubmitProps {
+interface SubmitProps extends PropsWithChildren{
     className?: string,
     onClick?: Function,
 }

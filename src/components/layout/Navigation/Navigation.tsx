@@ -3,7 +3,7 @@ import { YoutubeLogo, TwitchLogo } from "../../other/Assets/Assets";
 import { NavLink } from 'react-router-dom';
 import { useCallback, useContext, useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
-import { motion, AnimatePresence} from 'framer-motion';
+import { motion } from 'framer-motion';
 import Login from "../../other/Login/Login";
 import React from 'react';
 import { Context } from '../../../store/context';
@@ -39,7 +39,6 @@ const Navigation: React.FC<NavigationProps> = props => {
    
     const displayItems = !isMobile || isMobileNavigationShown;
     return <nav className={[className, isMobile? classes.mobile : ''].join(' ')}>
-        <AnimatePresence>
             {displayItems && <motion.ul key="navigation" initial={{x: '100%'}} animate={{x: 0}} exit={{x: '100%'}} className={[classes.Navigation__list, isMobile ? classes.mobile : '', isMobileNavigationShown ? classes.active : ''].join(' ')}>
                 <li className={classes.Navigation__item}>
                     <NavLink exact activeClassName={classes.active} className={classes.Navigation__link} to="/">Domů</NavLink>
@@ -70,7 +69,6 @@ const Navigation: React.FC<NavigationProps> = props => {
                     <div className={classes.Navigation__login}><Login></Login></div>
                 </li>
             </motion.ul>}
-        </AnimatePresence>
         {isMobile && <div onClick={() => {
             toggleMobileNavigation();
         }}className={classes.Navigation__hamburger}>

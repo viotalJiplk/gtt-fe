@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 import classes from './CTA.module.scss';
 
-interface CTAProps {
+interface CTAProps extends PropsWithChildren {
     className?: string,
     onClick?: Function
 }

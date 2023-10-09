@@ -1,7 +1,7 @@
 import classes from './Label.module.scss';
-import React from 'react';
+import React, { PropsWithChildren } from 'react';
 
-interface LabelProps {
+interface LabelProps extends PropsWithChildren {
     className?: string,
     htmlFor?: string,
     obligatory?: boolean
