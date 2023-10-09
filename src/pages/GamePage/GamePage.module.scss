@@ -1,6 +1,8 @@
 @import '../../variables.scss';
 
 .GamePage{
+    padding-left: 5%;
+    padding-right: 5%;
     &__h1{
         color:$color-white;
     }

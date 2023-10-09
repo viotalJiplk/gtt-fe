@@ -75,7 +75,7 @@ const GamePage = () => {
     }, [context]);
 
     return (
-        <motion.div key="home" transition={routeTransition} variants={routeVariants} initial="initial" animate="visible" exit="hidden" className={classes.Home}>
+        <motion.div key="home" transition={routeTransition} variants={routeVariants} initial="initial" animate="visible" exit="hidden" className={classes.GamePage}>
             <Heading className={classes.GamePage__h1} type={headingTypes.h1}>{gameDisplay}</Heading>
             <Heading className={classes.GamePage__h2} type={headingTypes.h3}>Registrace: {gameRegistration}</Heading>
             <div>
