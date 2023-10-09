@@ -20,7 +20,7 @@ const GamePage = () => {
     const [gameId, setGameId] = useState<number>(NaN);
     
     function formatDate(date: Date){
-        return String(date.getDate()) + ". " + String(date.getMonth()) + ".";
+        return String(date.getDate()) + ". " + String(date.getMonth()+1) + ".";
     }
 
     useEffect(()=>{
