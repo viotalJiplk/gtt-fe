@@ -2,9 +2,33 @@
 
 .GamePage{
     &__h1{
-        color:$color-white,
+        color:$color-white;
     }
+    &__table{
+        margin-top: 2rem;
+        color:$color-white;
+        font-size: 2rem;
+        border-collapse: collapse;
+    }
+
+    &__table th {
+        padding: 1rem;
+        border: 1px solid $color-blue;
+    }
+
+    &__table td {
+        text-align: center;
+        padding: 1rem;
+        border: 1px solid $color-blue;
+    }
+
+    &__table tr :first-child {
+        text-align: left;
+        padding: 1rem;
+        border: 1px solid $color-blue;
+    }
+
     &__h2{
-        color:$color-white,
+        color:$color-white;
     }
 }
