@@ -3,6 +3,7 @@ import { useState } from "react";
 import axios from '../../../../axios/axios';
 import ErrorReporter from "../../../ErrorPage/ErrorReporter";
 import classes from "./MarkdownPage.module.scss";
+import remarkGfm from 'remark-gfm'
 
 interface MarkdownPageProps {
     gameId: number,
@@ -23,7 +24,7 @@ const MarkdownPage: React.FC<MarkdownPageProps> = (props) => {
     }
 
     return (
-        <Markdown className={classes.MarkdownPage}>{gamePage}</Markdown>
+        <Markdown remarkPlugins={[[remarkGfm, {singleTilde: false}]]} className={classes.MarkdownPage}>{gamePage}</Markdown>
     )
 };
 
