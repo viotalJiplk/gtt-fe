@@ -18,7 +18,9 @@ const GeneralRules = () => {
             for(let game in context.state.games){
                 let gamename = context.state.games[game].name;
                 let gameDisplay = GAMENAMES[gamename];
-                games.push(<Paragraph key={gamename} className={classes.GeneralRules__paragraph}><a href={"/rules/"+ gamename +".pdf"}>{gameDisplay}</a></Paragraph>);
+                let url = new URL("/gamepage", window.location.href);
+                url.searchParams.append("gamename", gamename);
+                games.push(<Paragraph key={gamename} className={classes.GeneralRules__paragraph}><a href={url.href}>{gameDisplay}</a></Paragraph>);
             }
             setRules(games);
         }
@@ -61,7 +63,7 @@ const GeneralRules = () => {
         <Paragraph className={classes.GeneralRules__paragraph}>Účastník musí během hry používat přezdívku, kterou zadal do registračního formuláře.</Paragraph>
         <Paragraph className={classes.GeneralRules__paragraph}>Účastník musí být po dobu hry přítomen na discordu GT Tournamentu.</Paragraph>
         </div>
-        <Heading className={classes.GeneralRules__heading} type={headingTypes.h2}>Pravidla pro jednotlivé hry</Heading>
+        <Heading className={classes.GeneralRules__heading} type={headingTypes.h2}>Pravidla pro jednotlivé hry naleznete na jejich stránkách</Heading>
         <div className={classes.GeneralRules__list}>
             {rules}
         </div>

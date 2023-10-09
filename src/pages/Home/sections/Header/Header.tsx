@@ -7,7 +7,7 @@ import { GAMETYPES } from '../../../../types/types';
 import Paragraph from '../../../../components/typography/Paragraph';
 // import CountDown from '../../../../components/other/CountDown/CountDown';
 import GameLogo from '../../../../components/other/GameLogo/GameLogo';
-// import { useHistory } from 'react-router';
+import { useHistory } from "react-router-dom";
 import CTA from '../../../../components/layout/CTA/CTA';
 import { withRouter } from 'react-router';
 import discordLogo from '../../../../assets/discord-logo.svg';
@@ -17,15 +17,18 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = props => {
-    //const history = useHistory();
+    const history = useHistory();
+    function gamepage(gameName:string){
+        history.push("/gamepage?gamename=" + gameName);
+    }
     return <Section className={classes.Header}>
             <div className={classes.Header__gameLogos}>
-                <GameLogo className={classes.Header__gameLogos__logo} game={GAMETYPES.MINECRAFT}></GameLogo>
-                <GameLogo className={classes.Header__gameLogos__logo} game={GAMETYPES.COUNTER_STRIKE}></GameLogo>
-                <GameLogo className={classes.Header__gameLogos__logo} game={GAMETYPES.ROCKET_LEAGUE}></GameLogo>
-                <GameLogo className={classes.Header__gameLogos__logo} game={GAMETYPES.LOL}></GameLogo>
-                <GameLogo className={classes.Header__gameLogos__logo} game={GAMETYPES.VALORANT}></GameLogo>
-                <GameLogo className={classes.Header__gameLogos__logo} game={GAMETYPES.R6}></GameLogo>
+                <GameLogo className={classes.Header__gameLogos__logo} game={GAMETYPES.MINECRAFT} onClick={()=>{gamepage(GAMETYPES.MINECRAFT)}}></GameLogo>
+                <GameLogo className={classes.Header__gameLogos__logo} game={GAMETYPES.COUNTER_STRIKE} onClick={()=>{gamepage(GAMETYPES.COUNTER_STRIKE)}}></GameLogo>
+                <GameLogo className={classes.Header__gameLogos__logo} game={GAMETYPES.ROCKET_LEAGUE} onClick={()=>{gamepage(GAMETYPES.ROCKET_LEAGUE)}}></GameLogo>
+                <GameLogo className={classes.Header__gameLogos__logo} game={GAMETYPES.LOL} onClick={()=>{gamepage(GAMETYPES.LOL)}}></GameLogo>
+                <GameLogo className={classes.Header__gameLogos__logo} game={GAMETYPES.VALORANT} onClick={()=>{gamepage(GAMETYPES.VALORANT)}}></GameLogo>
+                <GameLogo className={classes.Header__gameLogos__logo} game={GAMETYPES.R6} onClick={()=>{gamepage(GAMETYPES.R6)}}></GameLogo>
             </div>
             <div className={classes.Header__content}>
                 <Heading className={classes.Header__heading} type={headingTypes.main}>
