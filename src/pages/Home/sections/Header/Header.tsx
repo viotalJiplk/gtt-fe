@@ -23,6 +23,7 @@ const Header: React.FC<HeaderProps> = props => {
     }
     return <Section className={classes.Header}>
             <div className={classes.Header__gameLogos}>
+                <Heading className={classes.Header__gamepages} type={headingTypes.h2}>Stránky her:</Heading>
                 <GameLogo className={classes.Header__gameLogos__logo} game={GAMETYPES.MINECRAFT} onClick={()=>{gamepage(GAMETYPES.MINECRAFT)}}></GameLogo>
                 <GameLogo className={classes.Header__gameLogos__logo} game={GAMETYPES.COUNTER_STRIKE} onClick={()=>{gamepage(GAMETYPES.COUNTER_STRIKE)}}></GameLogo>
                 <GameLogo className={classes.Header__gameLogos__logo} game={GAMETYPES.ROCKET_LEAGUE} onClick={()=>{gamepage(GAMETYPES.ROCKET_LEAGUE)}}></GameLogo>
