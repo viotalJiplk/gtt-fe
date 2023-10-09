@@ -40,7 +40,7 @@ const GamePage = () => {
                         <thead>
                           <tr>
                             <th>Role</th>
-                            <th>minmální počet</th>
+                            <th>minimální počet</th>
                             <th>maximální počet</th>
                           </tr>
                         </thead>
