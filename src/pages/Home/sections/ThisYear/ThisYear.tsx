@@ -20,66 +20,15 @@ import { motion } from 'framer-motion';
 
 const schedule = [
     {
-        date: '19.11.2022',
+        date: '17.11.2023',
         description: '',
         events: [
-            {
-                game: GAMETYPES.COUNTER_STRIKE,
-                segments: [
-                    { 
-                        beginTime: '10:00',
-                        endTime: '18:00'
-                    }
-                ]
-            },
-            {
-                game: GAMETYPES.R6,
-                segments: [
-                    { 
-                        beginTime: '10:00',
-                        endTime: '11:00'
-                    }
-                ]
-            },
             {
                 game: GAMETYPES.VALORANT,
                 segments: [
                     { 
-                        beginTime: '12:00',
-                        endTime: '18:00'
-                    }
-                ]
-            },
-     ]   
-    },
-    
-    {
-        date: '20.11.2022',
-        description: '',
-        events: [
-            {
-                game: GAMETYPES.LOL,
-                segments: [
-                    { 
                         beginTime: '10:00',
-                        endTime: '18:00'
-                    }
-                ]
-            },
-          
-     ]   
-    },
-
-    {
-        date: '26.11.2022',
-        description: 'Zápas ve hře Minecraft, kvalifikace Rocket League, semifinále CS2',
-        events: [
-            {
-                game: GAMETYPES.MINECRAFT,
-                segments: [
-                    { 
-                        beginTime: '10:00',
-                        endTime: '15:00'
+                        endTime: '16:00'
                     }
                 ]
             },
@@ -92,51 +41,62 @@ const schedule = [
                     }
                 ]
             },
-            {
-                game: GAMETYPES.COUNTER_STRIKE,
-                segments: [
-                    { 
-                        beginTime: '15:00',
-                        endTime: '18:00'
-                    }
-                ]
-            },
-     ]   
+        ]   
     },
-
     {
-        date: '27.11.2022',
-        description: 'Finále her Rocket League, League of Legends, CS2. Od 10:45 do 11:45 semifinále hry League of Legends.',
+        date: '18.11.2023',
+        description: '',
         events: [
-            {
-                game: GAMETYPES.ROCKET_LEAGUE,
-                segments: [
-                    { 
-                        beginTime: '9:00',
-                        endTime: '10:00'
-                    }
-                ]
-            },
             {
                 game: GAMETYPES.LOL,
                 segments: [
                     { 
-                        beginTime: '10:45',
-                        endTime: '11:45'
+                        beginTime: '10:00',
+                        endTime: '18:00'
                     }
                 ]
             },
+        ]
+    },
+    {
+        date: '19.11.2023',
+        description: '',
+        events: [
             {
                 game: GAMETYPES.COUNTER_STRIKE,
                 segments: [
                     { 
-                        beginTime: '12:00',
+                        beginTime: '10:00',
+                        endTime: '18:00'
+                    }
+                ]
+            },
+            {
+                game: GAMETYPES.MINECRAFT,
+                segments: [
+                    { 
+                        beginTime: '13:00',
+                        endTime: '18:00'
+                    }
+                ]
+            },
+        ]   
+    },
+    {
+        date: '25.11.2023',
+        description: '',
+        events: [
+            {
+                game: GAMETYPES.R6,
+                segments: [
+                    { 
+                        beginTime: '10:00',
                         endTime: '15:00'
                     }
                 ]
             },
             {
-                game: GAMETYPES.LOL,
+                game: GAMETYPES.VALORANT,
                 segments: [
                     { 
                         beginTime: '15:00',
@@ -144,7 +104,40 @@ const schedule = [
                     }
                 ]
             },
-     ]   
+        ]   
+    },
+    {
+        date: '26.11.2023',
+        description: '',
+        events: [
+            {
+                game: GAMETYPES.ROCKET_LEAGUE,
+                segments: [
+                    { 
+                        beginTime: '10:00',
+                        endTime: '11:30'
+                    }
+                ]
+            },
+            {
+                game: GAMETYPES.LOL,
+                segments: [
+                    { 
+                        beginTime: '12:00',
+                        endTime: '14:30'
+                    }
+                ]
+            },
+            {
+                game: GAMETYPES.COUNTER_STRIKE,
+                segments: [
+                    { 
+                        beginTime: '15:00',
+                        endTime: '18:00'
+                    }
+                ]
+            },
+        ]   
     },
 ]
 
