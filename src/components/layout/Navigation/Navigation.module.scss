@@ -16,13 +16,13 @@
         padding-left: 5rem;
     }
 
-    &.mobile {
+    @media (max-width: 900px){
         height: auto;
         padding-right: 2rem;
         padding-top: 2rem;
         
         justify-content: flex-end;
-
+        z-index: 1;
         position: fixed;
     }
 
@@ -38,7 +38,7 @@
 
         display: flex;
 
-        &.mobile {
+        @media (max-width: 900px){
             width: 100vw;
             height: 100vh;
             background-color: $color-blue-dark;

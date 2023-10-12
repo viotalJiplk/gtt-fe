@@ -1,7 +1,7 @@
 import classes from './Navigation.module.scss';
 import { YoutubeLogo, TwitchLogo } from "../../other/Assets/Assets";
 import { NavLink } from 'react-router-dom';
-import { useCallback, useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useMediaQuery } from 'react-responsive';
 import { motion } from 'framer-motion';
 import Login from "../../other/Login/Login";
@@ -16,30 +16,12 @@ const Navigation: React.FC<NavigationProps> = props => {
     const isMobile = useMediaQuery({query: '(max-width: 900px)'});
     const className = classes.Navigation + " " + props.className;
     const context = useContext(Context);
-    const hideMobileNavigation = useCallback(() => {
-        setIsMobileNavigationShown(false);
-        document.removeEventListener('click', hideMobileNavigation);
-    }, [])
-    
-    const toggleMobileNavigation = useCallback(() => {
-        if (!isMobile) {
-            return;
-        }
-        setIsMobileNavigationShown(true);
-    }, [isMobile]);
     const [isMobileNavigationShown, setIsMobileNavigationShown] = useState(false);
     useEffect(() => {
         setIsMobileNavigationShown(false);
     }, [isMobile])
-    useEffect(() => {
-        if (isMobileNavigationShown) {
-            document.addEventListener('click', hideMobileNavigation);
-        }
-    }, [isMobileNavigationShown, hideMobileNavigation])
-   
-    const displayItems = !isMobile || isMobileNavigationShown;
-    return <nav className={[className, isMobile? classes.mobile : ''].join(' ')}>
-            {displayItems && <motion.ul key="navigation" initial={{x: '100%'}} animate={{x: 0}} exit={{x: '100%'}} className={[classes.Navigation__list, isMobile ? classes.mobile : '', isMobileNavigationShown ? classes.active : ''].join(' ')}>
+    return <nav className={className}>
+            {(!isMobile ||  isMobileNavigationShown) && <motion.ul key="navigation" initial={{x: '100%'}} animate={{x: 0}} exit={{x: '100%'}} className={classes.Navigation__list}>
                 <li className={classes.Navigation__item}>
                     <NavLink exact activeClassName={classes.active} className={classes.Navigation__link} to="/">Domů</NavLink>
                 </li>
@@ -70,7 +52,7 @@ const Navigation: React.FC<NavigationProps> = props => {
                 </li>
             </motion.ul>}
         {isMobile && <div onClick={() => {
-            toggleMobileNavigation();
+            setIsMobileNavigationShown(!isMobileNavigationShown);
         }}className={classes.Navigation__hamburger}>
             <div className={classes.Navigation__hamburger__line}></div>
             <div className={classes.Navigation__hamburger__line}></div>
