@@ -7,6 +7,7 @@ import { motion } from 'framer-motion';
 import Login from "../../other/Login/Login";
 import React from 'react';
 import { Context } from '../../../store/context';
+import { useHistory } from "react-router-dom";
 
 interface NavigationProps {
     className?: string
@@ -16,10 +17,16 @@ const Navigation: React.FC<NavigationProps> = props => {
     const isMobile = useMediaQuery({query: '(max-width: 900px)'});
     const className = classes.Navigation + " " + props.className;
     const context = useContext(Context);
+    const history = useHistory();
     const [isMobileNavigationShown, setIsMobileNavigationShown] = useState(false);
     useEffect(() => {
         setIsMobileNavigationShown(false);
     }, [isMobile])
+    
+    history.listen(()=>{
+        setIsMobileNavigationShown(false);
+    });
+
     return <nav className={className}>
             {(!isMobile ||  isMobileNavigationShown) && <motion.ul key="navigation" initial={{x: '100%'}} animate={{x: 0}} exit={{x: '100%'}} className={classes.Navigation__list}>
                 <li className={classes.Navigation__item}>
