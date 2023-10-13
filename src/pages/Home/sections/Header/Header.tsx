@@ -22,14 +22,9 @@ const Header: React.FC<HeaderProps> = props => {
         history.push("/gamepage?gamename=" + gameName);
     }
     return <Section className={classes.Header}>
-            <div className={classes.Header__gameLogos}>
-                <Heading className={classes.Header__gamepages} type={headingTypes.h2}>Stránky her:</Heading>
-                <GameLogo className={classes.Header__gameLogos__logo} game={GAMETYPES.MINECRAFT} onClick={()=>{gamepage(GAMETYPES.MINECRAFT)}}></GameLogo>
-                <GameLogo className={classes.Header__gameLogos__logo} game={GAMETYPES.COUNTER_STRIKE} onClick={()=>{gamepage(GAMETYPES.COUNTER_STRIKE)}}></GameLogo>
-                <GameLogo className={classes.Header__gameLogos__logo} game={GAMETYPES.ROCKET_LEAGUE} onClick={()=>{gamepage(GAMETYPES.ROCKET_LEAGUE)}}></GameLogo>
-                <GameLogo className={classes.Header__gameLogos__logo} game={GAMETYPES.LOL} onClick={()=>{gamepage(GAMETYPES.LOL)}}></GameLogo>
-                <GameLogo className={classes.Header__gameLogos__logo} game={GAMETYPES.VALORANT} onClick={()=>{gamepage(GAMETYPES.VALORANT)}}></GameLogo>
-                <GameLogo className={classes.Header__gameLogos__logo} game={GAMETYPES.R6} onClick={()=>{gamepage(GAMETYPES.R6)}}></GameLogo>
+            <div className={classes.Header__topRight}>
+                {/* <CountDown className={classes.Header__countDown}></CountDown> */}
+                <img className={classes.Header__logo} src={logo} alt="GT Tournament Logo"></img>
             </div>
             <div className={classes.Header__content}>
                 <Heading className={classes.Header__heading} type={headingTypes.main}>
@@ -50,9 +45,16 @@ const Header: React.FC<HeaderProps> = props => {
                     <img className={classes.Header__cta__logo} src={discordLogo} alt="Discord logo"></img>
                 </CTA> 
             </div>
-            <div className={classes.Header__topRight}>
-                {/* <CountDown className={classes.Header__countDown}></CountDown> */}
-                <img className={classes.Header__logo} src={logo} alt="GT Tournament Logo"></img>
+            <div className={classes.Header__gameLogos}>
+                <Heading className={classes.Header__gamepages} type={headingTypes.h2}>Stránky her:</Heading>
+                <div className={classes.Header__gameLogosHolder}>
+                    <GameLogo className={classes.Header__gameLogos__logo} game={GAMETYPES.MINECRAFT} onClick={()=>{gamepage(GAMETYPES.MINECRAFT)}}></GameLogo>
+                    <GameLogo className={classes.Header__gameLogos__logo} game={GAMETYPES.COUNTER_STRIKE} onClick={()=>{gamepage(GAMETYPES.COUNTER_STRIKE)}}></GameLogo>
+                    <GameLogo className={classes.Header__gameLogos__logo} game={GAMETYPES.ROCKET_LEAGUE} onClick={()=>{gamepage(GAMETYPES.ROCKET_LEAGUE)}}></GameLogo>
+                    <GameLogo className={classes.Header__gameLogos__logo} game={GAMETYPES.LOL} onClick={()=>{gamepage(GAMETYPES.LOL)}}></GameLogo>
+                    <GameLogo className={classes.Header__gameLogos__logo} game={GAMETYPES.VALORANT} onClick={()=>{gamepage(GAMETYPES.VALORANT)}}></GameLogo>
+                    <GameLogo className={classes.Header__gameLogos__logo} game={GAMETYPES.R6} onClick={()=>{gamepage(GAMETYPES.R6)}}></GameLogo>
+                </div>
             </div>  
     </Section>
 };

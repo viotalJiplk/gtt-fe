@@ -5,7 +5,7 @@
     min-height: 80rem;
     height: 100vh;
 
-    position: relative;
+    // position: relative;
 
     @media screen and (max-width: 1100px) {
        min-height: unset;
@@ -28,19 +28,20 @@
             height: 10rem;
         }
     }
-    &__gameLogos {
+    &__gameLogosHolder {
         display: flex;
+        flex-wrap: wrap;
 
-        position: absolute;
-        right: 6rem;
-        bottom: 12rem;
+        // position: absolute;
+        // right: 6rem;
+        // bottom: 12rem;
 
-        @media screen and (max-width: 1100px) {
-            bottom: 4rem;
-        }
-        @media screen and (max-width: 1000px) {
-           display: none;
-        }
+        // @media screen and (max-width: 1100px) {
+        //     bottom: 4rem;
+        // }
+        // @media screen and (max-width: 1000px) {
+        //    display: none;
+        // }
       
         &__logo {
             &:not(:last-child) {
@@ -92,8 +93,8 @@
         }
     }
     &__content {
-        position: absolute;
-        top: 0rem;
+        // position: absolute;
+        // top: 0rem;
 
         @media screen and (max-width: 1000px) {
             top: 15rem;
@@ -122,9 +123,9 @@
         align-items: center;
         justify-content: center;
 
-        position: absolute;
-        right: 4rem;
-        top: 0rem;
+        //position: absolute;
+        //right: 4rem;
+        //top: 0rem;
 
         @media screen and (max-width: 1000px) {
             top: 2rem;
