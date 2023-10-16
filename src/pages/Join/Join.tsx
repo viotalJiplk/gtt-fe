@@ -47,11 +47,11 @@ const Join = () => {
                     }else{
                         ErrorReporter("Nezanámá chyba. Zkuste akci opakovat později.");
                     }
+                }else if(error.response.status === 410){
+                    ErrorReporter("Registrace ještě nezačala nebo už byla ukončena.");
                 }else{
                     ErrorReporter("Nezanámá chyba. Zkuste akci opakovat později.");
                 }
-            }else if(error.response.status === 410){
-                ErrorReporter("Registrace ještě nezačala nebo už byla ukončena.");
             }else{
                 ErrorReporter("Neaznámá chyba. Zkuste akci opakovat později.");
             }
