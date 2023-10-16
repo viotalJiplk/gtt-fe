@@ -31,6 +31,35 @@ const Join = () => {
             setGameId(Number((new URL(window.location.href)).searchParams.get("gameid")));
         }
     },[]);
+
+    async function onError(error: any){
+        if(error.response){
+            if(error.response.data){
+                if(error.response.status === 403){
+                    if(error.response.data.msg === "Team full or you are in another team for this game."){
+                        ErrorReporter("Tým je plný nebo již jste v jiném týmu pro tuto hru.");
+                    }else{
+                        ErrorReporter("Nezanámá chyba. Zkuste akci opakovat později.");
+                    }
+                }else if(error.response.status === 404){
+                    if(error.response.data.msg === "You havent filled info required for creating Team."){
+                        ErrorReporter("Nemáte zadané informace potřebné k připojení k týmu. Nastavte je v záložce Váš profil.");
+                    }else{
+                        ErrorReporter("Nezanámá chyba. Zkuste akci opakovat později.");
+                    }
+                }else{
+                    ErrorReporter("Nezanámá chyba. Zkuste akci opakovat později.");
+                }
+            }else if(error.response.status === 410){
+                ErrorReporter("Registrace ještě nezačala nebo už byla ukončena.");
+            }else{
+                ErrorReporter("Neaznámá chyba. Zkuste akci opakovat později.");
+            }
+        }else{
+            ErrorReporter("Neznámá chyba. Zkuste akci opakovat později.");
+        }
+    }
+
     const onSubmitJoin = async function () {
         setInvalidMessages([]);
 
@@ -74,25 +103,7 @@ const Join = () => {
                 "max_rank": maxRank,
                 "role": role
             }
-        }).catch(function (error) {
-            if(error.response){
-                if(error.response.status === 403 && error.response.data){
-                    if(error.response.data.msg === "You havent filled info required for creating Team."){
-                        ErrorReporter("Nemáte zadané informace potřebné k připojení k týmu. Nastavte je v záložce Váš profil.");    
-                    }else if(error.response.data.msg === "Team full or you are in another team for this game."){
-                        ErrorReporter("Tým je plný nebo již jste v jiném týmu pro tuto hru.");
-                    }else{
-                        ErrorReporter("Nezanámá chyba. Zkuste akci opakovat později.");
-                    }
-                }else if(error.response.status === 410){
-                    ErrorReporter("Registrace ještě nezačala nebo už byla ukončena.");
-                }else{
-                    ErrorReporter("Neaznámá chyba. Zkuste akci opakovat později.");
-                }
-            }else{
-                ErrorReporter("Neznámá chyba. Zkuste akci opakovat později.");
-            }
-        });
+        }).catch(onError);
         history.push("/teams");
     }
 
@@ -132,25 +143,7 @@ const Join = () => {
                 "rank": rank,
                 "max_rank": maxRank
             }
-        }).catch(function (error) {
-            if(error.response){
-                if(error.response.status === 403 && error.response.data){
-                    if(error.response.data.msg === "You havent filled info required for creating Team."){
-                        ErrorReporter("Nemáte zadané informace potřebné k připojení k týmu. Nastavte je v záložce Váš profil.");    
-                    }else if(error.response.data.msg === "Team full or you are in another team for this game."){
-                        ErrorReporter("Tým je plný nebo již jste v jiném týmu pro tuto hru.");
-                    }else{
-                        ErrorReporter("Neznámá chyba. Zkuste akci opakovat později.");
-                    }
-                }else if(error.response.status === 410){
-                    ErrorReporter("Registrace ještě nezačala nebo už byla ukončena.");
-                }else{
-                    ErrorReporter("Nezanámá chyba. Zkuste akci opakovat později.");
-                }
-            }else{
-                ErrorReporter("Neznámá chyba. Zkuste akci opakovat později.");
-            }
-        });
+        }).catch(onError);
         history.push("/teams");
     }
 
