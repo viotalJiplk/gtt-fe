@@ -21,6 +21,12 @@ const HowToRegister: React.FC<RouteComponentProps> = (props) => {
         <Paragraph className={classes.HowToRegister__paragraph}>
             Nejdříve si musíte <span className={classes.HowToRegister__link}><NavLink to="/account">vytvořit účet</NavLink></span>. (Nezapomeň vyplnit důležité informace, které o tobě potřebujeme vědět.)
         </Paragraph>
+        <CTA onClick={() => {
+            props.history.push('/account')
+            window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
+        }}className={classes.HowToRegister__cta}>
+            Vytvoř účet
+        </CTA>    
         <Paragraph className={classes.HowToRegister__paragraph}>
            Pak už stačí jenom přečíst <span className={classes.HowToRegister__link}><NavLink to="/rules">pravidla</NavLink></span> (jsou důležitá), najít spoluhráče, kliknout na tlačítko níže a vytvořit nový tým! 
         </Paragraph>
