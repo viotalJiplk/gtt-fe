@@ -108,7 +108,7 @@ const schedule = [
     },
     {
         date: '26.11.2023',
-        description: '',
+        description: 'Finále',
         events: [
             {
                 game: GAMETYPES.ROCKET_LEAGUE,
