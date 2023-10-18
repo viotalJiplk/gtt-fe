@@ -3,15 +3,21 @@ import Heading from '../../components/typography/Heading';
 import { headingTypes } from '../../types/types';
 import { routeTransition, routeVariants } from "../../animations/animations";
 import Section from '../../components/layout/Section/Section';
-import ArtinLogo from '../../assets/artinlogo.png';
+import SponsorshipPackages from '../../assets/sponzorske-balicky.png';
 import { motion } from 'framer-motion';
 
+import SponsorImage_Jmk from '../../assets/jmk.jpg';
+import SponsorImage_Jrdm from '../../assets/jrdm.png';
+
 const Sponsors = () => {
-    return <motion.div className={classes.Sponsors} key="sponsors" variants={routeVariants} transition={routeTransition} exit="hidden" animate="visible" initial="initial">
+    return <motion.div key="sponsors" className={classes.Sponsors} variants={routeVariants} transition={routeTransition} exit="hidden" animate="visible" initial="initial">
         <Section className={''}>
             <Heading className={''} type={headingTypes.main}>Sponzoři</Heading>
-            <div className={classes.Sponsors__sponsor}>
-                <a href="https://www.artin.cz/"><img className={classes.Sponsors__sponsor__logo} src={ArtinLogo} alt='Logo Artinu'></img></a>
+            <img className={classes.Sponsors__packages} src={SponsorshipPackages}></img>
+            <p className={classes.Sponsors__contact}>Pokud máte zájem stát se sponzorem, kontaktujte nás na <b><a href="mailto:turnajvpocitacovychhrach@gym-tisnov.cz">turnajvpocitacovychhrach@gym-tisnov.cz</a></b>.</p>
+            <div className={classes.Sponsors__list}>
+                <img className={classes.Sponsors__logo} src={SponsorImage_Jmk}></img>
+                <img className={classes.Sponsors__logo} src={SponsorImage_Jrdm}></img>
             </div>
         </Section>
     </motion.div>
