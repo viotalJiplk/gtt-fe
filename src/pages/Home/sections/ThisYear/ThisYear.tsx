@@ -12,11 +12,11 @@ import minecraftImage from '../../../../assets/minecraft-wallpaper.webp';
 import valorantImage from '../../../../assets/valorant-wallpaper.webp';
 import counterImage from '../../../../assets/counter-wallpaper.jpeg';
 import r6Image from '../../../../assets/r6-wallpaper.jpeg'
+import { useMediaQuery } from "react-responsive";
 
 import { useState } from 'react';
 
-import { motion } from 'framer-motion';
-
+import { motion, AnimatePresence } from 'framer-motion';
 
 const schedule = [
     {
@@ -142,7 +142,9 @@ const schedule = [
 ]
 
 
+
 const ThisYear = () => {
+    const isMobile = useMediaQuery({query: '(max-width: 900px)'});
     const [currentDay, setCurrentDay] = useState(0);
     let backgroundImages: string[]  = [];
     schedule[currentDay].events.forEach((event) => {
@@ -161,13 +163,24 @@ const ThisYear = () => {
         }
     })
     const backgroundElements = backgroundImages.map((imgSrc, id) => {
-        let BGclassName = '';
-        if (backgroundImages.length > 1) {
-            BGclassName = classes.ThisYear__backgroundImage + " " + (id === 0 ? classes.ThisYear__backgroundImage_0 : classes.ThisYear__backgroundImage_1);
-        } else {
-            BGclassName = classes.ThisYear__backgroundImage;
-        }
-        return <div key={id} className={classes.ThisYear__imageDiv}><img className={BGclassName} src={imgSrc} alt="pozadí"></img></div>
+        const count = backgroundImages.length;
+        return  <div 
+                    key={id}
+                    className={classes.ThisYear__imageDiv}
+                    style={!isMobile ? {
+                        position: 'absolute',
+                        transform: `translateX(${id*100/count-10}%)`,
+                        clipPath: `polygon(20% 0, calc((100%/${count}) + 20%) 0, calc((100%/${count})) 100%, 0 100%)`,
+                        zIndex: -(id + 1)
+                    } : {
+                        position: 'relative'
+                    }}
+                    >
+                    <img 
+                        className={classes.ThisYear__backgroundImage}
+                        src={imgSrc}>
+                    </img>
+                </div>
     });
     const descriptionElements = schedule[currentDay].events.map((event, id) => {
         const times = event.segments.map((segment, id) => { 
@@ -175,29 +188,42 @@ const ThisYear = () => {
                 <p>{segment.beginTime} - {segment.endTime}</p>
             </div>
         });
-        return <div key={id} className={classes.ThisYear__description}>
-            <GameLogo key="GameLogo" className={''} game={event.game}></GameLogo>
-            <div key="times" className={classes.ThisYear__description__times}>
+        const count = backgroundElements.length;
+        return <div className={classes.ThisYear__description}
+                key={id}
+                style={!isMobile ? {
+                    left: `${id*100/count+8}%`,
+                    top: 0
+                } : {
+                    left: '5%',
+                    top: `${id*100/count}%`
+                }}
+            >
+            <GameLogo className={''} game={event.game}></GameLogo>
+            <div className={classes.ThisYear__description__times}>
                 {times}
             </div>
         </div>
     });
     return <Section className={classes.ThisYear}>
-                <motion.div key={currentDay} initial={{y: '-100%', opacity: 0}} animate={{opacity: 1, y: 0}} exit={{opacity: 0, y: '100%'}} transition={{duration: 0.5}}className={classes.ThisYear__dynamic}>
-                    <div key="background" className={classes.ThisYear__background}>
-                        {backgroundElements}
-                    </div>
-                    <div key="content" className={classes.ThisYear__content}>
-                        <Heading key="heading" className={classes.ThisYear__heading} type={headingTypes.h1}>{schedule[currentDay].date}</Heading>
-                        <Paragraph key="dayDescription" className={classes.ThisYear__paragraph}>
-                            {schedule[currentDay].description}
-                        </Paragraph>
-                        <div key="descriptionElementHolder" className={classes.ThisYear__descriptions}>
-                            {descriptionElements}
+                {/* @ts-ignore https://stackoverflow.com/questions/71948755/property-children-does-not-exist-on-type*/}
+                <AnimatePresence >
+                    <motion.div key={currentDay} initial={{y: '-100%', opacity: 0}} animate={{opacity: 1, y: 0}} exit={{opacity: 0, y: '100%'}} transition={{duration: 0.5}}className={classes.ThisYear__dynamic}>
+                        <div className={classes.ThisYear__background}>
+                            {backgroundElements}
                         </div>
-                    </div>
-                </motion.div>
-                <TimeAxis key="timeaxis" schedule={schedule} currentDay={currentDay} setCurrentDay={setCurrentDay} className={classes.ThisYear__timeAxis}></TimeAxis>
+                        <div className={classes.ThisYear__content}>
+                            <Heading className={classes.ThisYear__heading} type={headingTypes.h1}>{schedule[currentDay].date}</Heading>
+                            <Paragraph className={classes.ThisYear__paragraph}>
+                                {schedule[currentDay].description}
+                            </Paragraph>
+                            <div className={classes.ThisYear__descriptions}>
+                                {descriptionElements}
+                            </div>
+                        </div>
+                    </motion.div>
+                </AnimatePresence>
+                <TimeAxis schedule={schedule} currentDay={currentDay} setCurrentDay={setCurrentDay} className={classes.ThisYear__timeAxis}></TimeAxis>
             </Section>
 };
 
