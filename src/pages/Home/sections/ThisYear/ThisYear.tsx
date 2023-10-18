@@ -177,6 +177,7 @@ const ThisYear = () => {
                     }}
                     >
                     <img 
+                        alt={"Game Background"}
                         className={classes.ThisYear__backgroundImage}
                         src={imgSrc}>
                     </img>
