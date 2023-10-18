@@ -34,6 +34,8 @@ wget https://raw.githubusercontent.com/viotalJiplk/gttbe-2/main/create.sql
 
 ## Dev build scripts
 
+<b>Before cloning, install [GIT LFS](https://git-lfs.com/).</b>
+
 In the project directory, you can run:
 
 ### `npm start`
