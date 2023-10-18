@@ -11,9 +11,6 @@
 # production
 /build
 
-# public
-/public
-
 # misc
 /backend/config.py
 .env
