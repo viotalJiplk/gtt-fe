@@ -39,21 +39,21 @@ const Join = () => {
                     if(error.response.data.msg === "Team full or you are in another team for this game."){
                         ErrorReporter("Tým je plný nebo již jste v jiném týmu pro tuto hru.");
                     }else{
-                        ErrorReporter("Nezanámá chyba. Zkuste akci opakovat později.");
+                        ErrorReporter("Neznámá chyba. Zkuste akci opakovat později.", error.response.status);
                     }
                 }else if(error.response.status === 404){
                     if(error.response.data.msg === "You havent filled info required for creating Team."){
                         ErrorReporter("Nemáte zadané informace potřebné k připojení k týmu. Nastavte je v záložce Váš profil.");
                     }else{
-                        ErrorReporter("Nezanámá chyba. Zkuste akci opakovat později.");
+                        ErrorReporter("Neznámá chyba. Zkuste akci opakovat později.", error.response.status);
                     }
                 }else if(error.response.status === 410){
                     ErrorReporter("Registrace ještě nezačala nebo už byla ukončena.");
                 }else{
-                    ErrorReporter("Nezanámá chyba. Zkuste akci opakovat později.");
+                    ErrorReporter("Neznámá chyba. Zkuste akci opakovat později.", error.response.status);
                 }
             }else{
-                ErrorReporter("Neaznámá chyba. Zkuste akci opakovat později.");
+                ErrorReporter("Neznámá chyba. Zkuste akci opakovat později.", error.response.status + " Odpověď nemá tělo.");
             }
         }else{
             ErrorReporter("Neznámá chyba. Zkuste akci opakovat později.");

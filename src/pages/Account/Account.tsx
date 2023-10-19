@@ -125,7 +125,7 @@ const Account = () => {
                 setInvalidMessages(["Nic nebylo změněno."]);
                 return;
             }else if(error.response.status !== 205){
-                ErrorReporter("Neznámá chyba.");
+                ErrorReporter("Neznámá chyba.", String(error.response.status));
             }else{
                 window.location.href = "/account"
             }
