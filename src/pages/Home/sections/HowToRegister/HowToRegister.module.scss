@@ -10,6 +10,9 @@
             font-size: 1.8rem;
         }
     }
+    &__video {
+        min-width: 50rem;
+    }
     &__link {
         &:hover {
             a {

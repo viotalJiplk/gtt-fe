@@ -18,6 +18,7 @@ const HowToRegister: React.FC<RouteComponentProps> = (props) => {
            Pokud Vaše škola není na seznamu pozvaných škol, neváhejte nám napsat na <span className={classes.HowToRegister__link}><a href="mailto:turnajvpocitacovychhrach@gym-tisnov.cz">turnajvpocitacovychhrach@gym-tisnov.cz</a></span>.
            Třeba ji ještě stihneme pozvat!
         </Paragraph>*/}
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/NWt8VuxxHoA?si=ySAP9ieBNp3ASQCc" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
         <Paragraph className={classes.HowToRegister__paragraph}>
             Nejdříve si musíte <span className={classes.HowToRegister__link}><NavLink to="/account">vytvořit účet</NavLink></span>. (Nezapomeň vyplnit důležité informace, které o tobě potřebujeme vědět.)
         </Paragraph>
