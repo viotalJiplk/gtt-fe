@@ -14,13 +14,13 @@ const HowToRegister: React.FC<RouteComponentProps> = (props) => {
     const videoWidth = (width/height > 1)? width/2: width - 50;
     return <Section className={classes.HowToRegister}>
         <Heading className={classes.HowToRegister__heading} type={headingTypes.h1}>Jak se přihlásit?</Heading>
-        {/*<Paragraph className={classes.HowToRegister__paragraph}>
-            Abyste se mohli přihlásit, musí být Vaše škola na seznamu pozvaných škol. Na seznam pozvaných škol se můžete podívat <span className={classes.HowToRegister__link}><NavLink to="/contestants">zde</NavLink></span>.
+        <Paragraph className={classes.HowToRegister__paragraph}>
+            Abyste se mohli přihlásit, musí být Vaše škola na seznamu pozvaných škol. Na seznam pozvaných škol se můžete podívat <span className={classes.HowToRegister__link}><NavLink to="/schools">zde</NavLink></span>.
         </Paragraph>
         <Paragraph className={[classes.HowToRegister__paragraph, classes.HowToRegister__paragraph_detail].join(' ')}>
-           Pokud Vaše škola není na seznamu pozvaných škol, neváhejte nám napsat na <span className={classes.HowToRegister__link}><a href="mailto:turnajvpocitacovychhrach@gym-tisnov.cz">turnajvpocitacovychhrach@gym-tisnov.cz</a></span>.
+           Pokud Vaše škola není na seznamu pozvaných škol, neváhejte nám napsat na Discord.
            Třeba ji ještě stihneme pozvat!
-        </Paragraph>*/}
+        </Paragraph>
         <iframe width={videoWidth} height={3/5*videoWidth} src="https://www.youtube-nocookie.com/embed/NWt8VuxxHoA?si=3pu4ZfjiZNlPsoww" title="YouTube video player" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowFullScreen></iframe>
         <Paragraph className={classes.HowToRegister__paragraph}>
             Nejdříve si musíte <span className={classes.HowToRegister__link}><NavLink to="/account">vytvořit účet</NavLink></span>. (Nezapomeň vyplnit důležité informace, které o tobě potřebujeme vědět.)
