@@ -46,6 +46,9 @@ const Navigation: React.FC<NavigationProps> = props => {
                     <NavLink activeClassName={classes.active} className={classes.Navigation__link} to="/rules">Pravidla</NavLink>
                 </li>
                 <li className={classes.Navigation__item}>
+                    <NavLink activeClassName={classes.active} className={classes.Navigation__link} to="/schools">Pozvané školy</NavLink>
+                </li> 
+                <li className={classes.Navigation__item}>
                     <NavLink activeClassName={classes.active} className={classes.Navigation__link} to="/documents">Dokumenty</NavLink>
                 </li>
                 <li className={classes.Navigation__item} onClick={() => {window.open("https://www.youtube.com/@gttournament/videos")}}>

@@ -11,6 +11,7 @@ import Teams from './pages/Teams/Teams';
 import Token from './pages/Token/Token';
 // import Contestants from './pages/Contestants/Contestants';
 import Join from './pages/Join/Join';
+import Schools from './pages/Schools/Schools';
 import Footer from './components/layout/Footer/Footer';
 import axios, { addAuthorization } from './axios/axios';
 import ScrollToTop from './components/other/ScrollToTop/ScrollToTop';
@@ -68,6 +69,7 @@ function App() {
           {/* <Route path="/contestants" exact component={Contestants}></Route> */}
           <Route path="/teams" exact component={Teams}></Route>
           <Route path="/rules" exact component={Rules}></Route>
+          <Route path="/schools" exact component={Schools}></Route>
           <Route path="/" component={Home}></Route>
         </Switch>
       </div>
