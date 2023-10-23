@@ -32,7 +32,7 @@ const GeneralRules = () => {
         <div className={classes.GeneralRules__list}>
         <Paragraph className={classes.GeneralRules__paragraph}>Registrace probíhá přes webové stránky turnaje.</Paragraph>
         <Paragraph className={classes.GeneralRules__paragraph}>Začátek a konec registrace je uveden na stránkách každé hry</Paragraph>
-        <Paragraph className={classes.GeneralRules__paragraph}>Každý registrovaný tým musí uvést školu, za kterou hraje.</Paragraph>
+        <Paragraph className={classes.GeneralRules__paragraph}>Každý účastník musí uvést školu, za kterou hraje.</Paragraph>
         <Paragraph className={classes.GeneralRules__paragraph}>Každý účastník se může zaregistrovat pro danou hru právě jednou.</Paragraph>
         <Paragraph className={classes.GeneralRules__paragraph}>Žádní dva účastníci nemohou mít stejný discord.</Paragraph>
         <Paragraph className={classes.GeneralRules__paragraph}>Každý účastník musí být studentem nebo učitelem na střední škole, osmiletém gymnáziu nebo druhém stupni základní školy.</Paragraph>
