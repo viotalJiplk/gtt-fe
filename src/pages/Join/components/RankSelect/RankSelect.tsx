@@ -7,10 +7,10 @@ import SelectInput from "../../../../components/form/SelectInput/SelectInput";
 import React from 'react';
 import { Ranks } from "../../../../constants/constants";
 
-interface Rank{
-    name: string;
-    rankId: number;
-}
+// interface Rank{
+//     name: string;
+//     rankId: number;
+// }
 
 
 interface GameSelectProps {
@@ -27,7 +27,18 @@ const RankSelect: React.FC<GameSelectProps> = props => {
     let [inputValue, setInputValue] = useState('');
 
     const context = useContext(Context);
+    let allRanks: {value: number, display: string}[] = [];
     let ranks: {value: number, display: string}[] = [];
+
+    function getRankByRankId(id:number){
+        for(let rankIndex in allRanks){
+            let rank = allRanks[rankIndex];
+            if(rank.value === id){
+                return rank;
+            }
+        }
+        return {"display": "", "value": NaN};
+    }
 
     function getGameNameById(id:number){
         for(let x in context.state.games){
@@ -41,17 +52,18 @@ const RankSelect: React.FC<GameSelectProps> = props => {
     if(context.state.games !== undefined && props.currentGame !== null){
         if(getGameNameById(props.currentGame) !== undefined){
             if(Ranks[getGameNameById(props.currentGame)] !== undefined){
-                ranks = Ranks[getGameNameById(props.currentGame)].map((rank: Rank, id: number) => {
+                allRanks = Ranks[getGameNameById(props.currentGame)].map((rank: string, id: number) => {
                     return {
                         value: id, 
                         display: rank
                     }
                 })
                 if (inputValue.length > 0 && curOption === -1) {
-                    const regexp = new RegExp(inputValue);
-                    ranks = ranks.filter((rank) => {
-                        return rank.display.match(regexp);
+                    ranks = allRanks.filter((rank) => {
+                        return rank.display.toLocaleLowerCase().includes(inputValue.toLocaleLowerCase());
                     });
+                }else{
+                    ranks = allRanks;
                 }
             }
         }
@@ -59,7 +71,7 @@ const RankSelect: React.FC<GameSelectProps> = props => {
 
     useEffect(()=>{
         if((props.curentRank||NaN) < ranks.length){
-            setInputValue(ranks[(props.curentRank||0)].display);
+            setInputValue(getRankByRankId(props.curentRank||0).display);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[props.curentRank]);
@@ -73,7 +85,7 @@ const RankSelect: React.FC<GameSelectProps> = props => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     const curOptionChange = (value:number) => {
-        setInputValue(ranks[value].display);
+        setInputValue(getRankByRankId(value).display);
         if (props.setFunction) {
             props.setFunction(value);
         };
