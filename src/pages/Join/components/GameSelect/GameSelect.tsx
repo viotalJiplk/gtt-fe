@@ -32,9 +32,10 @@ const GameSelect: React.FC<GameSelectProps> = props => {
 
     const context = useContext(Context);
     let games: {value: number, display: string}[] = [];
+    let allGames: {value: number, display: string}[] = [];
 
     if(context.state.games !== undefined){
-        games = context.state.games.sort((prevGame: Game, thisGame: Game) => {
+        allGames = context.state.games.sort((prevGame: Game, thisGame: Game) => {
             if (prevGame.gameId > thisGame.gameId) {
                 return 1;
             } else {
@@ -48,15 +49,17 @@ const GameSelect: React.FC<GameSelectProps> = props => {
         })
         if (inputValue.length > 0 && curOption === -1) {
             const regexp = new RegExp(inputValue);
-            games = games.filter((game) => {
+            games = allGames.filter((game) => {
                 return game.display.match(regexp);
             });
+        }else{
+            games = allGames;
         }
     }
 
     useEffect(()=>{
         if((props.currentGame||NaN) < games.length){
-            setInputValue(games[(props.currentGame||-1)-1].display);
+            setInputValue(allGames[(props.currentGame||-1)-1].display);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     },[props.currentGame]);
@@ -70,7 +73,7 @@ const GameSelect: React.FC<GameSelectProps> = props => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
     const curOptionChange = (value:number) => {
-        setInputValue(games[value - 1].display);
+        setInputValue(allGames[value - 1].display);
         if (props.setFunction) {
             props.setFunction(value);
         };
