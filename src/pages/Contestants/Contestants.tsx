@@ -69,13 +69,13 @@ const Contestants = () => {
                             {member.rank !== undefined && tableHeadtmp.push(<th>Rank</th>) &&
                                 <td className={classes.Contestants__member__rank}>
                                     {//@ts-expect-error
-                                     member.rank !== 0?Ranks[context.state.games[gameId].name][member.rank]: "Žádný rank"}
+                                     member.rank !== 0?Ranks[context.state.games[gameId-1].name][member.rank]: "Žádný rank"}
                                 </td>
                             }
                             {member.maxRank !== undefined && tableHeadtmp.push(<th>Maximální rank</th>) &&
                                 <td className={classes.Contestants__member__maxRank}>
                                     {//@ts-expect-error
-                                     member.maxRank !== 0?Ranks[context.state.games[gameId].name][member.maxRank]: "Žádný rank"}
+                                     member.maxRank !== 0?Ranks[context.state.games[gameId-1].name][member.maxRank]: "Žádný rank"}
                                 </td>
                             }
                         </tr>);
