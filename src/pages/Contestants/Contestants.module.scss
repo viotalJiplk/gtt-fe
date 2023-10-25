@@ -3,6 +3,11 @@
 .Contestants {
     color: $color-white;
 
+    &__cta{
+        width: fit-content;
+        margin-top: 1rem;
+    }
+
     &__heading {
         margin-bottom: 2rem;
     }
@@ -36,14 +41,17 @@
             font-weight: bold;
             color: orange;
         }
-        &__member {
-            display: flex;
-            &__role {
-                margin-left: auto;
-            }
-            &__name {
+        // &__member {
+        //     display: flex;
+        //     &__role {
+        //         margin-left: auto;
+        //     }
+        //     &__name {
 
-            }
-        }
+        //     }
+        // }
+    }
+    &__member td{
+        padding-left: 3rem;
     }
 }
