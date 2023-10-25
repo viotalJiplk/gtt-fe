@@ -7,7 +7,6 @@ import { useContext, useEffect, useState } from 'react';
 import axios from '../../axios/axios';
 import { headingTypes } from '../../types/types';
 import GameSelect from '../../components/form/GameSelect/GameSelect';
-import TeamMember from '../Teams/components/TeamComponent/components/TeamMember/TeamMember';
 import { Ranks } from '../../constants/constants';
 import { Context } from '../../store/context';
 import CTA from '../../components/layout/CTA/CTA';
@@ -86,7 +85,7 @@ const Contestants = () => {
                 setTeamsElement(tmpTeamElements);
             })
         }
-    }, [gameId]);
+    }, [gameId, context.state.games]);
    
     return <motion.div variants={routeVariants} key="contestants" transition={routeTransition} exit="hidden" animate="visible" initial="initial" className={classes.Contestants}>
         <Section className={''}>
