@@ -1,15 +1,49 @@
 @import '../../variables.scss';
 
 .Contestants {
-    margin-top: 20rem;
-
     color: $color-white;
 
-    @media screen and (max-width: 1000px) {
-        margin-top: 15rem;
+    &__heading {
+        margin-bottom: 2rem;
+    }
+    &__gameLabel{
+        padding: 0.5rem;
+        margin-right: 1rem;
+        font-size: 3rem;
+    }
+    &__gameSelect{
+        display: flex;
     }
 
-    &__heading {
-        margin-bottom: 10rem;
+    &__gameSelectSellector{
+        flex-grow: 1;
+    }
+    &__team {
+
+        @media screen and (max-width: 900px) {
+            width:calc(50% - 2rem);
+            margin-right: 2rem;
+        }
+        @media screen and (max-width: 700px) {
+            width: 100%;
+            margin-right: 0;
+        }
+
+        &__members {
+            margin-left: 2rem;
+        }
+        &__name {
+            font-weight: bold;
+            color: orange;
+        }
+        &__member {
+            display: flex;
+            &__role {
+                margin-left: auto;
+            }
+            &__name {
+
+            }
+        }
     }
 }

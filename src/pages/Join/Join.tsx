@@ -4,7 +4,7 @@ import { routeVariants, routeTransition } from '../../animations/animations';
 import Label from "../../components/form/Label/Label";
 import Row from "../../components/form/Row/Row";
 import TextInput from "../../components/form/TextInput/TextInput";
-import GameSelect from "./components/GameSelect/GameSelect";
+import GameSelect from "../../components/form/GameSelect/GameSelect";
 import classes from "./Join.module.scss"
 import RankSelect from "./components/RankSelect/RankSelect";
 import Submit from "../../components/form/Submit/Submit";

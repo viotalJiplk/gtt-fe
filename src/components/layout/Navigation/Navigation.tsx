@@ -35,10 +35,9 @@ const Navigation: React.FC<NavigationProps> = props => {
                 {context.state.discordId !== "notLoggedIn" && context.state.discordId !== "" && <li className={[classes.Navigation__item, classes.Navigation__item_teams].join(' ')}>
                     <NavLink activeClassName={classes.active} className={[classes.Navigation__link, classes.Navigation__link_registration].join(' ')} to="/teams">Moje týmy</NavLink>
                 </li>}
-                {/*
                 <li className={classes.Navigation__item}>
                     <NavLink activeClassName={classes.active} className={classes.Navigation__link} to="/contestants">Účastníci</NavLink>
-                </li> */}
+                </li>
                 <li className={classes.Navigation__item}>
                     <NavLink activeClassName={classes.active} className={classes.Navigation__link} to="/sponsors">Sponzoři</NavLink>
                 </li>

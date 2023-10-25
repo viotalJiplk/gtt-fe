@@ -9,7 +9,7 @@ import Sponsors from './pages/Sponsors/Sponsors';
 import ErrorPage from './pages/ErrorPage/ErrorPage';
 import Teams from './pages/Teams/Teams';
 import Token from './pages/Token/Token';
-// import Contestants from './pages/Contestants/Contestants';
+import Contestants from './pages/Contestants/Contestants';
 import Join from './pages/Join/Join';
 import Schools from './pages/Schools/Schools';
 import Footer from './components/layout/Footer/Footer';
@@ -66,7 +66,7 @@ function App() {
           <Route path="/join" exact component={Join}></Route>
           <Route path="/token" exact component={Token}></Route>
           <Route path="/gamepage" exact component={GamePage}></Route>
-          {/* <Route path="/contestants" exact component={Contestants}></Route> */}
+          <Route path="/contestants" exact component={Contestants}></Route>
           <Route path="/teams" exact component={Teams}></Route>
           <Route path="/rules" exact component={Rules}></Route>
           <Route path="/schools" exact component={Schools}></Route>
