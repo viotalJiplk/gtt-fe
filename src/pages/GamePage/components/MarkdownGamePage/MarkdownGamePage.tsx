@@ -9,7 +9,7 @@ interface MarkdownGamePageProps {
     gameId: number,
 }
 
-const MarkdownPage: React.FC<MarkdownGamePageProps> = (props) => {
+const MarkdownGamePageProps: React.FC<MarkdownGamePageProps> = (props) => {
     const [gamePage, setGamePage] = useState<string>("");
     async function getGamePage(){
         let result = await axios.get("/game/"+ props.gameId +"/page/").catch(function(error){
@@ -28,4 +28,4 @@ const MarkdownPage: React.FC<MarkdownGamePageProps> = (props) => {
     )
 };
 
-export default MarkdownPage;
+export default MarkdownGamePageProps;
