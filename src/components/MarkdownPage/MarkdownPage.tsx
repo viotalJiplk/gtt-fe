@@ -10,7 +10,7 @@ interface MarkdownPageProps {
     className?: string,
 }
 
-const SponsorsMarkdownPage: React.FC<MarkdownPageProps> = (props) => {
+const MarkdownPage: React.FC<MarkdownPageProps> = (props) => {
     const [sponsorPage, setSponsoPage] = useState<string>("");
     async function getGamePage(){
         let result = await axios.get("/page/" + props.pageName + "/").catch(function(error){
@@ -27,4 +27,4 @@ const SponsorsMarkdownPage: React.FC<MarkdownPageProps> = (props) => {
     )
 };
 
-export default SponsorsMarkdownPage;
+export default MarkdownPage;
