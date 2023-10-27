@@ -6,19 +6,16 @@ import Section from '../../components/layout/Section/Section';
 import SponsorshipPackages from '../../assets/sponzorske-balicky.png';
 import { motion } from 'framer-motion';
 
-import SponsorImage_Jmk from '../../assets/jmk.jpg';
-import SponsorImage_Jrdm from '../../assets/jrdm.png';
+import SponsorsMarkdownPage from '../../components/MarkdownPage/MarkdownPage';
 
 const Sponsors = () => {
     return <motion.div key="sponsors" className={classes.Sponsors} variants={routeVariants} transition={routeTransition} exit="hidden" animate="visible" initial="initial">
         <Section className={''}>
             <Heading className={''} type={headingTypes.main}>Sponzoři</Heading>
-            <img className={classes.Sponsors__packages} alt="Sponsorship Packages" src={SponsorshipPackages}></img>
+            <SponsorsMarkdownPage pageName='sponsors' className={classes.Sponsors__sponsorsMarkdownPage}></SponsorsMarkdownPage>
+            <Heading className={''} type={headingTypes.h1}>Jak se stát sponzorem?</Heading>
             <p className={classes.Sponsors__contact}>Pokud máte zájem stát se sponzorem, kontaktujte nás na <b><a href="mailto:turnajvpocitacovychhrach@gym-tisnov.cz">turnajvpocitacovychhrach@gym-tisnov.cz</a></b>.</p>
-            <div className={classes.Sponsors__list}>
-                <img alt="JMK Logo" className={classes.Sponsors__logo} src={SponsorImage_Jmk}></img>
-                <img alt="JRDM Logo" className={classes.Sponsors__logo} src={SponsorImage_Jrdm}></img>
-            </div>
+            <img className={classes.Sponsors__packages} alt="Sponsorship Packages" src={SponsorshipPackages}></img>
         </Section>
     </motion.div>
 };
