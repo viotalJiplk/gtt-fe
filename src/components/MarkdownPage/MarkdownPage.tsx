@@ -4,6 +4,7 @@ import axios from '../../axios/axios';
 import ErrorReporter from "../../pages/ErrorPage/ErrorReporter";
 import classes from "./MarkdownPage.module.scss";
 import remarkGfm from 'remark-gfm'
+import LoadingSpinner from "../other/Spinner/Spinner";
 
 interface MarkdownPageProps {
     pageName: string,
@@ -11,19 +12,24 @@ interface MarkdownPageProps {
 }
 
 const MarkdownPage: React.FC<MarkdownPageProps> = (props) => {
-    const [sponsorPage, setSponsoPage] = useState<string>("");
+    const [markdownPageContent, setMarkdownPageContent] = useState<string>("");
+    const [loaded, setLoaded] = useState<boolean>(false);
     async function getGamePage(){
         let result = await axios.get("/page/" + props.pageName + "/").catch(function(error){
             ErrorReporter("Server je pravděpodobně offline. Zkuste akci opakovat později.");
         });
         if(result){
-            setSponsoPage(result.data.value);
+            setMarkdownPageContent(result.data.value);
+            setLoaded(true);
         }
     }
     getGamePage();
 
     return (
-        <Markdown remarkPlugins={[[remarkGfm, {singleTilde: false}]]} className={[classes.MarkdownPage, props.className].join(' ')}>{sponsorPage}</Markdown>
+        <div>
+            {loaded && <Markdown remarkPlugins={[[remarkGfm, {singleTilde: false}]]} className={[classes.MarkdownPage, props.className].join(' ')}>{markdownPageContent}</Markdown>}
+            {!loaded && <LoadingSpinner></LoadingSpinner>}
+        </div>
     )
 };
 
