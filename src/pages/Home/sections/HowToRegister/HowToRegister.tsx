@@ -44,7 +44,7 @@ const HowToRegister: React.FC<RouteComponentProps> = (props) => {
         <ol className={classes.HowToRegister__ol}>
             <li>Přejděte na záložku Moje týmy.</li>
             <li>Rozklikněte tým.</li>
-            <li>Vygnerujte odkaz.</li>
+            <li>Vygenerujte odkaz.</li>
             <li>Pošlete odkaz vašim spoluhráčům.</li>
         </ol>
 
