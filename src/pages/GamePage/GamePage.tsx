@@ -7,7 +7,7 @@ import { Context } from '../../store/context';
 import { GAMENAMES } from '../../constants/constants';
 import Heading from '../../components/typography/Heading';
 import { headingTypes } from '../../types/types';
-import MarkdownPage from './components/MarkdownPage/MarkdownPage';
+import MarkdownGamePageProps from './components/MarkdownGamePage/MarkdownGamePage';
 
 
 const GamePage = () => {
@@ -81,7 +81,7 @@ const GamePage = () => {
             <div>
                 {minmax}
             </div>
-            <MarkdownPage gameId={gameId}></MarkdownPage>
+            <MarkdownGamePageProps gameId={gameId}></MarkdownGamePageProps>
         </motion.div>
     )
 }

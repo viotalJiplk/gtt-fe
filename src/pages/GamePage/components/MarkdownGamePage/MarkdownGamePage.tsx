@@ -2,14 +2,14 @@ import Markdown from "react-markdown";
 import { useState } from "react";
 import axios from '../../../../axios/axios';
 import ErrorReporter from "../../../ErrorPage/ErrorReporter";
-import classes from "./MarkdownPage.module.scss";
+import classes from "./MarkdownGamePage.module.scss";
 import remarkGfm from 'remark-gfm'
 
-interface MarkdownPageProps {
+interface MarkdownGamePageProps {
     gameId: number,
 }
 
-const MarkdownPage: React.FC<MarkdownPageProps> = (props) => {
+const MarkdownPage: React.FC<MarkdownGamePageProps> = (props) => {
     const [gamePage, setGamePage] = useState<string>("");
     async function getGamePage(){
         let result = await axios.get("/game/"+ props.gameId +"/page/").catch(function(error){
