@@ -23,6 +23,10 @@
     &__gameSelectSellector{
         flex-grow: 1;
     }
+    &__discord{
+        display: flex;
+        font-size: 3rem;
+    }
     &__team {
 
         @media screen and (max-width: 900px) {
