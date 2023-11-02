@@ -155,7 +155,25 @@ const Contestants = () => {
             <CTA className={classes.Contestants__cta} onClick={() =>{
                 let csv: String = "";
                 teams.forEach((element)=>{
-                    csv += Object.values(element).join(', ') + "\n";
+                    if(element.discordUserObject){
+                        if(element.discordUserObject.global_name){
+                            //@ts-expect-error
+                            element.discordUserObject = element.discordUserObject.global_name
+                        }else{
+                            //@ts-expect-error
+                            element.discordUserObject = element.discordUserObject.username + "#" + element.discordUserObject.discriminator
+                        }
+                    }
+                    if(element.rank){
+                        //@ts-expect-error
+                        element.rank = element.rank!==0?Ranks[context.state.games[gameId-1].name][element.rank]: "Žádný rank"
+                    }
+                    if(element.maxRank){
+                        //@ts-expect-error
+                        element.maxRank = element.maxRank!==0?Ranks[context.state.games[gameId-1].name][element.maxRank]: "Žádný rank"
+                    }
+                    //todo fix when name includes "
+                    csv += '"'+Object.values(element).join('", "') + '"\n';
                 });
                 // @ts-expect-error
                 let uriContent = "data:application/octet-stream," + encodeURIComponent(csv);
