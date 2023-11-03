@@ -13,6 +13,7 @@ import { useHistory } from "react-router-dom";
 import RoleSelect from "./components/RoleSelect/RoleSelect";
 import ErrorReporter from "../ErrorPage/ErrorReporter";
 import LoadingSpinner from "../../components/other/Spinner/Spinner";
+import Paragraph from "../../components/typography/Paragraph";
 
 const Join = () => {
     const history = useHistory();
@@ -158,14 +159,19 @@ const Join = () => {
     return <motion.div transition={routeTransition} key="join" variants={routeVariants} initial="initial" animate="visible" exit="hidden" className={classes.Join}>
         <div className={classes.Join__spacer}></div>
         {loaded && <div>
-            { !(joinString && teamId) && <Row>
-                <Label obligatory>Název týmu</Label>
-                <TextInput value={name} setFunction={setName}></TextInput>
-            </Row>}
-            { !(joinString && teamId) && <Row>
-                <Label obligatory>Hra</Label>
-                <GameSelect setFunction={setGameId} currentGame={gameId}></GameSelect>
-            </Row>}
+            { !(joinString && teamId) &&
+                <div>
+                    <Paragraph className={classes.Join__sectionName}>Informace o týmu (zadává pouze kapitán)</Paragraph>
+                    <Row>
+                        <Label obligatory>Název týmu</Label>
+                        <TextInput value={name} setFunction={setName}></TextInput>
+                    </Row>
+                    <Row>
+                        <Label obligatory>Hra</Label>
+                        <GameSelect setFunction={setGameId} currentGame={gameId}></GameSelect>
+                    </Row>
+                    <Paragraph className={classes.Join__sectionName}>Informace o účastníkovi (zadává každý člen týmu za sebe)</Paragraph>
+                </div>}
             { (joinString && teamId) && <Row>
                 <Label obligatory>Role</Label>
                 <RoleSelect setFunction={setRole} currentRole={role}></RoleSelect>
