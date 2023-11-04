@@ -128,6 +128,7 @@ export const Ranks: any ={
         'Radiant'
     ],
     [GAMETYPES.R6]:[
+        'Žádný rank',
         'Copper 1',
         'Copper 2',
         'Copper 3',
