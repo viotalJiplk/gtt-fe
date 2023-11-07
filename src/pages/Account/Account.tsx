@@ -149,7 +149,7 @@ const Account = () => {
                 setIsAdult(value);
             }}></AdultSelect>
             <Agreement setFunction={setAgreed}></Agreement>
-            <SchoolSelect label={'Škola, za kterou bude tým hrát (musí být položka ze seznamu)'} currentSchool={school} setFunction={setSchool} className={classes.AloneForm__schoolSelect}></SchoolSelect>
+            <SchoolSelect label={'Škola, na které studuji (musí být položka ze seznamu)'} currentSchool={school} setFunction={setSchool} className={classes.AloneForm__schoolSelect}></SchoolSelect>
             <Submit className={classes.TeamForm__submit} onClick={(e: any) => {
                 e.preventDefault();
                 onSubmit();
