@@ -21,6 +21,7 @@ import { useEffect, useContext} from 'react';
 import Rules from './pages/Rules/Rules';
 import { isExpired, decodeToken } from "react-jwt";
 import GamePage from './pages/GamePage/GamePage';
+import About from './pages/About/About';
 
 function App() {
   const context = useContext(Context);
@@ -70,6 +71,7 @@ function App() {
           <Route path="/teams" exact component={Teams}></Route>
           <Route path="/rules" exact component={Rules}></Route>
           <Route path="/schools" exact component={Schools}></Route>
+          <Route path="/about" exact component={About}></Route>
           <Route path="/" component={Home}></Route>
         </Switch>
       </div>
