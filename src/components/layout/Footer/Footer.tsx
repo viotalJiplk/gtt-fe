@@ -17,13 +17,13 @@ const Footer: React.FC<FooterProps> = (props) => {
         </div>
         <div className={[classes.Footer__section, classes.Footer__sponsorLogos].join(' ')}>
             <div className={classes.Footer__sponsorLogos__column}>
-                <img src={JRDMLogo}></img>
-                <img src={MSMTLogo}></img>
+                <img alt={"JRDM Logo"} src={JRDMLogo}></img>
+                <img alt={"MSMT Logo"} src={MSMTLogo}></img>
             </div>
             <div className={classes.Footer__sponsorLogos__column}>
-                <img src={JMKLogo}></img>
-                <img src={FakahedaLogo}></img>
-                <img src={HelkorLogo}></img>
+                <img alt={"JMK Logo"} src={JMKLogo}></img>
+                <img alt={"Fakaheda Logo"} src={FakahedaLogo}></img>
+                <img alt={"Helkor Logo"} src={HelkorLogo}></img>
             </div>
         </div>
         <div className={[classes.Footer__section, classes.Footer__section_right].join(' ')}>
