@@ -12,6 +12,12 @@ import CTA from '../../../../components/layout/CTA/CTA';
 import { withRouter } from 'react-router';
 import discordLogo from '../../../../assets/discord-logo.svg';
 
+import MSMTLogo from '../../../../assets/msmt_logo.svg';
+import JMKLogo from '../../../../assets/jmk_logo.svg'
+import JRDMLogo from '../../../../assets/JRDM_logo.svg';
+import HelkorLogo from '../../../../assets/helkor_logo.png';
+import FakahedaLogo from '../../../../assets/fakaheda_logo.png';
+
 interface HeaderProps {
 
 }
@@ -25,6 +31,17 @@ const Header: React.FC<HeaderProps> = props => {
             <div className={classes.Header__topRight}>
                 {/* <CountDown className={classes.Header__countDown}></CountDown> */}
                 <img className={classes.Header__logo} src={logo} alt="GT Tournament Logo"></img>
+                <div className={classes.Header__sponsorLogos}>
+                    <div className={classes.Header__sponsorLogos__column}>
+                        <img src={JRDMLogo}></img>
+                        <img src={MSMTLogo}></img>
+                    </div>
+                    <div className={classes.Header__sponsorLogos__column}>
+                        <img src={JMKLogo}></img>
+                        <img src={FakahedaLogo}></img>
+                        <img src={HelkorLogo}></img>
+                    </div>
+                </div>
             </div>
             <div className={classes.Header__content}>
                 <Heading className={classes.Header__heading} type={headingTypes.main}>

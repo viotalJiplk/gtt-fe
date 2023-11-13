@@ -53,7 +53,7 @@ const GameLogo: React.FC<GameLogoProps> = ({ game, className, onClick }) => {
         default:
             break;
     }
-    imgClass += (" " + className)
+    imgClass += (" " + className + " " + classes.GameLogo)
     return <img onClick={() => {
         if (onClick) {
             onClick();

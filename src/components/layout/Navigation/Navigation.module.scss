@@ -3,7 +3,7 @@
 .Navigation {
     height: 8rem;
     width: 100%;
-    padding-left: 8rem;
+    padding-left: 4rem;
 
     display: flex;
     justify-content: flex-start;
@@ -37,6 +37,7 @@
         list-style: none;
 
         display: flex;
+        align-items: center;
 
         @media (max-width: 900px){
             width: 100vw;
@@ -97,7 +98,6 @@
     &__youtubeLogo {
         cursor: pointer;
         width: 6rem;
-        height: 3.5rem;
     }
     &__twitchLogo {
         cursor: pointer;
