@@ -33,13 +33,13 @@ const Header: React.FC<HeaderProps> = props => {
                 <img className={classes.Header__logo} src={logo} alt="GT Tournament Logo"></img>
                 <div className={classes.Header__sponsorLogos}>
                     <div className={classes.Header__sponsorLogos__column}>
-                        <img alt={"JRDM Logo"} src={JRDMLogo}></img>
-                        <img alt={"MSMT Logo"} src={MSMTLogo}></img>
+                        <a href="https://jrdm.cz/" target="_blank"><img alt={"JRDM Logo"} src={JRDMLogo}></img></a>
+                        <a href="https://www.msmt.cz/" target="_blank"><img alt={"MSMT Logo"} src={MSMTLogo}></img></a>
                     </div>
                     <div className={classes.Header__sponsorLogos__column}>
-                        <img alt={"JMK Logo"} src={JMKLogo}></img>
-                        <img alt={"Fakaheda Logo"} src={FakahedaLogo}></img>
-                        <img alt={"Helkor Logo"} src={HelkorLogo}></img>
+                        <a href="https://www.jmk.cz/" target="_blank"><img alt={"JMK Logo"} src={JMKLogo}></img></a>
+                        <a href="https://www.fakaheda.eu/" target="_blank"><img alt={"Fakaheda Logo"} src={FakahedaLogo}></img></a>
+                        <a href="https://helkor.eu/" target="_blank"><img alt={"Helkor Logo"} src={HelkorLogo}></img></a>
                     </div>
                 </div>
             </div>
