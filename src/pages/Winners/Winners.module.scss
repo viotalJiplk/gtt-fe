@@ -1,0 +1,74 @@
+@import '../../variables.scss';
+
+.Winners {
+    // margin-top: 20rem;
+    // min-height: 100vh;
+    // padding-bottom: 20rem;
+
+    color: $color-white;
+
+    @media screen and (max-width: 1000px) {
+        margin-top: 15rem;
+        padding-bottom: 15rem;
+    }
+    @media screen and (max-width: 600px) {
+        margin-top: 5rem;
+        padding-bottom: 10rem;
+    }
+
+    &__winnersMarkdownPage {
+        margin-top: 4rem;
+
+        img {
+            width: 40rem;
+            height: auto;
+            margin-bottom: 4rem;
+
+            @media screen and (max-width: 500px) {
+                width: 30rem;
+            }
+        }
+        a{
+            text-decoration: none;
+            color: white;
+        }
+    }
+
+    &__list {
+        margin-top: 2rem;
+
+        display: flex;
+        align-items: center;
+    }
+    &__logo {
+        width: 30rem;
+
+        display: block;
+
+        &:not(:first-child) {
+            margin-left: 2rem;
+        }
+    }
+
+    &__packages {
+        width: 90rem;
+        margin-top: 10rem;
+        margin-bottom: 10rem;
+        margin-left: auto;
+        margin-right: auto;
+        display: block;
+
+        @media screen and (max-width: 600px) {
+            margin-top: 5rem;
+        }
+    }
+
+    &__contact {
+        font-size: 3rem;
+        color: $color-white;
+
+        a {
+            color: $color-white;
+        }
+    }
+}
