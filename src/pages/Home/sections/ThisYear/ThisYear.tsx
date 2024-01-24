@@ -20,7 +20,6 @@ import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { LoadingPlaceholder } from "../../../../components/other/LoadingPlaceholder/LoadingPlaceholder";
 import axios from "axios";
-import { GAMENAMES } from "../../../../constants/constants";
 
 interface eventListResponse{
     beginTime: string,
@@ -62,6 +61,7 @@ const ThisYear = () => {
             loadEvents();
         }
     },
+    // eslint-disable-next-line
     [context]
     );
 
@@ -178,6 +178,7 @@ const ThisYear = () => {
                 </div>
             }));
         }
+        // eslint-disable-next-line
     }, [schedule, currentDay])
     return <Section className={classes.ThisYear}>
             <LoadingPlaceholder isLoaded={loaded}>
