@@ -21,21 +21,27 @@ import { motion, AnimatePresence } from 'framer-motion';
 const schedule = [
     {
         date: '17.11.2023',
-        description: '',
         events: [
             {
                 game: GAMETYPES.VALORANT,
                 segments: [
-                    { 
+                    {
+                        description: 'Skupiny',
                         beginTime: '10:00',
                         endTime: '16:00'
+                    },
+                    { 
+                        description: 'Finále',
+                        beginTime: '18:00',
+                        endTime: '22:00'
                     }
                 ]
             },
             {
                 game: GAMETYPES.ROCKET_LEAGUE,
                 segments: [
-                    { 
+                    {
+                        description: '',
                         beginTime: '14:00',
                         endTime: '18:00'
                     }
@@ -45,12 +51,12 @@ const schedule = [
     },
     {
         date: '18.11.2023',
-        description: '',
         events: [
             {
                 game: GAMETYPES.LOL,
                 segments: [
                     { 
+                        description: '',
                         beginTime: '10:00',
                         endTime: '18:00'
                     }
@@ -60,12 +66,12 @@ const schedule = [
     },
     {
         date: '19.11.2023',
-        description: '',
         events: [
             {
                 game: GAMETYPES.COUNTER_STRIKE,
                 segments: [
-                    { 
+                    {
+                        description: '', 
                         beginTime: '10:00',
                         endTime: '18:00'
                     }
@@ -75,6 +81,7 @@ const schedule = [
                 game: GAMETYPES.MINECRAFT,
                 segments: [
                     { 
+                        description: '',
                         beginTime: '13:00',
                         endTime: '18:00'
                     }
@@ -84,12 +91,12 @@ const schedule = [
     },
     {
         date: '25.11.2023',
-        description: '',
         events: [
             {
                 game: GAMETYPES.R6,
                 segments: [
-                    { 
+                    {  
+                        description: '',
                         beginTime: '10:00',
                         endTime: '15:00'
                     }
@@ -99,6 +106,7 @@ const schedule = [
                 game: GAMETYPES.VALORANT,
                 segments: [
                     { 
+                        description: '',
                         beginTime: '15:00',
                         endTime: '18:00'
                     }
@@ -108,12 +116,12 @@ const schedule = [
     },
     {
         date: '26.11.2023',
-        description: 'Finále',
         events: [
             {
                 game: GAMETYPES.ROCKET_LEAGUE,
                 segments: [
-                    { 
+                    {
+                        description: '', 
                         beginTime: '10:00',
                         endTime: '11:30'
                     }
@@ -122,7 +130,8 @@ const schedule = [
             {
                 game: GAMETYPES.LOL,
                 segments: [
-                    { 
+                    {
+                        description: '',
                         beginTime: '12:00',
                         endTime: '14:30'
                     }
@@ -132,6 +141,7 @@ const schedule = [
                 game: GAMETYPES.COUNTER_STRIKE,
                 segments: [
                     { 
+                        description: '',
                         beginTime: '15:00',
                         endTime: '18:00'
                     }
@@ -186,7 +196,7 @@ const ThisYear = () => {
     const descriptionElements = schedule[currentDay].events.map((event, id) => {
         const times = event.segments.map((segment, id) => { 
             return <div key={id} className={classes.ThisYear__description__time}>    
-                <p>{segment.beginTime} - {segment.endTime}</p>
+                <p>{segment.description} {segment.beginTime} - {segment.endTime}</p>
             </div>
         });
         const count = backgroundElements.length;
@@ -215,9 +225,6 @@ const ThisYear = () => {
                         </div>
                         <div className={classes.ThisYear__content}>
                             <Heading className={classes.ThisYear__heading} type={headingTypes.h1}>{schedule[currentDay].date}</Heading>
-                            <Paragraph className={classes.ThisYear__paragraph}>
-                                {schedule[currentDay].description}
-                            </Paragraph>
                             <div className={classes.ThisYear__descriptions}>
                                 {descriptionElements}
                             </div>
