@@ -1,5 +1,6 @@
 @import '../../../variables.scss';
 .Spinner{
+    height: 100%;
     @keyframes spinner {
         0% {
             transform: rotate(0deg);
@@ -9,10 +10,10 @@
         }
     }
     &__loadingSpinner {
-        width: 50px;
-        height: 50px;
-        border: 10px solid #f3f3f3; /* Light grey */
-        border-top: 10px solid #383636; /* Black */
+        width: 10rem;
+        height: 10rem;
+        border: 2rem solid #f3f3f3; /* Light grey */
+        border-top: 2rem solid #383636; /* Black */
         border-radius: 50%;
         animation: spinner 1.5s linear infinite;
         display: inline-block;
