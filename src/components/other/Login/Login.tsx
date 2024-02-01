@@ -18,7 +18,7 @@ const Login = () =>{
 
     return <div onClick={loginFunction}>
         {(context.state.discordId !== "notLoggedIn" && context.state.discordId !== ""  &&
-            <img className={classes.Login__Avatar} src={"https://cdn.discordapp.com/avatars/" + context.state.discordId + "/" + context.state.userObject.avatar +".png"}></img> )
+            <img alt={context.state.userObject.username} className={classes.Login__Avatar} src={"https://cdn.discordapp.com/avatars/" + context.state.discordId + "/" + context.state.userObject.avatar +".png"}></img> )
             || <ProfileIcon></ProfileIcon>}
         </div>
 }
