@@ -1,0 +1,9 @@
+.Login {
+    &__Avatar{
+        cursor: pointer;
+        height: 3rem;
+        &:hover {
+            transform: translateY(-2px);
+        }
+    }
+}

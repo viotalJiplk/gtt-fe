@@ -40,13 +40,17 @@ function App() {
   }, [])
   useEffect(()=>{
     let jwtString = localStorage.getItem("jwt") || "";
+    let userObject = localStorage.getItem("userObject") || "";
     let isTokenExpired = isExpired(jwtString);
     if(isTokenExpired){
       localStorage.removeItem("jwt");
+      localStorage.removeItem("userObject");
+      context.setAvatar("");
       context.setDiscordId("notLoggedIn");
     }else{
-      addAuthorization("Bearer " + jwtString)
+      addAuthorization("Bearer " + jwtString);
       let decodedToken = decodeToken(jwtString) as any;
+      context.setAvatar(JSON.parse(userObject).avatar);
       context.setDiscordId(decodedToken[decodedToken["iss"]+"/discord/userid"]);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps

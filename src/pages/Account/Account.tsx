@@ -46,7 +46,7 @@ const Account = () => {
             ErrorReporter("Nejste přihlášeni, nebo nemáte dostatečná práva");
             return error;
         });
-        let response = JSON.parse(axiosResponse.data);
+        let response = axiosResponse.data;
         if (response.schoolId !== null) {
             setSchool(response.schoolId);
         }

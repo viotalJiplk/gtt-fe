@@ -40,6 +40,7 @@ const Token = () => {
         });
         if(response){
             localStorage.setItem("jwt", response.data.jws);
+            localStorage.setItem("userObject", JSON.stringify(response.data.userObject));
             if(localStorage.getItem("afterlogin") !== null){
                 const url = localStorage.getItem("afterlogin");
                 localStorage.removeItem("afterlogin");

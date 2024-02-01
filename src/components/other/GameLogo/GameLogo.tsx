@@ -23,17 +23,17 @@ const GameLogo: React.FC<GameLogoProps> = ({ game, className, onClick }) => {
         case GAMETYPES.COUNTER_STRIKE:
             imgSrc = counterStrikeLogo;
             imgAlt = 'Counter Strike: Global Offensive Logo'
-            imgClass = classes.GameLogo_counter
+            imgClass = classes.GameLogo__counter
             break;
         case GAMETYPES.ROCKET_LEAGUE:
             imgSrc = rocketLeagueLogo;
             imgAlt = 'Rocket League Logo'
-            imgClass = classes.GameLogo_rocket
+            imgClass = classes.GameLogo__rocket
             break;
         case GAMETYPES.LOL:
             imgSrc = leagueOfLegendsLogo;
             imgAlt = 'League of Legends Logo'
-            imgClass = classes.GameLogo_lol
+            imgClass = classes.GameLogo__lol
             break;
         case GAMETYPES.MINECRAFT:
             imgSrc = minecraftLogo;
@@ -42,12 +42,12 @@ const GameLogo: React.FC<GameLogoProps> = ({ game, className, onClick }) => {
             break;
         case GAMETYPES.VALORANT:
             imgSrc = valorantLogo;
-            imgClass = classes.GameLogo_valorant
+            imgClass = classes.GameLogo__valorant
             imgAlt = 'Valorant Logo'
             break;
         case GAMETYPES.R6:
             imgSrc = r6Logo;
-            imgClass = classes.GameLogo_r6
+            imgClass = classes.GameLogo__r6
             imgAlt = 'R6 Logo'
             break;
         default:
