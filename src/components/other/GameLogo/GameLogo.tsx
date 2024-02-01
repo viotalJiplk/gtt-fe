@@ -37,7 +37,7 @@ const GameLogo: React.FC<GameLogoProps> = ({ game, className, onClick }) => {
             break;
         case GAMETYPES.MINECRAFT:
             imgSrc = minecraftLogo;
-            imgClass = classes.GameLogo_minecraft
+            imgClass = classes.GameLogo__minecraft
             imgAlt = 'Minecraft Logo'
             break;
         case GAMETYPES.VALORANT:
