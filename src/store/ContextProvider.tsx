@@ -6,7 +6,7 @@ import React from 'react';
 interface stateInterface {
     schools: string[],
     discordId: string,
-    avatar: string,
+    userObject: Object,
     games: object[],
 }
 
@@ -18,15 +18,15 @@ export const reducer = (state: stateInterface, action: {type: actionTypes, data:
             return {...state, discordId: action.data.discordId};
         case actionTypes.SET_GAMES:
             return {...state, games: action.data.games};
-            case actionTypes.SET_AVATAR:
-                return {...state, avatar: action.data.avatar};
+            case actionTypes.SET_USEROBJECT:
+                return {...state, userObject: action.data.userObject};
         default:
             return state;
     }
 };
 
 const ContextProvider: React.FC<PropsWithChildren> = props => {
-    const [state, dispatch] = useReducer(reducer, {schools: [], discordId: "", games: [], avatar: ""});
+    const [state, dispatch] = useReducer(reducer, {schools: [], discordId: "", games: [], userObject: Object()});
     const setSchools = useCallback((schools:any) => {
         dispatch({type: actionTypes.SET_SCHOOLS, data: {schools: schools}})
     }, []);
@@ -36,8 +36,8 @@ const ContextProvider: React.FC<PropsWithChildren> = props => {
     const setGames = useCallback((games:any) => {
         dispatch({type: actionTypes.SET_GAMES, data: {games: games}})
     }, []);
-    const setAvatar = useCallback((avatar:any) => {
-        dispatch({type: actionTypes.SET_AVATAR, data: {avatar: avatar}})
+    const setUserObject = useCallback((userObject:any) => {
+        dispatch({type: actionTypes.SET_USEROBJECT, data: {userObject: userObject}})
     }, []);
 
     const context = {
@@ -45,7 +45,7 @@ const ContextProvider: React.FC<PropsWithChildren> = props => {
             schools: state.schools,
             discordId: state.discordId,
             games: state.games,
-            avatar: state.avatar
+            userObject: state.userObject
         },
         setSchools: (schools: string[]) => {
             setSchools(schools);
@@ -56,8 +56,8 @@ const ContextProvider: React.FC<PropsWithChildren> = props => {
         setGames: (games: Object[]) => {
             setGames(games);
         },
-        setAvatar: (avatar: string) => {
-            setAvatar(avatar);
+        setUserObject: (userObject: string) => {
+            setUserObject(userObject);
         }
     }
     return <Context.Provider value={context}>{props.children}</Context.Provider>

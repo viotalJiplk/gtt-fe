@@ -50,7 +50,7 @@ function App() {
     }else{
       addAuthorization("Bearer " + jwtString);
       let decodedToken = decodeToken(jwtString) as any;
-      context.setAvatar(JSON.parse(userObject).avatar);
+      context.setUserObject(JSON.parse(userObject));
       context.setDiscordId(decodedToken[decodedToken["iss"]+"/discord/userid"]);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
