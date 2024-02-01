@@ -45,7 +45,7 @@ function App() {
     if(isTokenExpired){
       localStorage.removeItem("jwt");
       localStorage.removeItem("userObject");
-      context.setAvatar("");
+      context.setUserObject({});
       context.setDiscordId("notLoggedIn");
     }else{
       addAuthorization("Bearer " + jwtString);
