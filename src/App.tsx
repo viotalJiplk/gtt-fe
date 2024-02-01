@@ -52,6 +52,7 @@ function App() {
       let decodedToken = decodeToken(jwtString) as any;
       context.setUserObject(JSON.parse(userObject));
       context.setDiscordId(decodedToken[decodedToken["iss"]+"/discord/userid"]);
+      console.log("test");
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
