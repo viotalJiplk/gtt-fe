@@ -17,7 +17,7 @@ import JMKLogo from '../../../../assets/jmk_logo.svg'
 import JRDMLogo from '../../../../assets/JRDM_logo.svg';
 import HelkorLogo from '../../../../assets/helkor_logo.png';
 import FakahedaLogo from '../../../../assets/fakaheda_logo.png';
-
+import ArtinLogo from '../../../../assets/artinlogo.png';
 interface HeaderProps {
 
 }
@@ -40,6 +40,7 @@ const Header: React.FC<HeaderProps> = props => {
                         <a href="https://www.jmk.cz/" rel="noreferrer" target="_blank"><img alt={"JMK Logo"} src={JMKLogo}></img></a>
                         <a href="https://www.fakaheda.eu/" rel="noreferrer" target="_blank"><img alt={"Fakaheda Logo"} src={FakahedaLogo}></img></a>
                         <a href="https://helkor.eu/" rel="noreferrer" target="_blank"><img alt={"Helkor Logo"} src={HelkorLogo}></img></a>
+                        <a href="https://artin.eu/" rel="noreferrer" target="_blank"><img alt={"Artin Logo"} src={ArtinLogo}></img></a>
                     </div>
                 </div>
             </div>
