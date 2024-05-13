@@ -51,7 +51,7 @@ const Header: React.FC<HeaderProps> = props => {
                     Gymnázia Tišnov
                 </Heading>
                 <Heading className={classes.Header__subheading} type={headingTypes.h2}>
-                    17.11 - 26.11
+                    listopad 2024
                 </Heading>
                 <Paragraph className={classes.Header__paragraph}>
                     Středoškolský turnaj v počítačových hrách.
