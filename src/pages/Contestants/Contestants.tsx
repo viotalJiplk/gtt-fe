@@ -41,6 +41,7 @@ interface TeamMember{
     userId?: Number;
     rank?: Number;
     maxRank?: Number;
+    canPlaySince?: String;
     discordUserObject?: discordUserObject;
 }
 
@@ -54,14 +55,23 @@ const Contestants = () => {
     const [teams, setTeams] = useState<TeamMember[]>([]);
     const [tableHead, setTableHead] = useState<JSX.Element[]>([]);
     // @ts-expect-error
-    function groupBy(arr, property) {
-        // @ts-expect-error
-        return arr.reduce(function(memo, x) {
-          if (!memo[x[property]]) { memo[x[property]] = []; }
-          memo[x[property]].push(x);
-          return memo;
+    function groupBy(arr, properties) {
+    // @ts-expect-error
+        const grouped = arr.reduce((memo, x) => {
+            // @ts-expect-error
+            const key = properties.map(prop => x[prop]).join('_');
+            if (!memo[key]) {
+                memo[key] = [];
+            }
+            memo[key].push(x);
+            return memo;
         }, {});
-      }
+
+        // Convert the grouped object to an array of arrays
+        const result = Object.entries(grouped).map(([key, value]) => value);
+
+        return result;
+    }
 
     useEffect(() => {
         if(gameId != null && context.state.games !== undefined){
@@ -70,7 +80,16 @@ const Contestants = () => {
                 let tmpTeams: TeamMember[][] = [[]];
                 setTeams(response.data);
                 let tmpTeamElements: JSX.Element[] = [];
-                tmpTeams = groupBy(response.data, 'teamId');
+                // @ts-expect-error
+                let groupedTeams: TeamMember[][] = groupBy(response.data, ['teamId']);
+                tmpTeams = groupedTeams.sort((a, b) => {
+                    if (a[0]['canPlaySince'] === undefined && a[0]['canPlaySince'] === undefined) return 0;
+                    if (b[0]['canPlaySince'] === undefined) return -1;
+                    if (a[0]['canPlaySince'] === undefined) return 1;
+                    if (a[0]['canPlaySince'] < b[0]['canPlaySince'] ) return -1;
+                    if (a[0]['canPlaySince']  > b[0]['canPlaySince'] ) return 1;
+                    return 0;
+                });
                 for(let teamId in tmpTeams){
                     let team = tmpTeams[teamId];
                     tmpTeamElements.push(
