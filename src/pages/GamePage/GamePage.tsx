@@ -59,13 +59,13 @@ const GamePage = () => {
                             <td>{// @ts-expect-error
                             game.maxMembers}</td>
                           </tr>
-                          <tr>
+                          {/* <tr>
                             <td>Záložník</td>
                             <td>{// @ts-expect-error
                             game.minReservists}</td>
                             <td>{// @ts-expect-error
                             game.maxReservists}</td>
-                          </tr>
+                          </tr> */}
                         </tbody>
                        </table>]);
                 }
