@@ -32,6 +32,7 @@ jobs:
       run: npm ci && npm run build
       env:
         NODE_OPTIONS: --openssl-legacy-provider
+        INLINE_RUNTIME_CHUNK: false
     - name: Set up QEMU
       uses: docker/setup-qemu-action@v3
     - name: Set up Docker Buildx
