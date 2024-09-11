@@ -4,6 +4,8 @@
   "private": true,
   "proxy": "http://127.0.0.1:5000/",
   "dependencies": {
+    "@svgr/webpack": "^8.1.0",
+    "@tanstack/react-query": "^5.55.4",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^14.0.0",
     "@testing-library/user-event": "^12.8.3",
@@ -13,7 +15,7 @@
     "@types/react-dom": "^18.2.11",
     "@types/react-router": "^5.1.20",
     "@types/react-router-dom": "^5.3.3",
-    "axios": "^0.24.0",
+    "axios": "^1.7.7",
     "axios-auth-refresh": "^3.3.6",
     "framer-motion": "^4.1.17",
     "package": "^1.0.1",
@@ -22,15 +24,20 @@
     "react-jwt": "^1.2.0",
     "react-markdown": "^8.0.7",
     "react-responsive": "^9.0.2",
-    "react-scripts": "^4.0.3",
+    "react-scripts": "5.0.0",
     "remark-gfm": "^3.0.1",
     "sass": "^1.43.3",
     "start": "^5.1.0",
+    "svgo": "^3.3.2",
     "typescript": "^4.4.4",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^1.1.2",
+    "webpack": "^5.94.0",
+    "nth-check": "^2.1.1",
+    "send": "^0.19.0",
+    "postcss": "8.4.45"
   },
   "scripts": {
-    "start": "react-scripts --openssl-legacy-provider start",
+    "start": "DANGEROUSLY_DISABLE_HOST_CHECK=true react-scripts --openssl-legacy-provider start",
     "build": "react-scripts --openssl-legacy-provider build",
     "test": "react-scripts --openssl-legacy-provider test",
     "eject": "react-scripts --openssl-legacy-provider eject"
@@ -54,6 +61,7 @@
     ]
   },
   "devDependencies": {
+    "@babel/core": "^7.25.2",
     "react-router": "^5.2.1",
     "react-router-dom": "^5.3.0"
   }

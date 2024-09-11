@@ -1,6 +1,6 @@
 import discordLogoImg from '../../../assets/discord-logo.svg';
 import twitchLogoImg from '../../../assets/twitch-logo.svg';
-import logoImg from '../../../assets/logo.svg';
+//import logoImg from '../../../assets/logo.svg';
 import mailIconImg from '../../../assets/mail-icon.svg';
 import YoutubeLogoImg from '../../../assets/youtube-logo.png';
 import documentIconImg from '../../../assets/document.png';
@@ -15,7 +15,7 @@ export const TwitchLogo = () => {
     return <img src={twitchLogoImg} className={classes.TwitchLogo__twitchLogo} alt='Twitch logo'></img>
 }
 export const Logo = () =>{
-    return <img src={logoImg} className={classes.Logo__logo} alt="Logo"></img>
+    return <img src="./favicon.svg" className={classes.Logo__logo} alt="Logo"></img>
 }
 
 export const MailIcon = () =>{
