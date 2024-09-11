@@ -66,7 +66,7 @@ const ThisYear = () => {
     );
 
     async function loadEvents(){
-        const list: eventListResponse[] = (await axios("/backend/event/list")).data;
+        const list: eventListResponse[] = (await axios("/backend/event/listAll")).data;
         const sorted = list.sort(function(a, b){
             let aDate = new Date(a.date);
             let bDate = new Date(b.date);

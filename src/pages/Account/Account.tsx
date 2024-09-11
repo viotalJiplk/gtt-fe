@@ -39,6 +39,8 @@ const Account = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [context, history]);
 
+
+
     async function infoLookUp() {
         // @ts-expect-error
         let axiosResponse = await axios("/user/@me/", { responseType: "json", skipAuthRefresh: true  }).catch(function (error) {

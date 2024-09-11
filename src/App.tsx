@@ -27,7 +27,7 @@ import Winners from './pages/Winners/Winners';
 function App() {
   const context = useContext(Context);
   useEffect(() => {
-    axios('/schools').then((response) => {
+    axios('/school/listAll').then((response) => {
         context.setSchools(response.data.schools);
     })
   // eslint-disable-next-line react-hooks/exhaustive-deps
