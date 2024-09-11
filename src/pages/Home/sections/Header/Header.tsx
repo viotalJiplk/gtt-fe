@@ -1,6 +1,6 @@
 import classes from './Header.module.scss';
 import Section from '../../../../components/layout/Section/Section';
-import logo from '../../../../assets/logo.svg';
+import { Logo } from '../../../../components/other/Assets/Assets'
 import Heading from '../../../../components/typography/Heading';
 import { headingTypes } from '../../../../types/types';
 import { GAMETYPES } from '../../../../types/types';
@@ -30,7 +30,7 @@ const Header: React.FC<HeaderProps> = props => {
     return <Section className={classes.Header}>
             <div className={classes.Header__topRight}>
                 {/* <CountDown className={classes.Header__countDown}></CountDown> */}
-                <img className={classes.Header__logo} src={logo} alt="GT Tournament Logo"></img>
+                <Logo></Logo>
                 <div className={classes.Header__sponsorLogos}>
                     <div className={classes.Header__sponsorLogos__column}>
                         <a href="https://jrdm.cz/" rel="noreferrer" target="_blank"><img alt={"JRDM Logo"} src={JRDMLogo}></img></a>

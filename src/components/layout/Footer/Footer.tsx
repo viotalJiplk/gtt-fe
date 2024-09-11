@@ -1,4 +1,4 @@
-import { Logo, TwitchLogo, DiscordLogo, MailIcon } from '../../other/Assets/Assets';
+import { /*Logo,*/ TwitchLogo, DiscordLogo, MailIcon } from '../../other/Assets/Assets';
 import classes from './Footer.module.scss';
 import MSMTLogo from '../../../assets/msmt_logo.svg';
 import JMKLogo from '../../../assets/jmk_logo.svg'
@@ -13,7 +13,7 @@ interface FooterProps {
 const Footer: React.FC<FooterProps> = (props) => {
     return <div className={classes.Footer + " " + props.className}>
         <div className={[classes.Footer__section, classes.Footer__section_left].join(' ')}>
-            <div className={classes.Footer__logo}><Logo></Logo></div>
+            <div className={classes.Footer__logo}>{/*<Logo></Logo>*/}</div>
         </div>
         <div className={[classes.Footer__section, classes.Footer__sponsorLogos].join(' ')}>
             <div className={classes.Footer__sponsorLogos__column}>
