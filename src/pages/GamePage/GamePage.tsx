@@ -7,67 +7,72 @@ import { Context } from '../../store/context';
 import { GAMENAMES } from '../../constants/constants';
 import Heading from '../../components/typography/Heading';
 import { headingTypes } from '../../types/types';
+import axios from '../../axios/axios';
+import { AxiosResponse } from 'axios';
 import MarkdownGamePageProps from './components/MarkdownGamePage/MarkdownGamePage';
+import { GeneratedRole, Game} from '../../types/types';
 
 
 const GamePage = () => {
     const context = useContext(Context);
     const url = new URL(window.location.href);
     const gameName = url.searchParams.get("gamename");
-    const gameDisplay = gameName?GAMENAMES[gameName]: "";
+    const gameDisplay = gameName ? GAMENAMES[gameName] : "";
+    const [generatedRoles, setGeneratedRoles] = useState<JSX.Element[] | null>(null);
     const [gameRegistration, setGameRegistration] = useState<string>();
     const [minmax, setMinmax] = useState<JSX.Element[]>([]);
-    const [gameId, setGameId] = useState<number>(NaN);
+    const [markdownPage, setMarkdownPage] = useState<JSX.Element | null>(null);
+    const [game, setGame] = useState<Game|null>(null);
     
     function formatDate(date: Date){
         return String(date.getDate()) + ". " + String(date.getMonth()+1) + ".";
     }
+  
+    useEffect(() => {
+        if (game !== null) {
+            axios.get(`/generatedRole/list/${game.gameId}/`).then((response: AxiosResponse<Error|GeneratedRole[]>) => {
+                if (Array.isArray(response.data)) {
+                    let generatedRoleTmp: JSX.Element[] = [];
+                    for (let role of response.data) {
+                        generatedRoleTmp.push(<tr><td>{role.roleName}</td><td>{String(role.minimal)}</td><td>{String(role.maximal)}</td></tr>)
+                    }
+                    setGeneratedRoles(generatedRoleTmp);
+                } else {
+                    console.error("Wrong response");
+                    console.error(response);
+                }
+            });
+        }
+    }, [game])
 
     useEffect(()=>{
+        if(generatedRoles !== null){
+            // @ts-expect-error
+            let registrationStart = new Date(game.registrationStart);
+            // @ts-expect-error
+            let registrationEnd = new Date(game.registrationEnd);
+            setGameRegistration(formatDate(registrationStart) + " 23:59 - " + formatDate(registrationEnd) + " 00:00 ");
+            setMinmax([<table className={classes.GamePage__table}>
+                <thead>
+                    <tr>
+                    <th>Role</th>
+                    <th>minimální počet</th>
+                    <th>maximální počet</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {generatedRoles}
+                </tbody>
+                </table>]);
+        }
+    // eslint-disable-next-line
+    }, [generatedRoles]);
+    useEffect(()=>{
         if(context.state.games !== undefined){
-            for(let game in context.state.games){
-                game=context.state.games[game];
-                // @ts-expect-error
-                if(game.name === gameName){
-                    // @ts-expect-error
-                    setGameId(game.gameId);
-                    // @ts-expect-error
-                    let registrationStart = new Date(game.registrationStart);
-                    // @ts-expect-error
-                    let registrationEnd = new Date(game.registrationEnd);
-                    setGameRegistration(formatDate(registrationStart) + " 23:59 - " + formatDate(registrationEnd) + " 00:00 ");
-                    setMinmax([<table className={classes.GamePage__table}>
-                        <thead>
-                          <tr>
-                            <th>Role</th>
-                            <th>minimální počet</th>
-                            <th>maximální počet</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>Kapitán</td>
-                            <td>{// @ts-expect-error
-                            game.minCaptains}</td>
-                            <td>{// @ts-expect-error
-                            game.maxCaptains}</td>
-                          </tr>
-                          <tr>
-                            <td>Člen</td>
-                            <td>{// @ts-expect-error
-                            game.minMembers}</td>
-                            <td>{// @ts-expect-error
-                            game.maxMembers}</td>
-                          </tr>
-                          {/* <tr>
-                            <td>Záložník</td>
-                            <td>{// @ts-expect-error
-                            game.minReservists}</td>
-                            <td>{// @ts-expect-error
-                            game.maxReservists}</td>
-                          </tr> */}
-                        </tbody>
-                       </table>]);
+            for(let game of context.state.games){
+                if (game.name === gameName) {
+                    setGame(game);
+                    setMarkdownPage(<MarkdownGamePageProps gameId={game.gameId}></MarkdownGamePageProps>)
                 }
             }
         }
@@ -81,7 +86,7 @@ const GamePage = () => {
             <div>
                 {minmax}
             </div>
-            <MarkdownGamePageProps gameId={gameId}></MarkdownGamePageProps>
+            {markdownPage}
         </motion.div>
     )
 }

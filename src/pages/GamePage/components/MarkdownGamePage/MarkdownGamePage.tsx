@@ -16,7 +16,7 @@ const MarkdownGamePage: React.FC<MarkdownGamePageProps> = (props) => {
             ErrorReporter("Server je pravděpodobně offline. Zkuste akci opakovat později.");
         });
         if(result){
-            setGamePage(result.data.page);
+            setGamePage(result.data.gamePage);
         }
     }
     if(!Number.isNaN(props.gameId)){
