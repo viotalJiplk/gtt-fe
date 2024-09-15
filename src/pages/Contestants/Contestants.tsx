@@ -5,6 +5,7 @@ import { motion } from 'framer-motion';
 import Section from '../../components/layout/Section/Section';
 import { useContext, useEffect, useState } from 'react';
 import axios from '../../axios/axios';
+import { AxiosResponse } from 'axios';
 import { headingTypes } from '../../types/types';
 import GameSelect from '../../components/form/GameSelect/GameSelect';
 import { Ranks } from '../../constants/constants';
@@ -12,6 +13,7 @@ import { Context } from '../../store/context';
 import CTA from '../../components/layout/CTA/CTA';
 import LoadingSpinner from '../../components/other/Spinner/Spinner';
 import CheckBoxInput from '../../components/form/CheckBoxInput/CheckBoxInput';
+import { GeneratedRole, Error } from '../../types/types';
 
 interface discordUserObject{
     id: string;
@@ -37,7 +39,7 @@ interface TeamMember{
     teamId: Number;
     name: String;
     nick: String;
-    role: String;
+    generatedRoleId: Number;
     userId?: Number;
     rank?: Number;
     maxRank?: Number;
@@ -47,7 +49,8 @@ interface TeamMember{
 
 const Contestants = () => {
     const context = useContext(Context);
-    const [gameId, setGameId] = useState<number|null>(null);
+    const [gameId, setGameId] = useState<number | null>(null);
+    const [generatedRoles, setGeneratedRoles] = useState<GeneratedRole[] | null>(null);
     const [withDiscord, setWithDiscord] = useState<boolean>(false);
     const [discord, setDiscord] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
@@ -56,7 +59,7 @@ const Contestants = () => {
     const [tableHead, setTableHead] = useState<JSX.Element[]>([]);
     // @ts-expect-error
     function groupBy(arr, properties) {
-    // @ts-expect-error
+        // @ts-expect-error
         const grouped = arr.reduce((memo, x) => {
             // @ts-expect-error
             const key = properties.map(prop => x[prop]).join('_');
@@ -73,8 +76,12 @@ const Contestants = () => {
         return result;
     }
 
+    function roleNameFromId(id: Number, generatedRoles: GeneratedRole[]) {
+        return generatedRoles.find(role => role.generatedRoleId === id)?.roleName;
+    }
+
     useEffect(() => {
-        if(gameId != null && context.state.games !== undefined){
+        if(gameId != null && context.state.games !== undefined && generatedRoles !== null){
             setLoading(true);
             axios.get('/team/list/participating/'+ gameId +'/' + withDiscord + '/').then(response => {
                 let tmpTeams: TeamMember[][] = [[]];
@@ -108,7 +115,7 @@ const Contestants = () => {
                                 {member.nick}
                             </td>
                             <td className={classes.Contestants__member__role}>
-                                {member.role === 'Captain' ? 'Kapitán' : member.role === 'Member' ? 'Hráč' : 'Záložník'}
+                                {roleNameFromId(member.generatedRoleId, generatedRoles)}
                             </td>
                             {member.userId && tableHeadtmp.push(<th>Discord Id</th>) &&
                                 <td className={classes.Contestants__member__userId}>
@@ -145,7 +152,19 @@ const Contestants = () => {
                 setLoading(false);
             });
         }
-    }, [gameId, context.state.games, withDiscord]);
+    }, [gameId, context.state.games, withDiscord, generatedRoles]);
+    useEffect(() => {
+        if (gameId !== null) {
+            axios.get(`/generatedRole/list/${gameId}/`).then((response: AxiosResponse<Error|GeneratedRole[]>) => {
+                if (Array.isArray(response.data)) {
+                    setGeneratedRoles(response.data);
+                  } else {
+                    console.error("Wrong response");
+                    console.error(response);
+                  }
+            });
+        }
+    },[gameId])
    
     return <motion.div variants={routeVariants} key="contestants" transition={routeTransition} exit="hidden" animate="visible" initial="initial" className={classes.Contestants}>
         <Section className={''}>
