@@ -2,6 +2,7 @@ import { useReducer, useCallback, PropsWithChildren } from 'react';
 import {Context/*, defaultContextCreator */} from './context';
 import { actionTypes } from './actionTypes';
 import React from 'react';
+import { School } from '../types/types';
 
 interface stateInterface {
     schools: string[],
@@ -47,7 +48,7 @@ const ContextProvider: React.FC<PropsWithChildren> = props => {
             games: state.games,
             userObject: state.userObject
         },
-        setSchools: (schools: string[]) => {
+        setSchools: (schools: School[]) => {
             setSchools(schools);
         },
         setDiscordId: (discordId: string) => {

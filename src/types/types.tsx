@@ -42,3 +42,21 @@ export interface Contestant {
     externist?: boolean
 
 }
+
+export interface Error {
+    kind: string,
+    msg: string
+}
+
+export interface School {
+    schoolId: number,
+    name: string
+}
+
+export interface Game {
+    name: string,
+    registrationStart: string,
+    registrationEnd: string,
+    maxTeams: number,
+    gameId: number
+  }

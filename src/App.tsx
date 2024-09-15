@@ -14,6 +14,7 @@ import Join from './pages/Join/Join';
 import Schools from './pages/Schools/Schools';
 import Footer from './components/layout/Footer/Footer';
 import axios, { addAuthorization } from './axios/axios';
+import {AxiosResponse} from 'axios'
 import ScrollToTop from './components/other/ScrollToTop/ScrollToTop';
 import { Context } from './store/context';
 import { useLocation } from 'react-router';
@@ -23,18 +24,29 @@ import { isExpired, decodeToken } from "react-jwt";
 import GamePage from './pages/GamePage/GamePage';
 import About from './pages/About/About';
 import Winners from './pages/Winners/Winners';
+import { Error, School, Game } from './types/types';
 
 function App() {
   const context = useContext(Context);
   useEffect(() => {
-    axios('/school/listAll').then((response) => {
-        context.setSchools(response.data.schools);
+    axios('/school/listAll').then((response: AxiosResponse<Error | School[]>) => {
+      if (Array.isArray(response.data)) {
+        context.setSchools(response.data);
+      } else {
+        console.error("Wrong response");
+        console.error(response);
+      }
     })
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   useEffect(() => {
-    axios('/game/all/').then((response) => {
-        context.setGames(response.data.games);
+    axios('/game/all/').then((response: AxiosResponse<Error | Game[]>) => {
+        if (Array.isArray(response.data)) {
+          context.setGames(response.data);
+        } else {
+          console.error("Wrong response");
+          console.error(response);
+        }
     })
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
