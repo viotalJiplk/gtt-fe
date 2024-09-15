@@ -19,7 +19,7 @@ const Token = () => {
         let data = {
             "code": code,
             "state": state,
-            "redirect_uri": window.location.href.split("?")[0],
+            "redirectUri": window.location.href.split("?")[0],
         }
         let response = await axios("/discord/token", {
             "method": "POST",

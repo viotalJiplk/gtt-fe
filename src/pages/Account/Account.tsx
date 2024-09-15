@@ -78,7 +78,7 @@ const Account = () => {
             }
         }));
 
-        const redirectUrl = new URL(axiosResponse.data.redirect_url )
+        const redirectUrl = new URL(axiosResponse.data.redirectUrl )
         let newUrl = window.location.origin + "/token";
         if (newUrl.includes("localhost")) {
             newUrl = newUrl.replace("localhost", "127.0.0.1");
@@ -118,7 +118,7 @@ const Account = () => {
                 "name": name,
                 "surname": surname,
                 "adult": adult,
-                "school_id": school
+                "schoolId": school
             }
         }).catch(function (error) {
             if(error.response.status === 401){
