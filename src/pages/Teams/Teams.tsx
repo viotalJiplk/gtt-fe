@@ -17,7 +17,7 @@ function Teams() {
     const [teams, setTeams] = useState<JSX.Element[]>([]);
     async function loadUsersTeams(){
         if(teams.length === 0){
-            const userTeams = await axios("/team/list/@me/").catch(function(error){
+            const userTeams = await axios("/user/@me/teams/").catch(function(error){
                 ErrorReporter("Neaznámá chyba. Zkuste akci opakovat později.");
                 return error;
             });;
