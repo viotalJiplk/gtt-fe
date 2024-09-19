@@ -147,10 +147,10 @@ const Join = () => {
             },
             "data": {
                 "name":name,
-                "game_id": gameId,
+                "gameId": gameId,
                 "nick":nick,
                 "rank": rank,
-                "max_rank": maxRank
+                "maxRank": maxRank
             }
         }).catch(onError);
         history.push("/teams");
