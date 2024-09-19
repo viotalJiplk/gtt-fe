@@ -1,6 +1,6 @@
 import classes from './Teams.module.scss';
 import axios from '../../axios/axios';
-import {AxiosResponse} from 'axios'
+import { AxiosResponse } from 'axios';
 import ErrorReporter from "../ErrorPage/ErrorReporter";
 import { useContext, useState, useEffect } from 'react';
 import { Context } from "../../store/context";
@@ -31,7 +31,7 @@ function Teams() {
                 ErrorReporter("Nebylo možné vypsat role. Zkuste akci opakovat později.");
             });
             if ("kind" in roleList.data) {
-                console.error(userTeams.data);
+                console.error(roleList.data);
                 ErrorReporter("Nebylo možné vypsat role. Zkuste akci opakovat později.");
             }
             let teamArray: JSX.Element[] = [];
