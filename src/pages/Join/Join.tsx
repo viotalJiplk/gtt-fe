@@ -20,7 +20,7 @@ const Join = () => {
     const [loaded, setLoaded] = useState<boolean>(true);
     const [invalidMessages, setInvalidMessages] = useState<string[]>([]);
     const [name, setName] = useState<string>();
-    const [role, setRole] = useState<string>();
+    const [role, setRole] = useState<number>();
     const [gameId, setGameId] = useState<number|null>(null);
     const [nick, setNick] = useState<string>();
     const [rank, setRank] = useState<number>();
@@ -113,8 +113,8 @@ const Join = () => {
             "data": {
                 "nick":nick,
                 "rank": rank,
-                "max_rank": maxRank,
-                "role": role
+                "maxRank": maxRank,
+                "generatedRoleId": role
             }
         }).catch(onError);
         history.push("/teams");
@@ -178,7 +178,7 @@ const Join = () => {
                 </div>}
             { (joinString && teamId) && <Row>
                 <Label obligatory>Role</Label>
-                <RoleSelect setFunction={setRole} currentRole={role}></RoleSelect>
+                <RoleSelect setFunction={setRole} currentRole={role} currentGame={gameId}></RoleSelect>
             </Row>}
             <Row>
                 <Label obligatory>Přezdívka</Label>
