@@ -5,6 +5,7 @@ import ErrorReporter from "../../../../../../../ErrorPage/ErrorReporter";
 interface KickProps {
     teamId: number,
     userId: string,
+
 }
 
 const KickBtn: React.FC<KickProps> = function(props) {
@@ -13,6 +14,7 @@ const KickBtn: React.FC<KickProps> = function(props) {
             await axios.delete("/team/id/"+ String(props.teamId) +"/kick/" + props.userId + "/").catch(function(){
                 ErrorReporter("Neaznámá chyba. Zkuste akci opakovat později.");
             });
+            window.location.reload();
         }}>Vyhodit</button>
     )
 }

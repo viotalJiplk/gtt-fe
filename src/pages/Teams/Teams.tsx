@@ -1,5 +1,6 @@
 import classes from './Teams.module.scss';
 import axios from '../../axios/axios';
+import {AxiosResponse} from 'axios'
 import ErrorReporter from "../ErrorPage/ErrorReporter";
 import { useContext, useState, useEffect } from 'react';
 import { Context } from "../../store/context";
@@ -9,6 +10,8 @@ import TeamComponent from './components/TeamComponent/TeamComponent';
 import Submit from '../../components/form/Submit/Submit';
 import { motion } from 'framer-motion';
 import { routeTransition, routeVariants } from "../../animations/animations";
+import { Team, Error, GeneratedRole } from "../../types/types";
+
 
 function Teams() {
     const history = useHistory();
@@ -17,16 +20,26 @@ function Teams() {
     const [teams, setTeams] = useState<JSX.Element[]>([]);
     async function loadUsersTeams(){
         if(teams.length === 0){
-            const userTeams = await axios("/user/@me/teams/").catch(function(error){
-                ErrorReporter("Neaznámá chyba. Zkuste akci opakovat později.");
-                return error;
-            });;
-            let teamArray:any = [];
+            const userTeams: AxiosResponse<Team[] | Error> = await axios("/user/@me/teams/").catch(function(error){
+                ErrorReporter("Nebylo možné vypsat Vaše týmy. Zkuste akci opakovat později.");
+            });
+            if ("kind" in userTeams.data) {
+                console.error(userTeams.data);
+                ErrorReporter("Nebylo možné vypsat Vaše týmy. Zkuste akci opakovat později.");
+            }
+            const roleList: AxiosResponse<GeneratedRole[] | Error> = await axios("/generatedRole/list/all/").catch(function(error){
+                ErrorReporter("Nebylo možné vypsat role. Zkuste akci opakovat později.");
+            });
+            if ("kind" in roleList.data) {
+                console.error(userTeams.data);
+                ErrorReporter("Nebylo možné vypsat role. Zkuste akci opakovat později.");
+            }
+            let teamArray: JSX.Element[] = [];
             for(let index in userTeams.data){
                 let element = userTeams.data[index];
                 teamArray.push(
                     <div key={element.teamId} className={classes.TeamsUI__teamholder}>
-                        <TeamComponent teamName={element.name} teamId={element.teamId} role={element.role} joinString={element.joinString} gameId={element.gameid}></TeamComponent>
+                        <TeamComponent generatedRoles={roleList.data} teamName={element.name} teamId={element.teamId} joinString={element.joinString} gameId={element.gameId}></TeamComponent>
                     </div>
                 );
             }

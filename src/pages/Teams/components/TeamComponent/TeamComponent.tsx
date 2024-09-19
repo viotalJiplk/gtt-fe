@@ -3,36 +3,59 @@ import LeaveBtn from './components/LeaveBtn/LeaveBtn';
 import TeamMember from './components/TeamMember/TeamMember';
 import classes from './TeamComponent.module.scss';
 import axios from '../../../../axios/axios';
+import {AxiosResponse} from 'axios'
 import ErrorReporter from "../../../ErrorPage/ErrorReporter";
 import { useHistory } from "react-router-dom";
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
+import { Team, Error, GeneratedRole, GeneratedRolePermission} from "../../../../types/types";
+import { Context } from "../../../../store/context";
 
 
 interface TeamComponentProps {
     teamName: string,
     teamId: number,
-    role: string,
-    joinString: string,
-    gameId: number
+    joinString?: string,
+    gameId: number,
+    generatedRoles: GeneratedRole[],
 }
 
 const TeamComponent: React.FC<TeamComponentProps> = (props) => {
     const history = useHistory();
+    const context = useContext(Context);
 
     const [teams, setTeams] = useState<JSX.Element[]>([]);
     const [visible, setVisible] = useState<boolean>(false);
-    async function TeamMembers(teamId:number, role:string){
-        const teamData = await axios("/team/id/" + teamId + "/").catch(function(error){
-            ErrorReporter("Neaznámá chyba. Zkuste akci opakovat později.");
+    const [canGenerateJoinString, setCanGenerateJoinString] = useState<boolean>(false);
+    async function TeamMembers(teamId:number){
+        const teamData: AxiosResponse<Team, Error> = await axios("/team/id/" + teamId + "/").catch(function(error){
+            ErrorReporter("Chyba výpisu detailu týmu. Zkuste akci opakovat později.");
         });
-        const tmpTeams:JSX.Element [] = [];
-        console.log(teamData);
-        // @ts-expect-error
-        teamData.data.Players.forEach(player => {
+        if ("kind" in teamData.data) {
+            console.error(teamData.data);
+            ErrorReporter("Chyba výpisu detailu týmu. Zkuste akci opakovat později.");
+        }
+        const teamsResponse = teamData.data;
+        const user = teamsResponse.Players.find((player) => { return player.userId === context.state.discordId })
+        if (user === undefined) {
+            ErrorReporter("Uživatel není součástí týmu. Zkuste akci opakovat později.");
+        }
+        
+        const permission: AxiosResponse<GeneratedRolePermission[], Error> = await axios("/generatedRole/"+user.generatedRoleId+"/permissions/").catch(function(error){
+            ErrorReporter("Chyba výpisu detailu týmu. Zkuste akci opakovat později.");
+        });
+        if ("kind" in teamData.data) {
+            console.error(teamData.data);
+            ErrorReporter("Chyba výpisu detailu týmu. Zkuste akci opakovat později.");
+        }
+        const canKick = permission.data.find((perm) => { return perm.permission === "team.kickTeam" }) !== undefined
+        setCanGenerateJoinString(permission.data.find((perm) => { return perm.permission === "team.generateJoinStringMy" }) !== undefined);
+
+        const tmpTeams: JSX.Element[] = [];
+        teamsResponse.Players.forEach(player => {
             tmpTeams.push(
-                <TeamMember key={player.userid} name={player.nick} useId={player.userid} teamId={teamId} role={player.role} canKick={role === "Captain"} kickFunction={function() {
-                    axios.delete("/team/id/"+ props.teamId +"/kick/"+ player.userid +"/").catch(function(error){
-                        ErrorReporter("Neaznámá chyba. Zkuste akci opakovat později.");
+                <TeamMember key={player.userId} name={player.nick} useId={player.userId} teamId={teamId} role={props.generatedRoles.find((role) =>{return role.generatedRoleId === player.generatedRoleId})?.roleName} canKick={canKick} kickFunction={function() {
+                    axios.delete("/team/id/"+ props.teamId +"/kick/"+ player.userId +"/").catch(function(error){
+                        ErrorReporter("Nepodařilo se odstranit uživatele. Zkuste akci opakovat později.");
                     });
                     history.push("/teams");
                 }}/>
@@ -43,11 +66,12 @@ const TeamComponent: React.FC<TeamComponentProps> = (props) => {
     function makeVisible(){
         setVisible(!visible)
     }
-
-    useEffect(function() {
-        TeamMembers(props.teamId, props.role)
+    useEffect(function () {
+        if (context.state.discordId !== undefined) {
+            TeamMembers(props.teamId)
+        }
     // eslint-disable-next-line
-    }, [history]);
+    }, [history, context]);
 
     return  <div className={classes.TeamUI}>
         <div className={classes.TeamUI__teamname} onClick={makeVisible}>
@@ -57,7 +81,7 @@ const TeamComponent: React.FC<TeamComponentProps> = (props) => {
                 axios.delete("/team/id/"+ props.teamId +"/kick/@me/").catch(function(error){
                     ErrorReporter("Neaznámá chyba. Zkuste akci opakovat později.");
                 });
-                history.push("/teams");
+                window.location.reload();
             }} /></div>
         </div>
         <div>
@@ -66,7 +90,7 @@ const TeamComponent: React.FC<TeamComponentProps> = (props) => {
                     {teams}
                 </div>
             }
-            { visible && props.role === "Captain" && <InviteLink link={props.joinString} teamId={props.teamId} gameId={props.gameId}/>}
+            { visible && canGenerateJoinString  && <InviteLink link={props.joinString} teamId={props.teamId} gameId={props.gameId}/>}
         </div>
     </div>
 }
