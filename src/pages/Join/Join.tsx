@@ -36,29 +36,33 @@ const Join = () => {
     async function onError(error: any){
         if(error.response){
             if(error.response.data){
-                if(error.response.status === 403){
-                    if(error.response.data.msg === "Team full or you are in another team for this game."){
+                if (error.response.status === 403) {
+                    if (error.response.data.msg === "Team full or you are in another team for this game.") {
                         ErrorReporter("Tým je plný nebo již jste v jiném týmu pro tuto hru.");
-                    }else if(error.response.data.msg === "Game not found."){
+                    } else if (error.response.data.msg === "Game not found.") {
                         ErrorReporter("Hra nebyla nalezena.");
-                    }else if(error.response.data.msg === "Wrong joinString."){
+                    } else if (error.response.data.msg === "Wrong joinString.") {
                         ErrorReporter("Špatny link pro připojení do týmu.");
-                    }else if(error.response.data.msg === "Missing nick, rank, max_rank or role." || error.response.data.msg === "Missing game_id or name." || error.response.data.msg === "Missing nick, rank, or max_rank of capitain."){
+                    } else if (error.response.data.msg === "Missing nick, rank, max_rank or role." || error.response.data.msg === "Missing game_id or name." || error.response.data.msg === "Missing nick, rank, or max_rank of capitain.") {
                         ErrorReporter("Chyba požadavku.");
-                    }else{
+                    } else {
                         ErrorReporter("Neznámá chyba. Zkuste akci opakovat později.", error.response.status);
                     }
-                }else if(error.response.status === 404){
-                    if(error.response.data.msg === "You havent filled info required for creating Team."){
-                        ErrorReporter("Nemáte zadané informace potřebné k připojení k týmu. Nastavte je v záložce Váš profil.");
-                    }else if(error.response.data.msg === "User is not in database."){
+                } else if (error.response.status === 404) {
+                    if (error.response.data.msg === "User is not in database.") {
                         ErrorReporter("Nejste zaregistrován v systému.");
-                    }else{
+                    } else {
                         ErrorReporter("Neznámá chyba. Zkuste akci opakovat později.", error.response.status);
                     }
-                }else if(error.response.status === 410){
+                } else if (error.response.status === 410) {
                     ErrorReporter("Registrace ještě nezačala nebo už byla ukončena.");
-                }else{
+                } else if (error.response.status === 400) {
+                    if (error.response.data.msg === 'You have not filled info required for creating Team.') {
+                        ErrorReporter("Nemáte zadané informace potřebné k připojení k týmu. Nastavte je v záložce Váš profil.");
+                    } else {
+                        ErrorReporter("Neznámá chyba. Zkuste akci opakovat později.", error.response.status);
+                    }
+                } else {
                     ErrorReporter("Neznámá chyba. Zkuste akci opakovat později.", error.response.status);
                 }
             }else{
