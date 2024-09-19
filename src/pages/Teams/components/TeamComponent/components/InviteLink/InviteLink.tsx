@@ -7,7 +7,7 @@ import ErrorReporter from "../../../../../ErrorPage/ErrorReporter";
 interface InviteProps {
     teamId: number,
     gameId: number,
-    link: string,
+    link?: string,
 }
 
 function generateJoinLink(joinString:string, teamId:number, gameId:number){
@@ -34,7 +34,6 @@ const InviteLink: React.FC<InviteProps> = function (props) {
                 <GenerateLinkBtn onClick={async function(event: Event) {
                     const linkRes = await axios.get("/team/id/"+ props.teamId +"/joinString/").catch(function(error){
                         ErrorReporter("Neaznámá chyba. Zkuste akci opakovat později.");
-                        return error;
                     });
                     if(linkRes !== undefined && linkRes !== null){
                         setJoinString(generateJoinLink(linkRes.data.joinString, props.teamId, props.gameId));

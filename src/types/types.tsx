@@ -49,7 +49,7 @@ export interface Error {
 }
 
 export interface School {
-    schoolId: Number,
+    schoolId: number,
     name: string
 }
 
@@ -57,17 +57,39 @@ export interface Game {
     name: string,
     registrationStart: string,
     registrationEnd: string,
-    maxTeams: Number,
-    gameId: Number
+    maxTeams: number,
+    gameId: number
 }
   
 export interface GeneratedRole{
-    roleName: String,
-    discordRoleId: Number,
-    discordRoleIdEligible: Number,
-    gameId: Number,
+    roleName: string,
+    discordRoleId: number,
+    discordRoleIdEligible: number,
+    gameId: number,
     default: Boolean,
-    minimal: Number,
-    maximal: Number,
-    generatedRoleId: Number
-  }
+    minimal: number,
+    maximal: number,
+    generatedRoleId: number
+}
+
+interface Player{
+    userId: string,
+    nick: string,
+    generatedRoleId: number
+}
+
+export interface Team{
+    name: string,
+    teamId: number,
+    gameId: number,
+    joinString?: string,
+    Players: Player[]
+}
+
+export interface GeneratedRolePermission{
+    generatedRolePermissionId: number,
+    permission: string,
+    generatedRoleId: number,
+    gameId: number,
+    eligible: number
+}
