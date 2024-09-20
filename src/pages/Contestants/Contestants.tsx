@@ -10,7 +10,6 @@ import { headingTypes } from '../../types/types';
 import GameSelect from '../../components/form/GameSelect/GameSelect';
 import { Ranks } from '../../constants/constants';
 import { Context } from '../../store/context';
-// import BlueButton from '../../components/layout/Buttons/Blue/Blue';
 import LoadingSpinner from '../../components/other/Spinner/Spinner';
 import CheckBoxInput from '../../components/form/CheckBoxInput/CheckBoxInput';
 import { GeneratedRole, ApiError } from '../../types/types';
@@ -55,7 +54,6 @@ const Contestants = () => {
     const [discord, setDiscord] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
     const [teamsElement, setTeamsElement] = useState<JSX.Element[]>([]);
-    const [teams, setTeams] = useState<TeamMember[]>([]);
     const [tableHead, setTableHead] = useState<JSX.Element[]>([]);
     // @ts-expect-error
     function groupBy(arr, properties) {
@@ -85,7 +83,6 @@ const Contestants = () => {
             setLoading(true);
             axios.get('/team/list/participating/'+ gameId +'/' + withDiscord + '/').then(response => {
                 let tmpTeams: TeamMember[][] = [[]];
-                setTeams(response.data);
                 let tmpTeamElements: JSX.Element[] = [];
                 // @ts-expect-error
                 let groupedTeams: TeamMember[][] = groupBy(response.data, ['teamId']);
@@ -190,35 +187,6 @@ const Contestants = () => {
                 </tbody>
             </table>}
             {loading && <LoadingSpinner></LoadingSpinner>}
-            {/* <BlueButton className={classes.Contestants__cta} onClick={() =>{
-                let csv: String = "";
-                teams.forEach((element)=>{
-                    if(element.discordUserObject){
-                        if(element.discordUserObject.global_name){
-                            //@ts-expect-error
-                            element.discordUserObject = element.discordUserObject.global_name
-                        }else{
-                            //@ts-expect-error
-                            element.discordUserObject = element.discordUserObject.username + "#" + element.discordUserObject.discriminator
-                        }
-                    }
-                    if(element.rank){
-                        //@ts-expect-error
-                        element.rank = element.rank!==0?Ranks[context.state.games[gameId-1].name][element.rank]: "Žádný rank"
-                    }
-                    if(element.maxRank){
-                        //@ts-expect-error
-                        element.maxRank = element.maxRank!==0?Ranks[context.state.games[gameId-1].name][element.maxRank]: "Žádný rank"
-                    }
-                    //todo fix when name includes "
-                    csv += '"'+Object.values(element).join('", "') + '"\n';
-                });
-                // @ts-expect-error
-                let uriContent = "data:application/octet-stream," + encodeURIComponent(csv);
-                window.open(uriContent, 'export');
-            }}>
-            Exportovat do csv
-            </BlueButton> */}
         </Section>
     </motion.div>
 };
