@@ -25,7 +25,7 @@ const GameSelect: React.FC<GameSelectProps> = props => {
     let games: {value: number, display: string}[] = [];
     let allGames: {value: number, display: string}[] = [];
 
-    if(context.state.games !== undefined){
+    if(context.state.games !== undefined && context.state.games.length > 0){
         allGames = context.state.games.sort((prevGame: Game, thisGame: Game): number => {
             if (prevGame.gameId > thisGame.gameId) {
                 return 1;
