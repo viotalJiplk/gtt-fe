@@ -10,7 +10,7 @@ import { headingTypes } from '../../types/types';
 import GameSelect from '../../components/form/GameSelect/GameSelect';
 import { Ranks } from '../../constants/constants';
 import { Context } from '../../store/context';
-import CTA from '../../components/layout/CTA/CTA';
+import BlueButton from '../../components/layout/Buttons/Blue/Blue';
 import LoadingSpinner from '../../components/other/Spinner/Spinner';
 import CheckBoxInput from '../../components/form/CheckBoxInput/CheckBoxInput';
 import { GeneratedRole, ApiError } from '../../types/types';
@@ -190,7 +190,7 @@ const Contestants = () => {
                 </tbody>
             </table>}
             {loading && <LoadingSpinner></LoadingSpinner>}
-            <CTA className={classes.Contestants__cta} onClick={() =>{
+            {/* <BlueButton className={classes.Contestants__cta} onClick={() =>{
                 let csv: String = "";
                 teams.forEach((element)=>{
                     if(element.discordUserObject){
@@ -218,7 +218,7 @@ const Contestants = () => {
                 window.open(uriContent, 'export');
             }}>
             Exportovat do csv
-            </CTA>
+            </BlueButton> */}
         </Section>
     </motion.div>
 };
