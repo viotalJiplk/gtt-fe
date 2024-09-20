@@ -29,7 +29,7 @@ import { ApiError, School, Game } from './types/types';
 function App() {
   const context = useContext(Context);
   useEffect(() => {
-    axios('/school/listAll').then((response: AxiosResponse<ApiError | School[]>) => {
+    axios('/school/listAll/').then((response: AxiosResponse<ApiError | School[]>) => {
       if (Array.isArray(response.data)) {
         context.setSchools(response.data);
       } else {
