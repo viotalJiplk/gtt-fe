@@ -13,11 +13,10 @@ const Login = () =>{
     async function loginFunction(){
         history.push("/account");
     }
-    console.log(context);
     
 
     return <div onClick={loginFunction}>
-        {(context.state.discordId !== undefined && context.state.discordId !== "notLoggedIn" && context.state.discordId !== ""  &&
+        {(context.state.discordId !== undefined && context.state.discordId !== "notLoggedIn" && context.state.discordId !== ""  && context.state.userObject !== undefined &&
             <img alt={context.state.userObject.username} className={classes.Login__Avatar} src={"https://cdn.discordapp.com/avatars/" + context.state.discordId + "/" + context.state.userObject.avatar +".png"}></img> )
             || <ProfileIcon></ProfileIcon>}
         </div>

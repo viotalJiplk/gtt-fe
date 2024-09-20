@@ -24,12 +24,12 @@ import { isExpired, decodeToken } from "react-jwt";
 import GamePage from './pages/GamePage/GamePage';
 import About from './pages/About/About';
 import Winners from './pages/Winners/Winners';
-import { Error, School, Game } from './types/types';
+import { ApiError, School, Game } from './types/types';
 
 function App() {
   const context = useContext(Context);
   useEffect(() => {
-    axios('/school/listAll').then((response: AxiosResponse<Error | School[]>) => {
+    axios('/school/listAll').then((response: AxiosResponse<ApiError | School[]>) => {
       if (Array.isArray(response.data)) {
         context.setSchools(response.data);
       } else {
@@ -40,7 +40,7 @@ function App() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
   useEffect(() => {
-    axios('/game/all/').then((response: AxiosResponse<Error | Game[]>) => {
+    axios('/game/all/').then((response: AxiosResponse<ApiError | Game[]>) => {
         if (Array.isArray(response.data)) {
           context.setGames(response.data);
         } else {

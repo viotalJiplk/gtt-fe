@@ -1,5 +1,5 @@
 import React, { PropsWithChildren } from 'react';
-import CTA from '../../../components/layout/CTA/CTA';
+import BlueButton from '../../../components/layout/Buttons/Blue/Blue';
 import classes from './Submit.module.scss';
 
 interface SubmitProps extends PropsWithChildren{
@@ -8,9 +8,9 @@ interface SubmitProps extends PropsWithChildren{
 }
 
 const Submit: React.FC<SubmitProps> = props => {
-    return <CTA onClick={props.onClick} className={[classes.Submit, props.className].join(' ')}>
+    return <BlueButton onClick={props.onClick} className={[classes.Submit, props.className].join(' ')}>
         {props.children}
-    </CTA>
+    </BlueButton>
 };
 
 export default Submit;

@@ -1,4 +1,5 @@
 import classes from './LeaveBtn.module.scss';
+import RedButton from "../../../../../../components/layout/Buttons/Red/Red";
 
 interface LeaveProps {
     onClick: Function,
@@ -6,7 +7,7 @@ interface LeaveProps {
 
 const LeaveBtn: React.FC<LeaveProps>=function(props) {
     return (
-        <button className={classes.LeaveBtn} onClick={function(event: any){props.onClick(event)}}>Opustit</button>
+        <RedButton className={classes.LeaveBtn} onClick={function(event: any){props.onClick(event)}}>Opustit</RedButton>
     )
 }
 

@@ -7,7 +7,7 @@ import Label from "../../../../components/form/Label/Label";
 import SelectInput from "../../../../components/form/SelectInput/SelectInput";
 import React from 'react';
 import { Roles } from "../../../../constants/constants";
-import { Error, GeneratedRole } from "../../../../types/types";
+import { ApiError, GeneratedRole } from "../../../../types/types";
 import ErrorReporter from "../../../ErrorPage/ErrorReporter";
 
 interface RoleSelectprops {
@@ -29,7 +29,7 @@ const RoleSelect: React.FC<RoleSelectprops> = props => {
     const [roles, setRoles] = useState<RolesInterface[]>([]);
     
     async function listRoles(gameId: number) {
-        const roleList: AxiosResponse<GeneratedRole[] | Error> = await axios(`/generatedRole/list/` + props.currentGame +`/`).catch(function(error){
+        const roleList: AxiosResponse<GeneratedRole[] | ApiError> = await axios(`/generatedRole/list/` + props.currentGame +`/`).catch(function(error){
             ErrorReporter("Nebylo možné vypsat role. Zkuste akci opakovat později.");
         });
         if ("kind" in roleList.data) {

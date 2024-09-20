@@ -1,20 +1,21 @@
 @import '../../variables.scss';
 
 .TeamsUI{
-    display: flex;
-    flex-direction: row;
+    //display: flex;
+    //flex-direction: row;
     // width: 99vw;
     &__teamholders{
         min-width: 100rem;
     }
 
+    &__gameName{
+        color: $color-white;
+        font-size: 3em;
+        font-weight: bold;
+    }
+
     &__spacer{
         flex-grow: 1;
         flex-shrink: 1;
-    }
-    &__newbutton{
-        background-color: $color-green;
-        border-color: $color-green;
-        box-shadow: 4px 0px 0px $color-green-shadow;
     }
 }

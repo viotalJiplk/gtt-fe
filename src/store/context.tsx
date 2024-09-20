@@ -1,4 +1,5 @@
 import React from 'react';
+import { ContextInterface } from "./ContextProvider";
 
 export const defaultContextCreator: any = () => {
     return {
@@ -6,4 +7,4 @@ export const defaultContextCreator: any = () => {
     }
 }
 
-export const Context = React.createContext(defaultContextCreator());
+export const Context: React.Context<ContextInterface> = React.createContext(defaultContextCreator());
