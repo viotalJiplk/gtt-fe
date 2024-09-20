@@ -23,13 +23,11 @@ interface RolesInterface {
 }
 
 const RoleSelect: React.FC<RoleSelectprops> = props => {
-
-    const [curOption, setCurOption] = useState('');
     let [inputValue, setInputValue] = useState('');
     const [roles, setRoles] = useState<RolesInterface[]>([]);
     
     async function listRoles(gameId: number) {
-        const roleList: AxiosResponse<GeneratedRole[] | ApiError> = await axios(`/generatedRole/list/` + props.currentGame +`/`).catch(function(error){
+        const roleList: AxiosResponse<GeneratedRole[] | ApiError> = await axios(`/generatedRole/list/` + gameId +`/`).catch(function(error){
             ErrorReporter("Nebylo možné vypsat role. Zkuste akci opakovat později.");
         });
         if ("kind" in roleList.data) {
@@ -75,7 +73,6 @@ const RoleSelect: React.FC<RoleSelectprops> = props => {
     },[props.currentRole]);
 
     const textInputChange = useCallback((value: string) => {
-        setCurOption('');
         if (props.setFunction) {
             props.setFunction(null);
         }
@@ -87,7 +84,6 @@ const RoleSelect: React.FC<RoleSelectprops> = props => {
         if (props.setFunction) {
             props.setFunction(value);
         };
-        setCurOption(value);
     }
 
     return <Row className={props.className}>
