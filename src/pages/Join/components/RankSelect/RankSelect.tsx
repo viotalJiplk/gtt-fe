@@ -40,16 +40,19 @@ const RankSelect: React.FC<GameSelectProps> = props => {
         return {"display": "", "value": NaN};
     }
 
-    function getGameNameById(id:number){
+    function getGameNameById(id: number) {
+        if (context.state.games === undefined) {
+            throw new Error("context.state.games must be defined before calling loadEvents");
+        }
         for(let x in context.state.games){
             if(context.state.games[x].gameId === id){
                 return context.state.games[x].name;
             }
         }
-        return undefined;
+        throw new Error("game does not exist");
     }
 
-    if(context.state.games !== undefined && props.currentGame !== null){
+    if(context.state.games !== undefined && context.state.games.length > 0 && props.currentGame !== null){
         if(getGameNameById(props.currentGame) !== undefined){
             if(Ranks[getGameNameById(props.currentGame)] !== undefined){
                 allRanks = Ranks[getGameNameById(props.currentGame)].map((rank: string, id: number) => {

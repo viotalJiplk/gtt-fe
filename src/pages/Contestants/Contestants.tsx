@@ -13,7 +13,7 @@ import { Context } from '../../store/context';
 import CTA from '../../components/layout/CTA/CTA';
 import LoadingSpinner from '../../components/other/Spinner/Spinner';
 import CheckBoxInput from '../../components/form/CheckBoxInput/CheckBoxInput';
-import { GeneratedRole, Error } from '../../types/types';
+import { GeneratedRole, ApiError } from '../../types/types';
 
 interface discordUserObject{
     id: string;
@@ -155,7 +155,7 @@ const Contestants = () => {
     }, [gameId, context.state.games, withDiscord, generatedRoles]);
     useEffect(() => {
         if (gameId !== null) {
-            axios.get(`/generatedRole/list/${gameId}/`).then((response: AxiosResponse<Error|GeneratedRole[]>) => {
+            axios.get(`/generatedRole/list/${gameId}/`).then((response: AxiosResponse<ApiError|GeneratedRole[]>) => {
                 if (Array.isArray(response.data)) {
                     setGeneratedRoles(response.data);
                   } else {

@@ -7,9 +7,11 @@ export enum headingTypes {
 
 export enum GAMETYPES {
     'MINECRAFT' = 'MINECRAFT',
-    'COUNTER_STRIKE' = 'COUNTER_STRIKE',
+    'COUNTER_STRIKE' = 'COUNTER STRIKE',
+    'COUNTER STRIKE' = 'COUNTER STRIKE',
     'LOL' = 'LOL',
-    'ROCKET_LEAGUE' = 'ROCKET_LEAGUE',
+    'ROCKET_LEAGUE' = 'ROCKET LEAGUE',
+    'ROCKET LEAGUE' = 'ROCKET LEAGUE',
     'VALORANT' = 'VALORANT',
     'R6' = 'R6',
 }
@@ -43,7 +45,7 @@ export interface Contestant {
 
 }
 
-export interface Error {
+export interface ApiError {
     kind: string,
     msg: string
 }
@@ -92,4 +94,17 @@ export interface GeneratedRolePermission{
     generatedRoleId: number,
     gameId: number,
     eligible: number
+}
+
+export interface DiscordUserObject{
+    id: string,
+    username: string,
+    avatar: string,
+    discriminator: string,
+    public_flags: number,
+    flags: number,
+    banner: number,
+    accent_color: number,
+    global_name: number,
+    banner_color: number
 }

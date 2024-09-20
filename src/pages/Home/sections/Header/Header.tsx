@@ -58,9 +58,9 @@ const Header: React.FC<HeaderProps> = props => {
                 </Paragraph>
                 <CTA onClick={() => {
                     window.location.href="https://discord.gg/WXtGFxrAdR"
-                }} className={classes.Header__cta}>
+                }} className={classes.Header__connectDiscord}>
                     Spoj se s námi na discordu!
-                    <img className={classes.Header__cta__logo} src={discordLogo} alt="Discord logo"></img>
+                    <img className={classes.Header__connectDiscord__discordLogo} src={discordLogo} alt="Discord logo"></img>
                 </CTA> 
             </div>
             <div className={classes.Header__gameLogos}>

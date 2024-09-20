@@ -5,11 +5,7 @@ import Row from "../../../../components/form/Row/Row";
 import Label from "../../../../components/form/Label/Label";
 import SelectInput from "../../../../components/form/SelectInput/SelectInput";
 import React from 'react';
-
-interface School{
-    name: string;
-    schoolId: Number;
-}
+import { School } from "../../../../types/types";
 
 interface SchoolSelectProps {
     id?: string,
@@ -27,12 +23,12 @@ const SchoolSelect: React.FC<SchoolSelectProps> = props => {
     const context = useContext(Context);
     let schools: {value: number, display: string}[] = [];
 
-    function getSchoolBySchoolId(id:number){
-        for(let school in context.state.schools){
-            school = context.state.schools[school];
-            // @ts-expect-error
-            if(school.schoolId === id){
-                return school;
+    function getSchoolBySchoolId(id: number) {
+        if (context.state.schools !== undefined) {
+            for (let school of context.state.schools) {
+                if (school.schoolId === id) {
+                    return school;
+                }
             }
         }
         return {"name": "", "id": NaN};
@@ -57,7 +53,6 @@ const SchoolSelect: React.FC<SchoolSelectProps> = props => {
     useEffect(()=>{
         if (props.currentSchool){
             if((props.currentSchool) < schools.length){
-                // @ts-expect-error
                 setInputValue(getSchoolBySchoolId(props.currentSchool).name);
             }
         }
@@ -74,7 +69,6 @@ const SchoolSelect: React.FC<SchoolSelectProps> = props => {
     }, [])
     const curOptionChange = (value:number) => {
         let school = getSchoolBySchoolId(value);
-        // @ts-expect-error
         setInputValue(school.name);
         if (props.setFunction) {
             // @ts-expect-error

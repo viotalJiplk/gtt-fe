@@ -8,6 +8,7 @@ interface InviteProps {
     teamId: number,
     gameId: number,
     link?: string,
+    className?: string
 }
 
 function generateJoinLink(joinString:string, teamId:number, gameId:number){
@@ -28,7 +29,7 @@ const InviteLink: React.FC<InviteProps> = function (props) {
     },[]);
     
     return (
-        <div className={classes.InviteLink}>
+        <div className={[props.className, classes.InviteLink].join(' ')}>
             <div className={classes.InviteLink__link}>{joinString}</div>
             <div>
                 <GenerateLinkBtn onClick={async function(event: Event) {

@@ -25,24 +25,7 @@
         }
     }
     &__cta {
-        background-color: transparent;
-        margin-top: 4rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-transform: uppercase;
-        font-weight: bold;
-        color: $color-white;
-        border: 2px solid $color-blue;
-
-        @media screen and (max-width: 450px){
-            width: 30rem;
-        }
-
-        &:hover {
-            background-color: $color-blue;
-            color: $color-white;
-        }
+        width: 20em;
     }
     &__ol{
         font-size: 2.4rem;

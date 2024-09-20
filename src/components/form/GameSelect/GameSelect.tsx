@@ -6,16 +6,7 @@ import Label from "../Label/Label";
 import SelectInput from "../SelectInput/SelectInput";
 import React from 'react';
 import { GAMENAMES } from "../../../constants/constants";
-
-interface Game{
-    name: string;
-    registrationStart: string;
-    registrationEnd: string;
-    maxCaptains: number;
-    maxMembers: number;
-    maxReservists: number;
-    gameId: number;
-}
+import { Game } from "../../../types/types"
 
 interface GameSelectProps {
     id?: string,
@@ -35,7 +26,7 @@ const GameSelect: React.FC<GameSelectProps> = props => {
     let allGames: {value: number, display: string}[] = [];
 
     if(context.state.games !== undefined){
-        allGames = context.state.games.sort((prevGame: Game, thisGame: Game) => {
+        allGames = context.state.games.sort((prevGame: Game, thisGame: Game): number => {
             if (prevGame.gameId > thisGame.gameId) {
                 return 1;
             } else {

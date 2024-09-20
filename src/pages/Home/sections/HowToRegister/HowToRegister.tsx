@@ -1,6 +1,6 @@
 import Section from '../../../../components/layout/Section/Section';
 import Heading from '../../../../components/typography/Heading';
-import CTA from '../../../../components/layout/CTA/CTA';
+import BlueButton from '../../../../components/layout/Buttons/Blue/Blue';
 import { withRouter } from 'react-router';
 import { headingTypes } from '../../../../types/types';
 import { RouteComponentProps } from 'react-router';
@@ -25,21 +25,21 @@ const HowToRegister: React.FC<RouteComponentProps> = (props) => {
         <Paragraph className={classes.HowToRegister__paragraph}>
             Nejdříve si musíte <span className={classes.HowToRegister__link}><NavLink to="/account">vytvořit účet</NavLink></span>. (Nezapomeň vyplnit důležité informace, které o tobě potřebujeme vědět.)
         </Paragraph>
-        <CTA onClick={() => {
+        <BlueButton onClick={() => {
             props.history.push('/account')
             window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
-        }}className={classes.HowToRegister__cta}>
+        }} className={classes.HowToRegister__cta}>
             Vytvoř účet
-        </CTA>    
+        </BlueButton>    
         <Paragraph className={classes.HowToRegister__paragraph}>
            Pak už stačí jenom přečíst <span className={classes.HowToRegister__link}><NavLink to="/rules">pravidla</NavLink></span> (jsou důležitá), najít spoluhráče, kliknout na tlačítko níže, vytvořit nový tým a pozvat do něj své spoluhráče! 
         </Paragraph>
-        <CTA onClick={() => {
+        <BlueButton onClick={() => {
             props.history.push('/join')
             window.scrollTo({top: 0, left: 0, behavior: 'smooth'})
-        }}className={classes.HowToRegister__cta}>
+        }} className={classes.HowToRegister__cta}>
             Založ tým
-        </CTA>
+        </BlueButton>
         <Heading className={classes.HowToRegister__heading} type={headingTypes.h1}>Jak přizvat spoluhráče?</Heading>
         <ol className={classes.HowToRegister__ol}>
             <li>Přejděte na záložku Moje týmy.</li>

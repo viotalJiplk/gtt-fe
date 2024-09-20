@@ -46,6 +46,12 @@ interface ScheduleDay{
     events: ScheduleEvent[]
 }
 
+function getGameType(key: string){
+    if (key in GAMETYPES) {
+        return GAMETYPES[key as keyof typeof GAMETYPES];
+    }
+    throw new Error("Game " + key + " does not exist");
+}
 
 
 const ThisYear = () => {
@@ -57,7 +63,7 @@ const ThisYear = () => {
     const [loaded, setLoaded] = useState(false);
     const [currentDay, setCurrentDay] = useState(0);
     useEffect(function(){
-        if(context.state.games.length !== 0){
+        if(context.state.games !== undefined && context.state.games.length !== 0){
             loadEvents();
         }
     },
@@ -65,53 +71,64 @@ const ThisYear = () => {
     [context]
     );
 
-    async function loadEvents(){
-        const list: eventListResponse[] = (await axios("/backend/event/listAll")).data;
-        const sorted = list.sort(function(a, b){
-            let aDate = new Date(a.date);
-            let bDate = new Date(b.date);
-            if(aDate < bDate){
-                return -1;
-            }else if(aDate > bDate){
-                return 1;
-            }else{
-                return 0;
-            }
-        });
-        let tmpSchedule: ScheduleDay[] = [];
-        sorted.forEach((day, i)=>{
-            day.date = String(Number(day.date.split("-")[2])) + "." + String(Number(day.date.split("-")[1])) + "." + String(Number(day.date.split("-")[0]));
-            if((tmpSchedule.length === 0) || (tmpSchedule[tmpSchedule.length-1].date !== day.date)){
-                tmpSchedule.push({
-                    "date": day.date,
-                    "events": []
-                });
-            }
-
-            let gameName;
-            let j = 0;
-            while(j < context.state.games.length){
-                if(context.state.games[j].gameId === day.gameId){
-                    gameName = context.state.games[j].name;
-                    break;
+    async function loadEvents() {
+        if (context.state.games === undefined) {
+            throw new Error("context.state.games must be defined before calling loadEvents");
+        } else {
+            const list: eventListResponse[] = (await axios("/backend/event/listAll")).data;
+            const sorted = list.sort(function (a, b) {
+                let aDate = new Date(a.date);
+                let bDate = new Date(b.date);
+                if (aDate < bDate) {
+                    return -1;
+                } else if (aDate > bDate) {
+                    return 1;
+                } else {
+                    return 0;
                 }
-                j++;
-            }
-
-            if((tmpSchedule[tmpSchedule.length-1].events.length === 0) || (tmpSchedule[tmpSchedule.length-1].events[0].game !== gameName)){
-                tmpSchedule[tmpSchedule.length-1].events.push({
-                    "game": gameName,
-                    "segments": []
-                });
-            }
-            tmpSchedule[tmpSchedule.length-1].events[tmpSchedule[tmpSchedule.length-1].events.length-1].segments.push({
-                "beginTime": day.beginTime,
-                "endTime": day.endTime,
-                "description": day.description,
             });
-        });
-        setSchedule(tmpSchedule);
-        setLoaded(true);
+            let tmpSchedule: ScheduleDay[] = [];
+            sorted.forEach((day, i) => {
+                if (context.state.games === undefined) {
+                    throw new Error("context.state.games must be defined before calling loadEvents");
+                }
+                day.date = String(Number(day.date.split("-")[2])) + "." + String(Number(day.date.split("-")[1])) + "." + String(Number(day.date.split("-")[0]));
+                if ((tmpSchedule.length === 0) || (tmpSchedule[tmpSchedule.length - 1].date !== day.date)) {
+                    tmpSchedule.push({
+                        "date": day.date,
+                        "events": []
+                    });
+                }
+
+                let gameName;
+                let j = 0;
+                while (j < context.state.games.length) {
+                    if (context.state.games[j].gameId === day.gameId) {
+                        gameName = context.state.games[j].name;
+                        break;
+                    }
+                    j++;
+                }
+
+                if (gameName === undefined) {
+                    throw new Error("game does not exist");
+                }
+
+                if ((tmpSchedule[tmpSchedule.length - 1].events.length === 0) || (tmpSchedule[tmpSchedule.length - 1].events[0].game !== gameName)) {
+                    tmpSchedule[tmpSchedule.length - 1].events.push({
+                        "game": getGameType(gameName),
+                        "segments": []
+                    });
+                }
+                tmpSchedule[tmpSchedule.length - 1].events[tmpSchedule[tmpSchedule.length - 1].events.length - 1].segments.push({
+                    "beginTime": day.beginTime,
+                    "endTime": day.endTime,
+                    "description": day.description,
+                });
+            });
+            setSchedule(tmpSchedule);
+            setLoaded(true);
+        }
     }
 
     useEffect(function() {

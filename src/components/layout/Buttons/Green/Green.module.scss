@@ -1,0 +1,26 @@
+@import '../../../../variables.scss';
+
+.Green {
+    background-color: transparent;
+    border-radius: 1rem;
+    cursor: pointer;
+    box-shadow: 4px 0px 0px $color-green-dark-1;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    font-weight: bold;
+    border: 2px solid $color-green;
+
+    font-family: $font-main;
+    color: $color-white;
+    font-size: 2.4rem;
+    text-decoration: none;
+
+    transition: all .2s;
+
+    &:hover {
+        background-color: $color-green;
+    }
+}

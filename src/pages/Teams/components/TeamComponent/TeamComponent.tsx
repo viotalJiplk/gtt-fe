@@ -7,7 +7,7 @@ import {AxiosResponse} from 'axios'
 import ErrorReporter from "../../../ErrorPage/ErrorReporter";
 import { useHistory } from "react-router-dom";
 import { useEffect, useState, useContext } from 'react';
-import { Team, Error, GeneratedRole, GeneratedRolePermission} from "../../../../types/types";
+import { Team, ApiError, GeneratedRole, GeneratedRolePermission} from "../../../../types/types";
 import { Context } from "../../../../store/context";
 
 
@@ -27,7 +27,7 @@ const TeamComponent: React.FC<TeamComponentProps> = (props) => {
     const [visible, setVisible] = useState<boolean>(false);
     const [canGenerateJoinString, setCanGenerateJoinString] = useState<boolean>(false);
     async function TeamMembers(teamId:number){
-        const teamData: AxiosResponse<Team, Error> = await axios("/team/id/" + teamId + "/").catch(function(error){
+        const teamData: AxiosResponse<Team, ApiError> = await axios("/team/id/" + teamId + "/").catch(function(error){
             ErrorReporter("Chyba výpisu detailu týmu. Zkuste akci opakovat později.");
         });
         if ("kind" in teamData.data) {
@@ -43,9 +43,9 @@ const TeamComponent: React.FC<TeamComponentProps> = (props) => {
         const permission: AxiosResponse<GeneratedRolePermission[], Error> = await axios("/generatedRole/"+user.generatedRoleId+"/permissions/").catch(function(error){
             ErrorReporter("Chyba výpisu detailu týmu. Zkuste akci opakovat později.");
         });
-        if ("kind" in teamData.data) {
-            console.error(teamData.data);
-            ErrorReporter("Chyba výpisu detailu týmu. Zkuste akci opakovat později.");
+        if ("kind" in permission.data) {
+            console.error(permission.data);
+            ErrorReporter("Chyba výpisu detailu oprávnění. Zkuste akci opakovat později.");
         }
         const canKick = permission.data.find((perm) => { return perm.permission === "team.kickTeam" }) !== undefined
         setCanGenerateJoinString(permission.data.find((perm) => { return perm.permission === "team.generateJoinStringMy" }) !== undefined);
@@ -67,7 +67,7 @@ const TeamComponent: React.FC<TeamComponentProps> = (props) => {
         setVisible(!visible)
     }
     useEffect(function () {
-        if (context.state.discordId !== undefined) {
+        if (context.state.discordId !== undefined && context.state.schools !== null) {
             TeamMembers(props.teamId)
         }
     // eslint-disable-next-line
@@ -75,7 +75,7 @@ const TeamComponent: React.FC<TeamComponentProps> = (props) => {
 
     return  <div className={classes.TeamUI}>
         <div className={classes.TeamUI__teamname} onClick={makeVisible}>
-            <div>{props.teamName}</div>
+            <div className={classes.TeamUI__teamname__name}>{props.teamName}</div>
             <div className={classes.TeamUI__spacer}></div>
             <div className={classes.TeamUI__leave}><LeaveBtn onClick={async function(){
                 axios.delete("/team/id/"+ props.teamId +"/kick/@me/").catch(function(error){
@@ -90,7 +90,7 @@ const TeamComponent: React.FC<TeamComponentProps> = (props) => {
                     {teams}
                 </div>
             }
-            { visible && canGenerateJoinString  && <InviteLink link={props.joinString} teamId={props.teamId} gameId={props.gameId}/>}
+            { visible && canGenerateJoinString  && <InviteLink className={classes.TeamUI__inviteLink} link={props.joinString} teamId={props.teamId} gameId={props.gameId}/>}
         </div>
     </div>
 }

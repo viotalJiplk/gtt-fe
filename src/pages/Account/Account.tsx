@@ -11,6 +11,7 @@ import TextInput from '../../components/form/TextInput/TextInput';
 import AdultSelect from "./components/AdultSelect/AdultSelect";
 import SchoolSelect from "./components/SchoolSelect/SchoolSelect";
 import Submit from "../../components/form/Submit/Submit";
+import RedButton from "../../components/layout/Buttons/Red/Red";
 import Agreement from "./components/Agreement/Agreement";
 import axios from '../../axios/axios';
 import Loading from "../../components/other/Spinner/Spinner";
@@ -152,10 +153,15 @@ const Account = () => {
             }}></AdultSelect>
             <Agreement setFunction={setAgreed}></Agreement>
             <SchoolSelect label={'Škola, na které studuji (musí být položka ze seznamu)'} currentSchool={school} setFunction={setSchool} className={classes.AloneForm__schoolSelect}></SchoolSelect>
-            <Submit className={classes.TeamForm__submit} onClick={(e: any) => {
+            <Submit className={classes.Registration__submit} onClick={(e: any) => {
                 e.preventDefault();
                 onSubmit();
             }}>Aktualizovat údaje</Submit>
+            <RedButton onClick={(e: any) => {
+                localStorage.removeItem("jwt");
+                localStorage.removeItem("userObject");
+                window.location.href = "/";
+            }}>Logout</RedButton>
             {invalidMessages.length >= 1 &&
                 <div className={classes.AloneForm__invalidMessages}>
                     {invalidMessages.map((message, id) => {
