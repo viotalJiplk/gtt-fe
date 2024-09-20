@@ -10,7 +10,7 @@ import { headingTypes } from '../../types/types';
 import GameSelect from '../../components/form/GameSelect/GameSelect';
 import { Ranks } from '../../constants/constants';
 import { Context } from '../../store/context';
-import BlueButton from '../../components/layout/Buttons/Blue/Blue';
+// import BlueButton from '../../components/layout/Buttons/Blue/Blue';
 import LoadingSpinner from '../../components/other/Spinner/Spinner';
 import CheckBoxInput from '../../components/form/CheckBoxInput/CheckBoxInput';
 import { GeneratedRole, ApiError } from '../../types/types';
