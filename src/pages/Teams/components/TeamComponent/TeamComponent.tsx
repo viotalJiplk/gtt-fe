@@ -26,7 +26,7 @@ const TeamComponent: React.FC<TeamComponentProps> = (props) => {
     const [teams, setTeams] = useState<JSX.Element[]>([]);
     const [visible, setVisible] = useState<boolean>(false);
     const [canGenerateJoinString, setCanGenerateJoinString] = useState<boolean>(false);
-    async function TeamMembers(teamId:number){
+    async function teamMembers(teamId:number){
         const teamData: AxiosResponse<Team, ApiError> = await axios("/team/id/" + teamId + "/").catch(function(error){
             ErrorReporter("Chyba výpisu detailu týmu. Zkuste akci opakovat později.");
         });
@@ -68,9 +68,8 @@ const TeamComponent: React.FC<TeamComponentProps> = (props) => {
     }
     useEffect(function () {
         if (context.state.discordId !== undefined && context.state.schools !== null) {
-            TeamMembers(props.teamId)
+            teamMembers(props.teamId)
         }
-    // eslint-disable-next-line
     }, [history, context]);
 
     return  <div className={classes.TeamUI}>
