@@ -11,6 +11,7 @@
         flex-shrink: 1;
     }
     &__members{
+        border-top: $border;
         top: 5vh;
         overflow-y: auto;
         overflow-x: hidden;
@@ -23,7 +24,6 @@
     }
     &__teamname{
         display: flex;
-        border-bottom: $border;
         color: $color-white;
         font-size: 3rem;
         padding-left: 2rem;
