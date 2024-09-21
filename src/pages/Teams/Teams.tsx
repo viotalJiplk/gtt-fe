@@ -50,11 +50,11 @@ function Teams() {
                 if (game === undefined) {
                     throw new Error("Game " + index + " does not exist");
                 }
-                teamArray.push(<div className={classes.TeamsUI__gameName}>{game.name}</div>);
+                teamArray.push(<div key={"game_" + index} className={classes.TeamsUI__gameName}>{game.name}</div>);
                 for (let element of userTeams[index]) {
                     teamArray.push(
                         <div key={element.teamId} className={classes.TeamsUI__teamholder}>
-                            <TeamComponent generatedRoles={roleList.data} teamName={element.name} teamId={element.teamId} joinString={element.joinString} gameId={element.gameId}></TeamComponent>
+                            <TeamComponent key={"team_" + element.teamId + "_component"} generatedRoles={roleList.data} teamName={element.name} teamId={element.teamId} joinString={element.joinString} gameId={element.gameId}></TeamComponent>
                         </div>
                     );
                 }
