@@ -80,8 +80,9 @@ const TeamComponent: React.FC<TeamComponentProps> = (props) => {
             <div className={classes.TeamUI__leave}><LeaveBtn onClick={async function(){
                 axios.delete("/team/id/"+ props.teamId +"/kick/@me/").catch(function(error){
                     ErrorReporter("Neaznámá chyba. Zkuste akci opakovat později.");
+                }).then((response) => {
+                    window.location.reload();
                 });
-                window.location.reload();
             }} /></div>
         </div>
         <div>
