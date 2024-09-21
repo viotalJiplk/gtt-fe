@@ -70,7 +70,8 @@ const TeamComponent: React.FC<TeamComponentProps> = (props) => {
         if (context.state.discordId !== undefined && context.state.schools !== null) {
             teamMembers(props.teamId)
         }
-    }, [history, context, props.teamId]);
+    // eslint-disable-next-line
+    }, [history, context]);
 
     return  <div className={classes.TeamUI}>
         <div className={classes.TeamUI__teamname} onClick={makeVisible}>
