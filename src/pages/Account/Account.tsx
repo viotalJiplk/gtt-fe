@@ -17,6 +17,7 @@ import axios from '../../axios/axios';
 import Loading from "../../components/other/Spinner/Spinner";
 import ErrorReporter from "../ErrorPage/ErrorReporter";
 import { useHistory } from "react-router-dom";
+import Camera from './components/Camera/Camera';
 
 const Account = () => {
     const [loaded, setLoaded] = useState<boolean>(false);
@@ -25,6 +26,7 @@ const Account = () => {
     const [surname, setSurname] = useState('');
     const [adult, setIsAdult] = useState(false);
     const [agreed, setAgreed] = useState(false);
+    const [cam, setCam] = useState(false);
     const [invalidMessages, setInvalidMessages] = useState<string[]>([]);
 
     const context = useContext(Context);
@@ -62,6 +64,7 @@ const Account = () => {
         if (response.adult !== "\"\"") {
             setIsAdult(response.adult);
         }
+        setCam(response.camera);
 
     }
 
@@ -119,7 +122,8 @@ const Account = () => {
                 "name": name,
                 "surname": surname,
                 "adult": adult,
-                "schoolId": school
+                "schoolId": school,
+                "camera": cam
             }
         }).catch(function (error) {
             if(error.response.status === 401){
@@ -152,6 +156,7 @@ const Account = () => {
                 setIsAdult(value);
             }}></AdultSelect>
             <Agreement setFunction={setAgreed}></Agreement>
+            <Camera value={cam} setFunction={setCam}></Camera>
             <SchoolSelect label={'Škola, na které studuji (musí být položka ze seznamu)'} currentSchool={school} setFunction={setSchool} className={classes.AloneForm__schoolSelect}></SchoolSelect>
             <Submit className={classes.Registration__submit} onClick={(e: any) => {
                 e.preventDefault();
