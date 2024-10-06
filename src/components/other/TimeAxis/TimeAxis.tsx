@@ -1,25 +1,13 @@
 import classes from './TimeAxis.module.scss';
-import { GAMETYPES } from '../../../types/types';
 import React, { useRef, useEffect, useCallback, /*useState,*/ Dispatch, SetStateAction } from 'react';
+import { ScheduleDay } from '../../../pages/Home/sections/ThisYear/ThisYear';
 
 interface TimeAxisProps {
     className: string,
-    currentDay: number,
-    setCurrentDay: Dispatch<SetStateAction<number>>,
-    schedule: {
-            date: string,
-            events: {
-                    game: GAMETYPES,
-                    segments: {
-                            beginTime: string,
-                            endTime: string
-                    }[]
-                    
-            }[]
-            
-        }[]
+    currentDay: string,
+    setCurrentDay: Dispatch<SetStateAction<string>>,
+    schedule: { [key: string]: ScheduleDay }
 }
-
 
 const TimeAxis: React.FC<TimeAxisProps> = props => {
     const lineRef = useRef(document.createElement('div'));
@@ -54,18 +42,23 @@ const TimeAxis: React.FC<TimeAxisProps> = props => {
     }, [onResize])
 
     const className = classes.TimeAxis + " " + props.className;
-    const points = schedule.map((day, id) => {
-        const className = classes.TimeAxis__point  + " " + (id === props.currentDay ? classes.active : '');
-        return <div onClick={
-            () => {
-                props.setCurrentDay(id);
-            }
-        } 
-        data-id={id} key={id} className={className}></div>
-    });
-    const descriptors = schedule.map((day, id) => {
-        return <div data-id={id} key={id} className={classes.TimeAxis__descriptor}>{day.date}</div>
-    });
+    const points = [];
+    const descriptors = [];
+    let id = 0;
+    for (let dayIndex in schedule) {
+        let day = schedule[dayIndex];
+        const className = classes.TimeAxis__point  + " " + (dayIndex === props.currentDay ? classes.active : '');
+        points.push(
+            <div onClick={
+                    () => {
+                        props.setCurrentDay(dayIndex);
+                    }
+                }
+                data-id={id} key={id} className={className}></div>);
+        let date = new Date(day.date);
+        descriptors.push(<div data-id={id} key={id} className={classes.TimeAxis__descriptor}>{date.getDate()}.&nbsp;{date.getMonth() + "."}</div>);
+        id++;
+    }
     
     return <div className={className}>
         <div ref={lineRef} className={classes.TimeAxis__line}>

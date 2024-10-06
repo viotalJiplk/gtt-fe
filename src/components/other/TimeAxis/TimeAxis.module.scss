@@ -24,6 +24,9 @@
         justify-content: space-between;
 
         position: relative;
+        :last-child{
+            text-align: right;
+        }
     }
     &__point {
         width: 5rem;

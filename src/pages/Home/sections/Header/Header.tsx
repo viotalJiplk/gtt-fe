@@ -3,10 +3,8 @@ import Section from '../../../../components/layout/Section/Section';
 import { Logo } from '../../../../components/other/Assets/Assets'
 import Heading from '../../../../components/typography/Heading';
 import { headingTypes } from '../../../../types/types';
-import { GAMETYPES } from '../../../../types/types';
 import Paragraph from '../../../../components/typography/Paragraph';
 // import CountDown from '../../../../components/other/CountDown/CountDown';
-import GameLogo from '../../../../components/other/GameLogo/GameLogo';
 import { useHistory } from "react-router-dom";
 import CTA from '../../../../components/layout/CTA/CTA';
 import { withRouter } from 'react-router';
@@ -18,15 +16,29 @@ import JRDMLogo from '../../../../assets/JRDM_logo.svg';
 import HelkorLogo from '../../../../assets/helkor_logo.png';
 import FakahedaLogo from '../../../../assets/fakaheda_logo.png';
 import ArtinLogo from '../../../../assets/artinlogo.png';
+import { useEffect, useState, useContext } from 'react';
+import { Context } from "../../../../store/context";
+import GameLogo from '../../../../components/other/GameLogo/GameLogo';
 interface HeaderProps {
 
 }
 
 const Header: React.FC<HeaderProps> = props => {
     const history = useHistory();
-    function gamepage(gameName:string){
-        history.push("/gamepage?gamename=" + gameName);
-    }
+    const [gameLogos, setGameLogos] = useState<JSX.Element[] | null>(null);
+    const context = useContext(Context);
+
+    useEffect(() => {
+        if (context.state.games !== undefined) {
+            let tmpGameLogos = [];
+            for (let game of context.state.games) {
+                tmpGameLogos.push(<GameLogo gameId={game.gameId} game={game} className={classes.Header__gameLogos__logo} onClick={() => {
+                    history.push("/gamepage?gamename=" + game.name);
+                }}></GameLogo>)
+            }
+            setGameLogos(tmpGameLogos);
+        }
+    }, [context.state.games]);
     return <Section className={classes.Header}>
             <div className={classes.Header__topRight}>
                 {/* <CountDown className={classes.Header__countDown}></CountDown> */}
@@ -66,12 +78,7 @@ const Header: React.FC<HeaderProps> = props => {
             <div className={classes.Header__gameLogos}>
                 <Heading className={classes.Header__gamepages} type={headingTypes.h2}>Stránky her:</Heading>
                 <div className={classes.Header__gameLogosHolder}>
-                    <GameLogo className={classes.Header__gameLogos__logo} game={GAMETYPES.MINECRAFT} onClick={()=>{gamepage(GAMETYPES.MINECRAFT)}}></GameLogo>
-                    <GameLogo className={classes.Header__gameLogos__logo} game={GAMETYPES.COUNTER_STRIKE} onClick={()=>{gamepage(GAMETYPES.COUNTER_STRIKE)}}></GameLogo>
-                    <GameLogo className={classes.Header__gameLogos__logo} game={GAMETYPES.ROCKET_LEAGUE} onClick={()=>{gamepage(GAMETYPES.ROCKET_LEAGUE)}}></GameLogo>
-                    <GameLogo className={classes.Header__gameLogos__logo} game={GAMETYPES.LOL} onClick={()=>{gamepage(GAMETYPES.LOL)}}></GameLogo>
-                    <GameLogo className={classes.Header__gameLogos__logo} game={GAMETYPES.VALORANT} onClick={()=>{gamepage(GAMETYPES.VALORANT)}}></GameLogo>
-                    <GameLogo className={classes.Header__gameLogos__logo} game={GAMETYPES.R6} onClick={()=>{gamepage(GAMETYPES.R6)}}></GameLogo>
+                    {gameLogos}
                 </div>
             </div>  
     </Section>
