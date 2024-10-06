@@ -37,6 +37,9 @@ services:
       token_ttl: "$token_ttl"
       userid_claim: "$userid_claim"
       PROD: "$production"
+      DYNFOLDER: "/files"
+    volumes:
+        - files:/files
 
   gtt-mariadb:
     image: mariadb
@@ -62,3 +65,4 @@ networks:
 
 volumes:
   db-data:
+  files:
