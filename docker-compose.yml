@@ -2,16 +2,24 @@ version: "2.2"
 
 services:
   gtt-frontend:
-    build: .
-    #image: ghcr.io/viotaljiplk/gttfe-2:latest
+    #build: .
+    image: ghcr.io/viotaljiplk/gttfe-2:latest
     restart: $restart
     container_name: gtt-frontend
     networks:
       - gtt-internal
     ports:
       - "$Port:80"
+  gtt-admin-frontend:
+    image: ghcr.io/matyas7dub/gttfe-a:latest
+    container_name: gtt-admin-frontend
+    environment:
+      PUBLIC_URL: "/admin"
+      REACT_APP_BACKEND_URL: ""
+    networks:
+      - gtt-internal
   gtt-backend:
-    image: ghcr.io/viotaljiplk/gttbe-2:latest
+    image: ghcr.io/viotaljiplk/gttbe-2:dev
     restart: $restart
     container_name: gtt-backend
     networks:
