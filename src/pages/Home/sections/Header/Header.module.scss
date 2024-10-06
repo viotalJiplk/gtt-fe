@@ -27,6 +27,8 @@
             &:not(:last-child) {
                 margin-right: 2rem;
             }
+            width: 10rem;
+            margin: 0.5rem;
         }
     }
     &__gameLogosHolder {
@@ -49,6 +51,7 @@
         &__logo {
             &:not(:last-child) {
                 margin-right: 2rem;
+                
             }
         }
     }

@@ -18,7 +18,9 @@ $padding-left: 5%;
     @media screen and (max-width: $bp-mobile) {
         height: 90rem;
     }
-
+    &__gameLogo{
+        width: 5rem;
+    }
     &__timeAxis {
         position: absolute;
         left: 0;

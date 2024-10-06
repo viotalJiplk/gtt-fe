@@ -1,22 +1,22 @@
 import React, { useContext, useState, useEffect } from 'react';
-import classes from './GameLogo.module.scss';
+import classes from './BackDrop.module.scss';
 
 import { Context } from '../../../store/context';
 import { Game } from "../../../types/types";
 
-interface GameLogoProps {
+interface BackDropProps {
     gameId: number,
     game?: Game,
     className?: string,
     onClick?: Function
 }
 
-const GameLogo: React.FC<GameLogoProps> = ({game, gameId, className, onClick }) => {
-    const [gameLogo, setGameLogo] = useState<JSX.Element>(<img onClick={() => {
+const BackDrop: React.FC<BackDropProps> = ({game, gameId, className, onClick }) => {
+    const [backDrop, setBackDrop] = useState<JSX.Element>(<img onClick={() => {
         if (onClick !== undefined) {
             onClick(gameId)
         }
-    }} className={[className, classes.GameLogo].join(" ")}/>);
+    }} className={[className, classes.BackDrop].join(" ")} alt=""/>);
     const context = useContext(Context);
     useEffect(() => {
         if (context.state.games !== undefined) {
@@ -31,16 +31,16 @@ const GameLogo: React.FC<GameLogoProps> = ({game, gameId, className, onClick }) 
             if (finalGame === undefined) {
                 console.error(`Game not found for gameId ${gameId}`);
             } else {
-                setGameLogo(<img onClick={() => {
+                setBackDrop(<img onClick={() => {
                     if (onClick !== undefined) {
                         onClick(gameId)
                     }
-                }} className={[className, classes.GameLogo].join(" ")} alt={finalGame.name} src={finalGame.icon}>
+                }} className={[className, classes.BackDrop].join(" ")} alt={finalGame.name} src={finalGame.backdrop}>
                 </img>);
             }
         }
     }, [context.state.games, className, game, gameId, onClick]);
-    return <div>{gameLogo}</div>
+    return <div>{backDrop}</div>
 };
 
-export default GameLogo;
+export default BackDrop;
