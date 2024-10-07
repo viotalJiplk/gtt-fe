@@ -6,7 +6,6 @@ import Row from "../../../../components/form/Row/Row";
 import Label from "../../../../components/form/Label/Label";
 import SelectInput from "../../../../components/form/SelectInput/SelectInput";
 import React from 'react';
-import { Roles } from "../../../../constants/constants";
 import { ApiError, GeneratedRole } from "../../../../types/types";
 import ErrorReporter from "../../../ErrorPage/ErrorReporter";
 
@@ -24,6 +23,7 @@ interface RolesInterface {
 
 const RoleSelect: React.FC<RoleSelectprops> = props => {
     let [inputValue, setInputValue] = useState('');
+    const [allRoles, setAllRoles] = useState<RolesInterface[]>([]);
     const [roles, setRoles] = useState<RolesInterface[]>([]);
     
     async function listRoles(gameId: number) {
@@ -45,6 +45,7 @@ const RoleSelect: React.FC<RoleSelectprops> = props => {
                 "display": role.roleName
             });
         }
+        setAllRoles(tmpRoles);
         setRoles(tmpRoles);
     }
 
@@ -66,7 +67,7 @@ const RoleSelect: React.FC<RoleSelectprops> = props => {
     },[props.currentGame]);
 
     useEffect(() => {
-        if (props.currentRole !== undefined) {
+        if (props.currentRole !== undefined && props.currentRole !== null) {
             setInputValue(getRoleById(props.currentRole).display);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -79,8 +80,17 @@ const RoleSelect: React.FC<RoleSelectprops> = props => {
         setInputValue(value);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
-    const curOptionChange = (value:string) => {
-        setInputValue(Roles[value]);
+
+    useEffect(() => {
+        let tmpRoles = allRoles.filter((role) => {
+            return role.display.toLocaleLowerCase().includes(inputValue.toLocaleLowerCase());
+        })
+        setRoles(tmpRoles);
+    },[inputValue, allRoles]);
+
+    const curOptionChange = (value: number) => {
+        console.log(value);
+        setInputValue(getRoleById(value).display);
         if (props.setFunction) {
             props.setFunction(value);
         };

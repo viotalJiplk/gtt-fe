@@ -5,7 +5,6 @@ import Heading from '../../components/typography/Heading';
 import { headingTypes } from '../../types/types';
 import { routeTransition, routeVariants } from '../../animations/animations';
 import Paragraph from "../../components/typography/Paragraph";
-import { GAMENAMES } from "../../constants/constants";
 import { useState, useContext, useEffect } from "react";
 import { Context } from "../../store/context";
 import { useHistory } from "react-router-dom";
@@ -20,7 +19,7 @@ const Rules = () => {
             let games = [];
             for(let game in context.state.games){
                 let gamename = context.state.games[game].name;
-                let gameDisplay = GAMENAMES[gamename];
+                let gameDisplay = gamename;
                 let url = new URL("/gamepage", window.location.href);
                 url.searchParams.append("gamename", gamename);
                 games.push(<Paragraph key={gamename} className={classes.Rules__paragraph}><a href={url.href}>{gameDisplay}</a></Paragraph>);

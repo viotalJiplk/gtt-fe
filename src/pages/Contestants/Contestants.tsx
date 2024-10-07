@@ -8,7 +8,7 @@ import axios from '../../axios/axios';
 import { AxiosResponse } from 'axios';
 import { headingTypes } from '../../types/types';
 import GameSelect from '../../components/form/GameSelect/GameSelect';
-import { Ranks } from '../../constants/constants';
+import { Rank } from '../../types/types';
 import { Context } from '../../store/context';
 import LoadingSpinner from '../../components/other/Spinner/Spinner';
 import CheckBoxInput from '../../components/form/CheckBoxInput/CheckBoxInput';
@@ -55,6 +55,7 @@ const Contestants = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [teamsElement, setTeamsElement] = useState<JSX.Element[]>([]);
     const [tableHead, setTableHead] = useState<JSX.Element[]>([]);
+    const [allRanks, setAllRanks] = useState<Rank[] | null>(null);
     // @ts-expect-error
     function groupBy(arr, properties) {
         // @ts-expect-error
@@ -74,12 +75,35 @@ const Contestants = () => {
         return result;
     }
 
+    async function getRanks(gameId: number) {
+        let res = await fetch(`/backend/rank/list/${gameId}/`);
+        setAllRanks(await res.json());
+    }
+
+    useEffect(()=>{
+        if((gameId !== null)){
+            getRanks(gameId);
+        }
+    }, [gameId]);
+    
+    function getRankByRankId(id: Number) {
+        if (allRanks === null) {
+            throw new Error("AllRanks cannot be null when calling getRankByRankId.")
+        }
+        for(let rank of allRanks){
+            if(rank.rankId === id){
+                return rank;
+            }
+        }
+        return undefined;
+    }
+
     function roleNameFromId(id: Number, generatedRoles: GeneratedRole[]) {
         return generatedRoles.find(role => role.generatedRoleId === id)?.roleName;
     }
 
     useEffect(() => {
-        if(gameId != null && context.state.games !== undefined && generatedRoles !== null){
+        if(gameId != null && context.state.games !== undefined && generatedRoles !== null && allRanks !== null){
             setLoading(true);
             axios.get('/team/list/participating/'+ gameId +'/' + withDiscord + '/').then(response => {
                 let tmpTeams: TeamMember[][] = [[]];
@@ -107,6 +131,14 @@ const Contestants = () => {
                         if(member.userId !== undefined){
                             setDiscord(true);
                         }
+                        let rank = undefined;
+                        if (member.rank !== undefined) {
+                            rank = getRankByRankId(member.rank);   
+                        }
+                        let maxRank = undefined;
+                        if (member.maxRank !== undefined) {
+                            maxRank = getRankByRankId(member.maxRank);   
+                        }
                         tmpTeamElements.push(<tr className={classes.Contestants__member}>
                             <td className={classes.Contestants__member__name}>
                                 {member.nick}
@@ -121,14 +153,14 @@ const Contestants = () => {
                             }
                             {member.rank !== undefined && tableHeadtmp.push(<th>Rank</th>) &&
                                 <td className={classes.Contestants__member__rank}>
-                                    {//@ts-expect-error
-                                     member.rank !== 0?Ranks[context.state.games[gameId-1].name][member.rank]: "Žádný rank"}
+                                    {
+                                     rank? rank.rankName: "Neznámý rank"}
                                 </td>
                             }
                             {member.maxRank !== undefined && tableHeadtmp.push(<th>Maximální rank</th>) &&
                                 <td className={classes.Contestants__member__maxRank}>
-                                    {//@ts-expect-error
-                                     member.maxRank !== 0?Ranks[context.state.games[gameId-1].name][member.maxRank]: "Žádný rank"}
+                                    {
+                                     maxRank? maxRank.rankName: "Neznámý rank"}
                                 </td>
                             }
                             {member.discordUserObject && member.discordUserObject.global_name && tableHeadtmp.push(<th>Discord Name</th>) &&
@@ -149,7 +181,7 @@ const Contestants = () => {
                 setLoading(false);
             });
         }
-    }, [gameId, context.state.games, withDiscord, generatedRoles]);
+    }, [gameId, context.state.games, withDiscord, generatedRoles, allRanks]);
     useEffect(() => {
         if (gameId !== null) {
             axios.get(`/generatedRole/list/${gameId}/`).then((response: AxiosResponse<ApiError|GeneratedRole[]>) => {
