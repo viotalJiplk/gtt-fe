@@ -5,7 +5,6 @@ import Row from "../Row/Row";
 import Label from "../Label/Label";
 import SelectInput from "../SelectInput/SelectInput";
 import React from 'react';
-import { GAMENAMES } from "../../../constants/constants";
 import { Game } from "../../../types/types"
 
 interface GameSelectProps {
@@ -35,7 +34,7 @@ const GameSelect: React.FC<GameSelectProps> = props => {
         }).map((game: Game, id: number) => {
             return {
                 value: game.gameId, 
-                display: GAMENAMES[game.name]
+                display: game.name
             }
         })
         if (inputValue.length > 0 && curOption === -1) {

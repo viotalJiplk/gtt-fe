@@ -5,12 +5,7 @@ import Row from "../../../../components/form/Row/Row";
 import Label from "../../../../components/form/Label/Label";
 import SelectInput from "../../../../components/form/SelectInput/SelectInput";
 import React from 'react';
-import { Ranks } from "../../../../constants/constants";
-
-// interface Rank{
-//     name: string;
-//     rankId: number;
-// }
+import { Rank } from "../../../../types/types";
 
 
 interface GameSelectProps {
@@ -24,11 +19,31 @@ interface GameSelectProps {
 const RankSelect: React.FC<GameSelectProps> = props => {
 
     const [curOption, setCurOption] = useState(-1);
+    const [allRanks, setAllRanks] = useState<{ value: number, display: string }[]>([]);
+    const [ranks, setRanks] = useState<{value: number, display: string}[]>([]);;
     let [inputValue, setInputValue] = useState('');
 
+    async function getRanks(gameId: number) {
+        let res = await fetch(`/backend/rank/list/${gameId}/`)
+        let result: Rank[] = await res.json();
+        let tmpRanks: { value: number, display: string }[] = [];
+        for (let rank of result) {
+            tmpRanks.push({
+                value: rank.rankId,
+                display: rank.rankName,
+            })
+        }
+        setAllRanks(tmpRanks);
+        return tmpRanks;
+    }
+
+    useEffect(()=>{
+        if((props.currentGame !== null)){
+            getRanks(props.currentGame);
+        }
+    },[props.currentGame]);
+
     const context = useContext(Context);
-    let allRanks: {value: number, display: string}[] = [];
-    let ranks: {value: number, display: string}[] = [];
 
     function getRankByRankId(id:number){
         for(let rankIndex in allRanks){
@@ -51,26 +66,22 @@ const RankSelect: React.FC<GameSelectProps> = props => {
         }
         throw new Error("game does not exist");
     }
-
-    if(context.state.games !== undefined && context.state.games.length > 0 && props.currentGame !== null){
-        if(getGameNameById(props.currentGame) !== undefined){
-            if(Ranks[getGameNameById(props.currentGame)] !== undefined){
-                allRanks = Ranks[getGameNameById(props.currentGame)].map((rank: string, id: number) => {
-                    return {
-                        value: id, 
-                        display: rank
+    useEffect(() => {
+        if (context.state.games !== undefined && context.state.games.length > 0 && props.currentGame !== null) {
+            if (getGameNameById(props.currentGame) !== undefined) {
+                if (getRankByRankId(props.currentGame) !== undefined) {
+                    if (inputValue.length > 0 && curOption === -1) {
+                        setRanks(allRanks.filter((rank) => {
+                            return rank.display.toLocaleLowerCase().includes(inputValue.toLocaleLowerCase());
+                        }));
+                    } else {
+                        setRanks(allRanks);
                     }
-                })
-                if (inputValue.length > 0 && curOption === -1) {
-                    ranks = allRanks.filter((rank) => {
-                        return rank.display.toLocaleLowerCase().includes(inputValue.toLocaleLowerCase());
-                    });
-                }else{
-                    ranks = allRanks;
                 }
             }
         }
-    }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[allRanks, context.state.games, props.currentGame, inputValue, curOption]);
 
     useEffect(()=>{
         if((props.curentRank||NaN) < ranks.length){

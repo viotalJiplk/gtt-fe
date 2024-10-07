@@ -11,7 +11,6 @@ import GreenButton from '../../components/layout/Buttons/Green/Green';
 import { motion } from 'framer-motion';
 import { routeTransition, routeVariants } from "../../animations/animations";
 import { Team, ApiError, GeneratedRole } from "../../types/types";
-import { GAMENAMES } from "../../constants/constants";
 
 
 function Teams() {
@@ -51,7 +50,7 @@ function Teams() {
                 if (game === undefined) {
                     throw new Error("Game " + index + " does not exist");
                 }
-                teamArray.push(<div key={"game_" + index} className={classes.TeamsUI__gameName}>{GAMENAMES[game.name]}</div>);
+                teamArray.push(<div key={"game_" + index} className={classes.TeamsUI__gameName}>{game.name}</div>);
                 for (let element of userTeams[index]) {
                     teamArray.push(
                         <div key={element.teamId} className={classes.TeamsUI__teamholder}>

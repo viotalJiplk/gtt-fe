@@ -4,7 +4,6 @@ import classes from './GamePage.module.scss'
 
 import { useContext, useEffect, useState } from 'react';
 import { Context } from '../../store/context';
-import { GAMENAMES } from '../../constants/constants';
 import Heading from '../../components/typography/Heading';
 import { headingTypes } from '../../types/types';
 import axios from '../../axios/axios';
@@ -17,7 +16,7 @@ const GamePage = () => {
     const context = useContext(Context);
     const url = new URL(window.location.href);
     const gameName = url.searchParams.get("gamename");
-    const gameDisplay = gameName ? GAMENAMES[gameName] : "";
+    const gameDisplay = gameName ?? "";
     const [generatedRoles, setGeneratedRoles] = useState<JSX.Element[] | null>(null);
     const [gameRegistration, setGameRegistration] = useState<string>();
     const [minmax, setMinmax] = useState<JSX.Element[]>([]);

@@ -5,18 +5,15 @@ export enum headingTypes {
     'main' = 'main'
 }
 
-export enum GAMETYPES {
-    'MINECRAFT' = 'MINECRAFT',
-    'COUNTER_STRIKE' = 'COUNTER_STRIKE',
-    'LOL' = 'LOL',
-    'ROCKET_LEAGUE' = 'ROCKET_LEAGUE',
-    'VALORANT' = 'VALORANT',
-    'R6' = 'R6',
-}
-
 export interface ApiError {
     kind: string,
     msg: string
+}
+
+export interface Rank{
+    rankId: number,
+    rankName: string;
+    gameId: number;
 }
 
 export interface School {
