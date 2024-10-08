@@ -38,6 +38,7 @@ const Header: React.FC<HeaderProps> = props => {
             }
             setGameLogos(tmpGameLogos);
         }
+    // eslint-disable-next-line
     }, [context.state.games]);
     return <Section className={classes.Header}>
             <div className={classes.Header__topRight}>
