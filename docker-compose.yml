@@ -11,7 +11,7 @@ services:
     ports:
       - "$Port:80"
   gtt-admin-frontend:
-    image: ghcr.io/matyas7dub/gttfe-a:latest
+    image: ghcr.io/matyas7dub/gttfe-a:$build
     container_name: gtt-admin-frontend
     environment:
       PUBLIC_URL: "/admin"
