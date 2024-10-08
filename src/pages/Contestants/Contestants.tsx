@@ -181,6 +181,7 @@ const Contestants = () => {
                 setLoading(false);
             });
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [gameId, context.state.games, withDiscord, generatedRoles, allRanks]);
     useEffect(() => {
         if (gameId !== null) {

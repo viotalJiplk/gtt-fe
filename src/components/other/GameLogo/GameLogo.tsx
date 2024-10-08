@@ -16,7 +16,7 @@ const GameLogo: React.FC<GameLogoProps> = ({game, gameId, className, onClick }) 
         if (onClick !== undefined) {
             onClick(gameId)
         }
-    }} className={[className, classes.GameLogo].join(" ")}/>);
+    }} className={[className, classes.GameLogo].join(" ")} alt='gameLogo'/>);
     const context = useContext(Context);
     useEffect(() => {
         if (context.state.games !== undefined) {
