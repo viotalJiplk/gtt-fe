@@ -10,7 +10,7 @@ import MarkdownPage from '../../components/MarkdownPage/MarkdownPage';
 const Documents = () => {
     return <motion.div key="document" className={classes.Document} variants={routeVariants} transition={routeTransition} exit="hidden" animate="visible" initial="initial">
         <Section className={classes.Document__section}>
-            <Heading className={classes.Document__heading} type={headingTypes.main}>Vítězové</Heading>
+            <Heading className={classes.Document__heading} type={headingTypes.main}>Dokumenty</Heading>
             <MarkdownPage pageName='document' className={classes.Document__documentMarkdownPage}></MarkdownPage>
         </Section>
     </motion.div>
