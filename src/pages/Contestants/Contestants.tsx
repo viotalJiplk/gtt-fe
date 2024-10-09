@@ -13,6 +13,7 @@ import { Context } from '../../store/context';
 import LoadingSpinner from '../../components/other/Spinner/Spinner';
 import CheckBoxInput from '../../components/form/CheckBoxInput/CheckBoxInput';
 import { GeneratedRole, ApiError } from '../../types/types';
+import { getGameById, getRankById } from '../../utils/utils';
 
 interface discordUserObject{
     id: string;
@@ -53,7 +54,8 @@ const Contestants = () => {
     const [withDiscord, setWithDiscord] = useState<boolean>(false);
     const [discord, setDiscord] = useState<boolean>(false);
     const [loading, setLoading] = useState<boolean>(false);
-    const [teamsElement, setTeamsElement] = useState<JSX.Element[]>([]);
+    const [teamsElementIn, setTeamsElementIn] = useState<JSX.Element[]>([]);
+    const [teamsElementOut, setTeamsElementOut] = useState<JSX.Element[]>([]);
     const [tableHead, setTableHead] = useState<JSX.Element[]>([]);
     const [allRanks, setAllRanks] = useState<Rank[] | null>(null);
     // @ts-expect-error
@@ -85,18 +87,6 @@ const Contestants = () => {
             getRanks(gameId);
         }
     }, [gameId]);
-    
-    function getRankByRankId(id: Number) {
-        if (allRanks === null) {
-            throw new Error("AllRanks cannot be null when calling getRankByRankId.")
-        }
-        for(let rank of allRanks){
-            if(rank.rankId === id){
-                return rank;
-            }
-        }
-        return undefined;
-    }
 
     function roleNameFromId(id: Number, generatedRoles: GeneratedRole[]) {
         return generatedRoles.find(role => role.generatedRoleId === id)?.roleName;
@@ -105,9 +95,14 @@ const Contestants = () => {
     useEffect(() => {
         if(gameId != null && context.state.games !== undefined && generatedRoles !== null && allRanks !== null){
             setLoading(true);
-            axios.get('/team/list/participating/'+ gameId +'/' + withDiscord + '/').then(response => {
+            const game = getGameById(gameId, context.state.games);
+            if (game === undefined) {
+                return;
+            }
+            axios.get('/team/list/participating/' + gameId + '/' + withDiscord + '/').then(response => {
                 let tmpTeams: TeamMember[][] = [[]];
-                let tmpTeamElements: JSX.Element[] = [];
+                let tmpTeamElementsIn: JSX.Element[] = [];
+                let tmpTeamElementsOut: JSX.Element[] = [];
                 // @ts-expect-error
                 let groupedTeams: TeamMember[][] = groupBy(response.data, ['teamId']);
                 tmpTeams = groupedTeams.sort((a, b) => {
@@ -118,28 +113,39 @@ const Contestants = () => {
                     if (a[0]['canPlaySince']  > b[0]['canPlaySince'] ) return 1;
                     return 0;
                 });
-                for(let teamId in tmpTeams){
-                    let team = tmpTeams[teamId];
-                    tmpTeamElements.push(
-                        <tr className={classes.Contestants__team}>
-                        <td className={classes.Contestants__team__name}>{team[0].name}</td>
-                        </tr>
-                    );
-                    for(let memberId in team){
+                for (let teamIndex = 0; teamIndex < tmpTeams.length; teamIndex++) {
+                    let team = tmpTeams[teamIndex];
+                    let description = ""
+                    let inTournament = teamIndex < game.maxTeams;
+                    if (inTournament) {
+                        description = `${teamIndex + 1}. přihlášený tým`
+                    } else {
+                        description = `${teamIndex - game.maxTeams + 1}. náhradní tým`
+                    }
+                    let element = <tr className={[classes.Contestants__team, inTournament ? classes.Contestants__inTournament : classes.Contestants__outTournament].join(" ")}>
+                        <td className={classes.Contestants__team__name}>{team[0].name} </td>
+                        <td className={inTournament ? classes.Contestants__team__inTournamentDesc : classes.Contestants__team__outTournamentDesc}>{description}</td>
+                    </tr>;
+                    if (inTournament) {
+                        tmpTeamElementsIn.push(element);
+                    } else {
+                        tmpTeamElementsOut.push(element);
+                    }
+                    for (let memberId in team) {
                         let tableHeadtmp: JSX.Element[] = [<th>Přezdívka</th>, <th>role</th>];
                         let member = team[memberId];
-                        if(member.userId !== undefined){
+                        if (member.userId !== undefined) {
                             setDiscord(true);
                         }
                         let rank = undefined;
                         if (member.rank !== undefined) {
-                            rank = getRankByRankId(member.rank);   
+                            rank = getRankById(member.rank, allRanks);
                         }
                         let maxRank = undefined;
                         if (member.maxRank !== undefined) {
-                            maxRank = getRankByRankId(member.maxRank);   
+                            maxRank = getRankById(member.maxRank, allRanks);
                         }
-                        tmpTeamElements.push(<tr className={classes.Contestants__member}>
+                        let element = <tr className={classes.Contestants__member}>
                             <td className={classes.Contestants__member__name}>
                                 {member.nick}
                             </td>
@@ -154,13 +160,13 @@ const Contestants = () => {
                             {member.rank !== undefined && tableHeadtmp.push(<th>Rank</th>) &&
                                 <td className={classes.Contestants__member__rank}>
                                     {
-                                     rank? rank.rankName: "Neznámý rank"}
+                                        rank ? rank.rankName : "Neznámý rank"}
                                 </td>
                             }
                             {member.maxRank !== undefined && tableHeadtmp.push(<th>Maximální rank</th>) &&
                                 <td className={classes.Contestants__member__maxRank}>
                                     {
-                                     maxRank? maxRank.rankName: "Neznámý rank"}
+                                        maxRank ? maxRank.rankName : "Neznámý rank"}
                                 </td>
                             }
                             {member.discordUserObject && member.discordUserObject.global_name && tableHeadtmp.push(<th>Discord Name</th>) &&
@@ -168,16 +174,22 @@ const Contestants = () => {
                                     {"@" + String(member.discordUserObject.global_name)}
                                 </td>
                             }
-                            {member.discordUserObject && !member.discordUserObject.global_name &&  member.discordUserObject.username && member.discordUserObject.discriminator !== "0" &&
+                            {member.discordUserObject && !member.discordUserObject.global_name && member.discordUserObject.username && member.discordUserObject.discriminator !== "0" &&
                                 <td className={classes.Contestants__member__old_name}>
                                     {member.discordUserObject.username + "#" + member.discordUserObject.discriminator}
                                 </td>
                             }
-                        </tr>);
+                        </tr>;
+                        if (inTournament) {
+                            tmpTeamElementsIn.push(element);
+                        } else {
+                            tmpTeamElementsOut.push(element);
+                        }
                         setTableHead(tableHeadtmp);
                     }
                 }
-                setTeamsElement(tmpTeamElements);
+                setTeamsElementIn(tmpTeamElementsIn);
+                setTeamsElementOut(tmpTeamElementsOut);
                 setLoading(false);
             });
         }
@@ -198,7 +210,7 @@ const Contestants = () => {
    
     return <motion.div variants={routeVariants} key="contestants" transition={routeTransition} exit="hidden" animate="visible" initial="initial" className={classes.Contestants}>
         <Section className={''}>
-            <Heading type={headingTypes.main} className={classes.Contestants__heading}>Týmy účastnící se turnaje</Heading>
+            <Heading type={headingTypes.main} className={classes.Contestants__heading}>Registrované týmy</Heading>
             <div className={classes.Contestants__gameSelect}>
                 <p className={classes.Contestants__gameLabel}>Hra:</p>
                 <GameSelect setFunction={setGameId} currentGame={gameId} className={classes.Contestants__gameSelectSellector}></GameSelect>
@@ -209,16 +221,30 @@ const Contestants = () => {
                     <div>s discord jmény</div>
                 </div>
             }
-            {!loading && <table>
-                <thead>
-                    <tr>
-                    {tableHead}
-                    </tr>
-                </thead>
-                <tbody>
-                {teamsElement}
-                </tbody>
-            </table>}
+            {!loading && <div>
+                <Heading type={headingTypes.h2} className=''>Týmy účastnící se turnaje</Heading>
+                <table>
+                    <thead>
+                        <tr>
+                        {tableHead}
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {teamsElementIn}
+                    </tbody>
+                </table>
+                <Heading type={headingTypes.h2} className=''>Náhradníci</Heading>
+                <table>
+                    <thead>
+                        <tr>
+                        {tableHead}
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {teamsElementOut}
+                    </tbody>
+                </table>
+            </div>}
             {loading && <LoadingSpinner></LoadingSpinner>}
         </Section>
     </motion.div>

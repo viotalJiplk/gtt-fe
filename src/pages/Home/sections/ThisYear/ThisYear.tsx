@@ -14,6 +14,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { LoadingPlaceholder } from "../../../../components/other/LoadingPlaceholder/LoadingPlaceholder";
 import axios from "axios";
 import BackDrop from "../../../../components/other/BackDrop/BackDrop";
+import { getGameById } from "../../../../utils/utils";
 
 interface eventListResponse{
     beginTime: string,
@@ -58,18 +59,6 @@ const ThisYear = () => {
     [context]
     );
 
-    function getGame(gameId: number) {
-        if (context.state.games === undefined) {
-            throw new Error("context.state.games must be defined before calling getGame");
-        }
-        for (let game of context.state.games) {
-            if (game.gameId === gameId) {
-                return game;
-            }
-        }
-        return undefined;
-    }
-
     async function loadEvents() {
         if (context.state.games === undefined) {
             throw new Error("context.state.games must be defined before calling loadEvents");
@@ -93,7 +82,7 @@ const ThisYear = () => {
                     "events": {}
                 }
                 for (let eventTime of days[key]) {
-                    let game = getGame(eventTime.gameId);
+                    let game = getGameById(eventTime.gameId, context.state.games);
                     if (game === undefined) {
                         console.error("Unknown game");
                         continue;

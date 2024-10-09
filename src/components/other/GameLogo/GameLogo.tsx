@@ -3,6 +3,7 @@ import classes from './GameLogo.module.scss';
 
 import { Context } from '../../../store/context';
 import { Game } from "../../../types/types";
+import { getGameById } from '../../../utils/utils';
 
 interface GameLogoProps {
     gameId: number,
@@ -22,11 +23,7 @@ const GameLogo: React.FC<GameLogoProps> = ({game, gameId, className, onClick }) 
         if (context.state.games !== undefined) {
             let finalGame = game;
             if (finalGame === undefined) {
-                for (let gameObject of context.state.games) {
-                    if (gameObject.gameId === gameId) {
-                        finalGame = gameObject;
-                    }
-                }
+                finalGame = getGameById(gameId, context.state.games);
             }
             if (finalGame === undefined) {
                 console.error(`Game not found for gameId ${gameId}`);

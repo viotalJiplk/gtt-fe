@@ -37,6 +37,12 @@
             width: 100%;
             margin-right: 0;
         }
+        &__inTournamentDesc{
+            color: $color-green;
+        }
+        &__outTournamentDesc{
+            color: $color-red-light;
+        }
 
         &__members {
             margin-left: 2rem;
