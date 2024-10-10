@@ -56,7 +56,7 @@ const TimeAxis: React.FC<TimeAxisProps> = props => {
                 }
                 data-id={id} key={id} className={className}></div>);
         let date = new Date(day.date);
-        descriptors.push(<div data-id={id} key={id} className={classes.TimeAxis__descriptor}>{date.getDate()}.&nbsp;{date.getMonth() + "."}</div>);
+        descriptors.push(<div data-id={id} key={id} className={classes.TimeAxis__descriptor}>{date.getDate()}.&nbsp;{date.getMonth() + 1 + "."}</div>);
         id++;
     }
     
