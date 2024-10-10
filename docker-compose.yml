@@ -12,7 +12,7 @@ services:
       - "$Port:80"
   gtt-admin-frontend:
     image: ghcr.io/matyas7dub/gttfe-a:$build
-    container_name: gtt-admin-frontend
+    restart: $restart
     environment:
       PUBLIC_URL: "/admin"
       REACT_APP_BACKEND_URL: ""
