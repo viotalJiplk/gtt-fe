@@ -149,42 +149,13 @@
             position: relative;
         }
     }
-    &__sponsorLogos {
-        margin-top: 4rem;
-        margin-left: auto;
-
-        display: flex;
-        justify-content: stretch;
-        
+    &__sponsors {
+        width: 30rem;
         @media screen and (max-width: 1100px) {
             margin-left: 4rem;
         }
         @media screen and (max-width: 500px) {
             margin-left: 2rem;
-        }
-
-        &__column {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-
-            &:nth-child(2) {
-                padding-bottom: 2rem;
-            }
-        }
-
-        img {
-            width: 15rem;
-            display: block;
-            margin-bottom: 0.5em;
-
-            @media screen and (max-width: 500px) {
-                width: 10rem;
-            }
-
-            &:not(:last-child) {
-                margin-bottom: 1rem;
-            }
         }
     }
 }

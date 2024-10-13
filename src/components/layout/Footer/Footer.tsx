@@ -1,10 +1,6 @@
 import { /*Logo,*/ TwitchLogo, DiscordLogo, MailIcon } from '../../other/Assets/Assets';
 import classes from './Footer.module.scss';
-import MSMTLogo from '../../../assets/msmt_logo.svg';
-import JMKLogo from '../../../assets/jmk_logo.svg'
-import JRDMLogo from '../../../assets/JRDM_logo.svg';
-import HelkorLogo from '../../../assets/helkor_logo.png';
-import FakahedaLogo from '../../../assets/fakaheda_logo.png';
+import Sponsors from '../../other/Sponsors/Sponsors';
 
 interface FooterProps {
     className?: string
@@ -12,19 +8,8 @@ interface FooterProps {
 
 const Footer: React.FC<FooterProps> = (props) => {
     return <div className={classes.Footer + " " + props.className}>
-        <div className={[classes.Footer__section, classes.Footer__section_left].join(' ')}>
-            <div className={classes.Footer__logo}>{/*<Logo></Logo>*/}</div>
-        </div>
         <div className={[classes.Footer__section, classes.Footer__sponsorLogos].join(' ')}>
-            <div className={classes.Footer__sponsorLogos__column}>
-                <a href="https://jrdm.cz/" rel="noreferrer" target="_blank"><img alt={"JRDM Logo"} src={JRDMLogo}></img></a>
-                <a href="https://www.msmt.cz/" rel="noreferrer" target="_blank"><img alt={"MSMT Logo"} src={MSMTLogo}></img></a>
-            </div>
-            <div className={classes.Footer__sponsorLogos__column}>
-                <a href="https://www.jmk.cz/" rel="noreferrer" target="_blank"><img alt={"JMK Logo"} src={JMKLogo}></img></a>
-                <a href="https://www.fakaheda.eu/" rel="noreferrer" target="_blank"><img alt={"Fakaheda Logo"} src={FakahedaLogo}></img></a>
-                <a href="https://helkor.eu/" rel="noreferrer" target="_blank"><img alt={"Helkor Logo"} src={HelkorLogo}></img></a>
-            </div>
+            <Sponsors className={[classes.Footer__sponsorLogos].join(' ')}></Sponsors>
         </div>
         <div className={[classes.Footer__section, classes.Footer__section_right].join(' ')}>
             <div className={classes.Footer__mail}>

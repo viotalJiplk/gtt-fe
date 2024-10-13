@@ -11,7 +11,12 @@
         }
     }
     &__video {
-        min-width: 50rem;
+        width: 50vw;
+        height: 28.125vw;
+        @media (max-aspect-ratio: 3/2) {
+            width: 95vw;
+            height: 53.4375vw;
+        }
     }
     &__link {
         &:hover {

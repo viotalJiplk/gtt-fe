@@ -9,13 +9,8 @@ import { useHistory } from "react-router-dom";
 import CTA from '../../../../components/layout/CTA/CTA';
 import { withRouter } from 'react-router';
 import discordLogo from '../../../../assets/discord-logo.svg';
+import Sponsors from '../../../../components/other/Sponsors/Sponsors';
 
-import MSMTLogo from '../../../../assets/msmt_logo.svg';
-import JMKLogo from '../../../../assets/jmk_logo.svg'
-import JRDMLogo from '../../../../assets/JRDM_logo.svg';
-import HelkorLogo from '../../../../assets/helkor_logo.png';
-import FakahedaLogo from '../../../../assets/fakaheda_logo.png';
-import ArtinLogo from '../../../../assets/artinlogo.png';
 import { useEffect, useState, useContext } from 'react';
 import { Context } from "../../../../store/context";
 import GameLogo from '../../../../components/other/GameLogo/GameLogo';
@@ -43,18 +38,9 @@ const Header: React.FC<HeaderProps> = props => {
     return <Section className={classes.Header}>
             <div className={classes.Header__topRight}>
                 {/* <CountDown className={classes.Header__countDown}></CountDown> */}
-                <Logo></Logo>
-                <div className={classes.Header__sponsorLogos}>
-                    <div className={classes.Header__sponsorLogos__column}>
-                        <a href="https://jrdm.cz/" rel="noreferrer" target="_blank"><img alt={"JRDM Logo"} src={JRDMLogo}></img></a>
-                        <a href="https://www.msmt.cz/" rel="noreferrer" target="_blank"><img alt={"MSMT Logo"} src={MSMTLogo}></img></a>
-                    </div>
-                    <div className={classes.Header__sponsorLogos__column}>
-                        <a href="https://www.jmk.cz/" rel="noreferrer" target="_blank"><img alt={"JMK Logo"} src={JMKLogo}></img></a>
-                        <a href="https://www.fakaheda.eu/" rel="noreferrer" target="_blank"><img alt={"Fakaheda Logo"} src={FakahedaLogo}></img></a>
-                        <a href="https://helkor.eu/" rel="noreferrer" target="_blank"><img alt={"Helkor Logo"} src={HelkorLogo}></img></a>
-                        <a href="https://artin.eu/" rel="noreferrer" target="_blank"><img alt={"Artin Logo"} src={ArtinLogo}></img></a>
-                    </div>
+                <div className={classes.Header__topRight}>
+                    <Logo></Logo>            
+                    <Sponsors className={classes.Header__sponsors}></Sponsors>
                 </div>
             </div>
             <div className={classes.Header__content}>

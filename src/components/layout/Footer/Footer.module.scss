@@ -63,33 +63,9 @@
         display: flex;
     }
     &__sponsorLogos {
-        display: flex;
-        flex-direction: row;
-        justify-content: stretch;
-
         @media screen and (max-width: 1000px) {
             margin-top: 3rem;
             margin-bottom: 3rem;
-        }
-
-        &__column {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-
-            &:nth-child(2) {
-                padding-bottom: 2rem;
-            }
-        }
-
-        img {
-            width: 15rem;
-            
-            display: block;
-
-            &:not(:last-child) {
-                margin-bottom: 1rem;
-            }
         }
     }
     &__discordLogo {
