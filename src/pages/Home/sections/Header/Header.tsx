@@ -50,7 +50,7 @@ const Header: React.FC<HeaderProps> = props => {
                     Gymnázia Tišnov
                 </Heading>
                 <Heading className={classes.Header__subheading} type={headingTypes.h2}>
-                    listopad 2024
+                    K příležitosti Mezinárodního Dne studentstva
                 </Heading>
                 <Paragraph className={classes.Header__paragraph}>
                     Středoškolský turnaj v počítačových hrách.
