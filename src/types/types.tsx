@@ -76,3 +76,11 @@ export interface DiscordUserObject{
     global_name: number,
     banner_color: number
 }
+
+export interface Sponsor{
+    logo: string,
+    sponsorId: number,
+    sponsorLink: string,
+    sponsorName: string,
+    sponsorText: string
+}
