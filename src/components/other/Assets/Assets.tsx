@@ -3,7 +3,6 @@ import twitchLogoImg from '../../../assets/twitch-logo.svg';
 //import logoImg from '../../../assets/logo.svg';
 import mailIconImg from '../../../assets/mail-icon.svg';
 import YoutubeLogoImg from '../../../assets/youtube-logo.png';
-import documentIconImg from '../../../assets/document.png';
 import profileIconImg from '../../../assets/profile-icon.svg';
 import classes from './Assets.module.scss';
 
@@ -24,10 +23,6 @@ export const MailIcon = () =>{
 
 export const YoutubeLogo = () =>{
     return <img className={classes.YoutubeLogo__youtubeLogo} src={YoutubeLogoImg} alt='Youtube logo'></img>
-}
-
-export const DocumentIcon = () =>{
-    return <img className={classes.DocumentIcon__documentIcon} src={documentIconImg} alt='Dokument'></img>
 }
 
 export const ProfileIcon = () =>{
