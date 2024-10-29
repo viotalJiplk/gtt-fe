@@ -2,7 +2,7 @@ version: "2.2"
 
 services:
   gtt-frontend:
-    #build: .
+    # build: .
     image: ghcr.io/viotaljiplk/gttfe-2:$build
     restart: $restart
     container_name: gtt-frontend
@@ -10,6 +10,8 @@ services:
       - gtt-internal
     ports:
       - "$Port:80"
+    volumes:
+        - files:/files
   gtt-admin-frontend:
     image: ghcr.io/matyas7dub/gttfe-a:$build
     restart: $restart
