@@ -16,7 +16,6 @@ const GamePage = () => {
     const context = useContext(Context);
     const url = new URL(window.location.href);
     const gameName = url.searchParams.get("gamename");
-    const gameDisplay = gameName ?? "";
     const [generatedRoles, setGeneratedRoles] = useState<JSX.Element[] | null>(null);
     const [gameRegistration, setGameRegistration] = useState<string>();
     const [minmax, setMinmax] = useState<JSX.Element[]>([]);
@@ -80,8 +79,9 @@ const GamePage = () => {
 
     return (
         <motion.div key="home" transition={routeTransition} variants={routeVariants} initial="initial" animate="visible" exit="hidden" className={classes.GamePage}>
-            <Heading className={classes.GamePage__h1} type={headingTypes.h1}>{gameDisplay}</Heading>
+            <Heading className={classes.GamePage__h1} type={headingTypes.h1}>{game?.name}</Heading>
             <Heading className={classes.GamePage__h2} type={headingTypes.h3}>Registrace: {gameRegistration}</Heading>
+            <Heading className={classes.GamePage__h2} type={headingTypes.h3}>Maximální počet týmů: {game?.maxTeams}</Heading>
             <div>
                 {minmax}
             </div>
