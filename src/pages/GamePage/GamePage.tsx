@@ -23,7 +23,7 @@ const GamePage = () => {
     const [game, setGame] = useState<Game|null>(null);
     
     function formatDate(date: Date){
-        return String(date.getDate()) + ". " + String(date.getMonth()+1) + ".";
+        return String(date.getDate()) + ". " + String(date.getMonth()+1) + ". " + String(date.getHours()) + ":" + String(date.getMinutes()).padStart(2, '0')  + ":" + String(date.getSeconds()).padStart(2, '0');
     }
   
     useEffect(() => {
@@ -49,7 +49,7 @@ const GamePage = () => {
             let registrationStart = new Date(game.registrationStart);
             // @ts-expect-error
             let registrationEnd = new Date(game.registrationEnd);
-            setGameRegistration(formatDate(registrationStart) + " 23:59 - " + formatDate(registrationEnd) + " 00:00 ");
+            setGameRegistration(formatDate(registrationStart) + " - " + formatDate(registrationEnd));
             setMinmax([<table className={classes.GamePage__table}>
                 <thead>
                     <tr>
