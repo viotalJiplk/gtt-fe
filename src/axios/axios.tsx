@@ -1,5 +1,6 @@
 import axios from 'axios';
 import createAuthRefreshInterceptor from 'axios-auth-refresh';
+import { loadJwt } from '../utils/jwt';
 
 const url = /*process.env.NODE_ENV === 'production' ?*/ '/backend' //:'http://localhost:3000'
 
@@ -12,6 +13,7 @@ const refreshAuthLogic = (failedRequest:any) =>{
   if(jwtString !== ""){
     failedRequest.response.config.headers['Authorization'] = 'Bearer ' + jwtString;
   }
+  loadJwt();
   return Promise.resolve();
 }
 

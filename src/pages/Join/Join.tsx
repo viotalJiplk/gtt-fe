@@ -43,7 +43,11 @@ const Join = () => {
                         ErrorReporter("Hra nebyla nalezena.");
                     } else if (error.response.data.msg === "Wrong joinString.") {
                         ErrorReporter("Špatny link pro připojení do týmu.");
-                    } else if (error.response.data.msg === "Missing nick, rank, max_rank or role." || error.response.data.msg === "Missing game_id or name." || error.response.data.msg === "Missing nick, rank, or max_rank of capitain.") {
+                    } else if (error.response.data.msg === "Already registered for game.") {
+                        ErrorReporter("Již jste v jiném týmu pro tuto hru.");
+                    } else if (error.response.data.msg === "This team already has the maximum number of players permitted in this role.") {
+                        ErrorReporter("Tato role je v tomto týmu již plně obsazena.");
+                    }  else if (error.response.data.msg === "Missing nick, rank, max_rank or role." || error.response.data.msg === "Missing game_id or name." || error.response.data.msg === "Missing nick, rank, or max_rank of capitain.") {
                         ErrorReporter("Chyba požadavku.");
                     } else {
                         ErrorReporter("Neznámá chyba. Zkuste akci opakovat později.", error.response.status);

@@ -13,18 +13,19 @@ import Contestants from './pages/Contestants/Contestants';
 import Join from './pages/Join/Join';
 import Schools from './pages/Schools/Schools';
 import Footer from './components/layout/Footer/Footer';
-import axios, { addAuthorization } from './axios/axios';
+import axios from './axios/axios';
 import {AxiosResponse} from 'axios'
 import ScrollToTop from './components/other/ScrollToTop/ScrollToTop';
 import { Context } from './store/context';
 import { useLocation } from 'react-router';
 import { useEffect, useContext} from 'react';
 import Rules from './pages/Rules/Rules';
-import { isExpired, decodeToken } from "react-jwt";
 import GamePage from './pages/GamePage/GamePage';
 import About from './pages/About/About';
 import Winners from './pages/Winners/Winners';
 import { ApiError, School, Game } from './types/types';
+import { loadJwt } from './utils/jwt';
+
 
 function App() {
   const context = useContext(Context);
@@ -50,23 +51,12 @@ function App() {
     })
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
-  useEffect(()=>{
-    let jwtString = localStorage.getItem("jwt") || "";
-    let userObject = localStorage.getItem("userObject") || "";
-    let isTokenExpired = isExpired(jwtString);
-    if(isTokenExpired){
-      localStorage.removeItem("jwt");
-      localStorage.removeItem("userObject");
-      context.setUserObject({});
-      context.setDiscordId("notLoggedIn");
-    }else{
-      addAuthorization("Bearer " + jwtString);
-      let decodedToken = decodeToken(jwtString) as any;
-      context.setUserObject(JSON.parse(userObject));
-      context.setDiscordId(decodedToken[decodedToken["iss"]+"/discord/userid"]);
-    }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  useEffect(() => {
+    let res = loadJwt();
+    context.setUserObject(res.userObject);
+    context.setDiscordId(res.discordId);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const location = useLocation();
 
