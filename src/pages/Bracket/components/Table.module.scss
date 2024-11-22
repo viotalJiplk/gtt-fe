@@ -1,0 +1,14 @@
+@import '../../../variables.scss';
+
+.Table {
+  font: $font-main;
+  color: $color-white;
+  border: 1px solid $color-white;
+  border-collapse: collapse;
+  margin-top: 2rem;
+}
+
+.Table > th, td {
+  border: 1px solid $color-white;
+  padding: 0.2em;
+}
