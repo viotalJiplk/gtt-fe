@@ -25,6 +25,7 @@ import GamePage from './pages/GamePage/GamePage';
 import About from './pages/About/About';
 import Winners from './pages/Winners/Winners';
 import { ApiError, School, Game } from './types/types';
+import Bracket from './pages/Bracket/Bracket';
 
 function App() {
   const context = useContext(Context);
@@ -32,6 +33,17 @@ function App() {
     axios('/school/listAll/').then((response: AxiosResponse<ApiError | School[]>) => {
       if (Array.isArray(response.data)) {
         context.setSchools(response.data);
+      } else {
+        console.error("Wrong response");
+        console.error(response);
+      }
+    })
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+  useEffect(() => {
+    axios('/event/listAll').then((response: AxiosResponse<ApiError | Event[]>) => {
+      if (Array.isArray(response.data)) {
+        context.setEvents(response.data);
       } else {
         console.error("Wrong response");
         console.error(response);
@@ -90,6 +102,7 @@ function App() {
           <Route path="/schools" exact component={Schools}></Route>
           <Route path="/about" exact component={About}></Route>
           <Route path="/winners" exact component={Winners}></Route>
+          <Route path="/bracket" exact component={Bracket}></Route>
           <Route path="/" component={Home}></Route>
         </Switch>
       </div>
