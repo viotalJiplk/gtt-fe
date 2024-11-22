@@ -2,13 +2,14 @@ import { useReducer, useCallback, PropsWithChildren } from 'react';
 import {Context/*, defaultContextCreator */} from './context';
 import { actionTypes } from './actionTypes';
 import React from 'react';
-import { School, Game, DiscordUserObject } from "../types/types";
+import { School, Game, DiscordUserObject, Event } from "../types/types";
 
 interface stateInterface {
     schools?: School[],
     discordId?: string,
     userObject?: DiscordUserObject,
     games?: Game[],
+    events?: Event[],
 }
 
 export interface ContextInterface{
@@ -16,7 +17,8 @@ export interface ContextInterface{
     setSchools: Function,
     setDiscordId: Function,
     setGames: Function,
-    setUserObject: Function
+    setUserObject: Function,
+    setEvents: Function,
 }
 
 export const reducer = (state: stateInterface, action: {type: actionTypes, data: any}) => {
@@ -27,15 +29,17 @@ export const reducer = (state: stateInterface, action: {type: actionTypes, data:
             return {...state, discordId: action.data.discordId};
         case actionTypes.SET_GAMES:
             return {...state, games: action.data.games};
-            case actionTypes.SET_USEROBJECT:
-                return {...state, userObject: action.data.userObject};
+        case actionTypes.SET_USEROBJECT:
+            return {...state, userObject: action.data.userObject};
+        case actionTypes.SET_EVENTS:
+            return {...state, event: action.data.event};
         default:
             return state;
     }
 };
 
 const ContextProvider: React.FC<PropsWithChildren> = props => {
-    const [state, dispatch] = useReducer(reducer, {schools: [], discordId: "", games: [], userObject: Object()});
+    const [state, dispatch] = useReducer(reducer, {schools: [], discordId: "", games: [], userObject: Object(), events: []});
     const setSchools = useCallback((schools:any) => {
         dispatch({type: actionTypes.SET_SCHOOLS, data: {schools: schools}})
     }, []);
@@ -48,13 +52,17 @@ const ContextProvider: React.FC<PropsWithChildren> = props => {
     const setUserObject = useCallback((userObject:any) => {
         dispatch({type: actionTypes.SET_USEROBJECT, data: {userObject: userObject}})
     }, []);
+    const setEvents = useCallback((events:any) => {
+        dispatch({type: actionTypes.SET_EVENTS, data: {events: events}})
+    }, []);
 
     const context: ContextInterface = {
         state: {
             schools: state.schools,
             discordId: state.discordId,
             games: state.games,
-            userObject: state.userObject
+            userObject: state.userObject,
+            events: state.events,
         },
         setSchools: (schools: School[]) => {
             setSchools(schools);
@@ -67,6 +75,9 @@ const ContextProvider: React.FC<PropsWithChildren> = props => {
         },
         setUserObject: (userObject: string) => {
             setUserObject(userObject);
+        },
+        setEvents: (events: Event[]) => {
+            setEvents(events);
         }
     }
     return <Context.Provider value={context}>{props.children}</Context.Provider>

@@ -30,6 +30,16 @@ export interface Game {
     backdrop: string,
     icon: string
 }
+
+export interface Event {
+    date: string,
+    beginTime: string,
+    endTime: string,
+    gameId: number,
+    description: string,
+    eventType: string,
+    eventId: number
+}
   
 export interface GeneratedRole{
     roleName: string,
