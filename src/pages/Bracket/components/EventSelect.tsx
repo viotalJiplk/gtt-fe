@@ -1,9 +1,9 @@
-import { useContext, useState, useCallback, useEffect } from "react";
-import { Context } from "../../../store/context";
+import { useState, useCallback, useEffect } from "react";
 import Row from "../../../components/form/Row/Row";
 import Label from "../../../components/form/Label/Label";
 import SelectInput from "../../../components/form/SelectInput/SelectInput";
 import React from 'react';
+import axios from "axios";
 import { Event } from "../../../types/types";
 
 interface EventSelectProps {
@@ -17,14 +17,13 @@ interface EventSelectProps {
 const EventSelect: React.FC<EventSelectProps> = props => {
 
     const [curOption, setCurOption] = useState(-1);
-    let [inputValue, setInputValue] = useState('');
-
-    const context = useContext(Context);
-    let events: {value: number, display: string}[] = [];
+    const [inputValue, setInputValue] = useState('');
+    const [eventResponse, setEventResponse] = useState<Event[]>([]);
+    const [events, setEvents] = useState<{value: number, display: string}[]>([]);
 
     function getEventByEventId(id: number) {
-        if (context.state.events !== undefined) {
-            for (let event of context.state.events) {
+        if (eventResponse) {
+            for (let event of eventResponse) {
                 if (event.eventId === id) {
                     return event;
                 }
@@ -33,8 +32,10 @@ const EventSelect: React.FC<EventSelectProps> = props => {
         return {"description": "", "eventId": NaN};
     }
 
-    if (context.state.events) {
-        events = context.state.events.sort((prevEvent: Event, thisEvent: Event) => {
+    async function loadEvents() {
+        const list: Event[] = (await axios("/backend/event/listAll")).data;
+        setEventResponse(list);
+        let tmpEvents = list.sort((prevEvent: Event, thisEvent: Event) => {
             return prevEvent.description.localeCompare(thisEvent.description);
         }).map((event: Event, id: number) => {
             return {
@@ -43,12 +44,16 @@ const EventSelect: React.FC<EventSelectProps> = props => {
             }
         })
         if (inputValue.length > 0 && curOption === -1) {
-            events = events.filter((event) => {
+            tmpEvents = events.filter((event) => {
                 return event.display.toLocaleLowerCase().includes(inputValue.toLocaleLowerCase());
             });
         }
+        setEvents(tmpEvents)
     }
-
+    useEffect(() => {
+        loadEvents();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
     useEffect(()=>{
         if (props.currentEvent){
             if((props.currentEvent) < events.length){
